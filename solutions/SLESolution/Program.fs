@@ -27,29 +27,15 @@ type Feature = {
     Or: Feature list
 }
 
-type StepKind =
+type Step =
     | Atomic of string
     | Sequence of StepChain
     | Cycle of StepChain
-    | Nothing
-and Step = {
-    Content: StepKind
-    mutable Parent: Step option
-}
 and StepChain = Step list
-
-let next (step: Step) : Step option =
-    match step.Parent with
-    | Some parentStep ->
-        match parentStep.Content with
-        | Sequence chain -> match (chain |> List.tryFindIndex (fun s -> obj.ReferenceEquals(s, step))) with | Some i when i+1 < List.length chain -> Some chain[i+1] | _ -> None
-        | Cycle cycle -> match (cycle |> List.tryFindIndex (fun s -> obj.ReferenceEquals(s, step))) with | Some i -> (if i+1 < List.length cycle then Some cycle[i+1] else Some cycle[0]) | _ -> None
-        | _ -> None
-    | None -> None
 
 type MetaModel = {
     MainClass: string
-    Steps: StepChain
+    Steps: Dictionary<string, string>
 }
 
 let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain * string list =
@@ -62,55 +48,45 @@ let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain *
             elif token = "(" || token = "[" then
                 let steps, rem = parseStepChain None rest
                 let seqStep = (if token = "(" then Sequence steps else Cycle steps)
-                for s in steps do s.Parent <- Some seqStep
                 parseSeq parent rem (seqStep :: acc)
-            else parseSeq parent rest ({ Content = Atomic token; Parent = parent } :: acc)
+            else parseSeq parent rest ((Atomic token) :: acc)
     parseSeq parent tokens []
 
-let fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
+let rec getToFirst step =
+    match step with
+    | Atomic a -> a
+    | Sequence c | Cycle c -> getToFirst (List.head c)
+    
+let rec getToLast step =
+    match step with
+    | Atomic a -> a
+    | Sequence c | Cycle c -> getToFirst (List.last c)
+    
+let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
+    let rec fillInPairwise(dict: Dictionary<string,string>, chain: StepChain) =
+        chain
+        |> List.pairwise
+        |> List.iter (fun (a, b) ->
+            match a, b with
+            | Atomic nameA, Atomic nameB -> dict[nameA] <- nameB
+            | Atomic nameA, Sequence seqB -> dict[nameA] <- getToFirst b; fillInTransactions(dict, seqB) 
+            | Atomic nameA, Cycle cycB -> dict[nameA] <- getToFirst b; fillInPairwise(dict, cycB); fillInTransactions(dict, cycB); dict[getToLast b] <- getToFirst b
+            | _ -> ()
+        )
+
     chain
-    |> List.pairwise
-    |> List.iter (fun (a, b) ->
-        match a.Content, b.Content with
-        | Atomic nameA, Atomic nameB -> dict[nameA] <- nameB
-        | _ -> () // Only record atomic to atomic transitions
-    )
+    |> List.iter (fun step ->
+        match step with
+        | Atomic _ -> ()
+        | Sequence inner | Cycle inner -> fillInPairwise(dict, inner)
+        )
 
 let Initialization() =
     let tokens = File.ReadAllText(metaModelPath).Split(' ') |> Array.toList
     let steps, _ = parseStepChain None tokens[2..] // skip [1] which is '::='
-
-    // Build the transitions dictionary
     let transitions = Dictionary<string, string>()
-    let rec fillTransitions (chain: StepChain) =
-        chain
-        |> List.pairwise
-        |> List.iter (fun (a, b) ->
-            match a.Content, b.Content with
-            | Atomic nameA, Atomic nameB -> transitions[nameA] <- nameB
-            | Atomic nameA, Sequence s when s <> [] ->
-                match s.Head.Content with
-                | Atomic nameB -> transitions.[nameA] <- nameB
-                | _ -> ()
-            | Atomic nameA, Cycle c when c <> [] ->
-                match c.Head.Content with
-                | Atomic nameB -> transitions.[nameA] <- nameB
-                | _ -> ()
-            | _ -> ()
-        )
-        // Recursively fill for sequences/cycles
-        chain
-        |> List.iter (fun step ->
-            match step.Content with
-            | Sequence s | Cycle s -> fillTransitions s
-            | _ -> ()
-        )
-    fillTransitions steps
-
-    // You can print or return transitions here for debugging
-    // transitions |> Seq.iter (fun kv -> printfn "%s -> %s" kv.Key kv.Value)
-
-    { MainClass = tokens[0]; Steps = steps }
+    fillInTransactions(transitions, steps)
+    { MainClass = tokens[0]; Steps = transitions }
 
 let Load(grammar: MetaModel) =
     let lines = File.ReadAllLines(modelPath) |> Array.toList |> List.map (fun line -> ((line |> Seq.takeWhile ((=) '\t') |> Seq.length), line.Trim()))
@@ -120,7 +96,7 @@ let Load(grammar: MetaModel) =
         match steps, lines with
         | [], _ | _, [] -> context
         | step :: restSteps, (indent, content) :: restLines ->
-            match step.Content with
+            match step with
             | Atomic "root" ->
                 let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
                 processSteps restSteps restLines (Some feat) None
