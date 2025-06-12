@@ -1,1 +1,1 @@
-Feature ::= root => [make => goal => self]
+Feature ::= ( root => [ make => goal ] )
