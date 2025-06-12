@@ -41,20 +41,10 @@ let next (step: Step) : Step option =
     match step.Parent with
     | Some parentStep ->
         match parentStep.Content with
-        | Sequence chain | Cycle chain ->
-            let idx = chain |> List.tryFindIndex (fun s -> obj.ReferenceEquals(s, step))
-            match idx with
-            | Some i when i + 1 < List.length chain ->
-                match chain.[i + 1].Content with
-                | Atomic "self" -> Some chain.[0] // Return the entire sequence by returning its first step
-                | _ -> Some chain.[i + 1]
-            | _ -> None
+        | Sequence chain -> match (chain |> List.tryFindIndex (fun s -> obj.ReferenceEquals(s, step))) with | Some i when i+1 < List.length chain -> Some chain[i+1] | _ -> None
+        | Cycle cycle -> match (cycle |> List.tryFindIndex (fun s -> obj.ReferenceEquals(s, step))) with | Some i -> (if i+1 < List.length cycle then Some cycle[i+1] else Some cycle[0]) | _ -> None
         | _ -> None
-    | None ->
-        match step.Content with
-        | Sequence (h :: _) | Cycle (h :: _) -> Some h
-        | _ -> None
-
+    | None -> None
 
 type MetaModel = {
     MainClass: string
@@ -76,7 +66,7 @@ let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain *
     parseSeq parent tokens []
 
 let Initialization() =
-    let tokens = File.ReadAllText(metaModelPath).Split(" ") |> Array.toList
+    let tokens = File.ReadAllText(metaModelPath).Split(' ') |> Array.toList
     let steps, _ = parseStepChain None tokens[2..] // note how we skip over [1] which is '::='
     { MainClass = tokens[0]; Steps = steps }
 
