@@ -83,29 +83,22 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
         | Sequence inner | Cycle inner -> fillInPairwise(dict, inner)
         )
 
-let parseTransformation (filename: string) =
+type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
+
+let parseTransformation (filename: string): Transformation =
+    let mutable templates = Dictionary<string,string>()
+    let mutable iterators = Dictionary<string,string*((string*string) list)>()
     File.ReadAllLines(filename)
-    |> Array.choose (fun line ->
-        let trimmed = line.Trim()
-        if trimmed = "" then None
-        else
-            let parts = trimmed.Split([|' '|], 3)
-            match parts.[0] with
-            | "template" when parts.Length = 3 ->
-                // template feature ::= ...
-                let feature = parts.[1]
-                let templ = parts.[2].Trim()//.TrimStart([':'; '=']).Trim()
-                Some ("template", feature, templ)
-            | "each" when parts.Length = 3 ->
-                // each <kind> => ...
-                let kind = parts.[1]
-                let rest = parts.[2].Trim()
-                Some ("each", kind, rest)
-            | "draw" when parts.Length >= 2 ->
-                Some ("draw", parts.[1], if parts.Length > 2 then parts.[2] else "")
-            | _ -> None
-    )
     |> Array.toList
+    |> List.iter (fun line ->
+        if not(String.IsNullOrWhiteSpace(line)) then
+            let parts = line.Trim().Split(' ')
+            match parts[0] with
+            | "template" -> templates[parts[1]] <- line[14+parts[1].Length..].Trim()
+            | "each" -> iterators[parts[1]] <- (parts[3], parts[5..] |> Array.choose (fun pair -> match pair.Split("=") with | [|k; v|] -> Some (k, v) | _ -> None) |> Array.toList)
+            | _ -> ()
+    )
+    {Templates = templates; Iterators = iterators}
 
 let parseGrammar(filename: string) =
     let tokens = File.ReadAllText(filename).Split(' ') |> Array.toList

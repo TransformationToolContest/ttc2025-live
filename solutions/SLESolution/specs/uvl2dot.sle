@@ -1,0 +1,7 @@
+template BEFORE ::= 'digraph FeatureModel {\nrankdir="TB"\nnewrank=true\nbgcolor="#1e1e1e"\nedge [color=white]\nnode [style=filled fontcolor="white" fontname="Arial Unicode MS, Arial"];\n'
+template feature ::= 'A -> B [arrowhead="HEAD" arrowtail="TAIL" dir="both"]\n'
+each mandatory   |-> feature with HEAD=dot TAIL=none
+each optional    |-> feature with HEAD=odot TAIL=none
+each alternative |-> feature with HEAD=none TAIL=odot
+each or          |-> feature with HEAD=none TAIL=dot
+
