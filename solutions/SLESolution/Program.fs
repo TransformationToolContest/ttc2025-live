@@ -85,7 +85,14 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
 
 type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
 
-let parseTransformation (filename: string): Transformation =
+let unquote (s: string): string =
+    let t = s.Trim()
+    let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '\"' || t[0] = '\'') then t[1..t.Length-2] else t
+    u.Replace("\\n", "\n")
+    
+let stripMeta (s: string) : string = if s.Contains("{") then s.Split("{")[0] + s.Split("}")[s.Split("}").Length-1] else s
+
+let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
     let mutable iterators = Dictionary<string,string*((string*string) list)>()
     File.ReadAllLines(filename)
@@ -94,7 +101,7 @@ let parseTransformation (filename: string): Transformation =
         if not(String.IsNullOrWhiteSpace(line)) then
             let parts = line.Trim().Split(' ')
             match parts[0] with
-            | "template" -> templates[parts[1]] <- line[14+parts[1].Length..].Trim()
+            | "template" -> templates[parts[1]] <- unquote(line[14+parts[1].Length..])
             | "each" -> iterators[parts[1]] <- (parts[3], parts[5..] |> Array.choose (fun pair -> match pair.Split("=") with | [|k; v|] -> Some (k, v) | _ -> None) |> Array.toList)
             | _ -> ()
     )
@@ -148,12 +155,9 @@ let Load(grammar: MetaModel) : Feature =
 
             match step with
             | "root" ->
-                // let feat = makeFeature(content)
-                // result.Add(feat)
-                // currentContext <- result
                 ()
             | "make" ->
-                let feat = makeFeature(content)
+                let feat = makeFeature(unquote(stripMeta(content)))
                 context.Add(feat)
                 if result.Count = 0 then result.Add(feat)
             | "goal" ->
@@ -165,18 +169,48 @@ let Load(grammar: MetaModel) : Feature =
                 | _ -> printfn $"Unrecognised goal: '{content}'"
                 ()
             | _ -> ()
-
     result[0]
 
-let Initial() = ()
+let writeDot (filename: string) (lines: seq<string>) =
+    File.WriteAllLines(filename, lines)
+
+let applySubs (template: string) (subs: (string * string) list) =
+    subs
+    |> List.fold (fun (acc:string) -> acc.Replace) template
+
+let rec emitFeature (xform: Transformation) (parent: Feature option) (feature: Feature) (lines: ResizeArray<string>) =
+    let handleKind kind children =
+        if xform.Iterators.ContainsKey(kind) then
+            let (templName, pairs) = xform.Iterators.[kind]
+            let template = xform.Templates.[templName]
+            for child in children do
+                let subs =
+                    [("SOURCE", feature.Name); ("TARGET", child.Name)] @ pairs
+                lines.Add(applySubs template subs)
+                emitFeature xform (Some feature) child lines
+    handleKind "mandatory" feature.Mandatory
+    handleKind "optional" feature.Optional
+    handleKind "alternative" feature.Alternative
+    handleKind "or" feature.Or
+
+let Initial(features: Feature, xform: Transformation) =
+    let output = ResizeArray<string>()
+    if xform.Templates.ContainsKey("BEFORE") then
+        output.Add(xform.Templates["BEFORE"])
+    emitFeature xform None features output
+    let outPath = Path.Combine(modelDirectory, model + ".dot")
+    if xform.Templates.ContainsKey("AFTER") then
+        output.Add(xform.Templates["AFTER"])
+    writeDot outPath output
+
 let Update() = ()
 
 // Run each method in sequence and measure their time
 [<EntryPoint>]
 let main argv =
     printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
-    let (grammar, xform) = measureTime "Initialization" Initialization
+    let grammar, xform = measureTime "Initialization" Initialization
     let features = measureTime "Load" (fun () -> Load(grammar))
-    measureTime "Initial" Initial
+    measureTime "Initial" (fun () -> Initial(features, xform))
     measureTime "Update" Update
     0

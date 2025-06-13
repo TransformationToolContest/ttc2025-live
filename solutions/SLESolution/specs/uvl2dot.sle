@@ -1,7 +1,9 @@
-template BEFORE ::= 'digraph FeatureModel {\nrankdir="TB"\nnewrank=true\nbgcolor="#1e1e1e"\nedge [color=white]\nnode [style=filled fontcolor="white" fontname="Arial Unicode MS, Arial"];\n'
-template feature ::= 'A -> B [arrowhead="HEAD" arrowtail="TAIL" dir="both"]\n'
-each mandatory   |-> feature with HEAD=dot TAIL=none
-each optional    |-> feature with HEAD=odot TAIL=none
-each alternative |-> feature with HEAD=none TAIL=odot
-each or          |-> feature with HEAD=none TAIL=dot
-
+template BEFORE ::= 'digraph FeatureModel {\nrankdir="TB"\nnewrank=true\nbgcolor="#1e1e1e"\nedge [color="white"]\nnode [style="filled" fontcolor="white" fontname="Arial Unicode MS, Arial" fillcolor="#ABACEA" shape="box"];\n'
+template relation ::= 'SOURCE -> TARGET [arrowhead="HEAD" arrowtail="TAIL" dir="both"]'
+template boxed ::= 'NAME [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]'
+each feature |-> boxed
+each mandatory |-> relation with HEAD=dot TAIL=none
+each optional |-> relation with HEAD=odot TAIL=none
+each alternative |-> relation with HEAD=none TAIL=odot
+each or |-> relation with HEAD=none TAIL=dot
+template AFTER ::= '}'
