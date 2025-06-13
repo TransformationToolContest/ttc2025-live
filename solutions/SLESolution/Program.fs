@@ -16,15 +16,16 @@ let measureTime phaseName action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{model};%s{runIndex};0;%s{phaseName};Time;%d{sw.ElapsedMilliseconds}"
+    printfn $"%s{tool};%s{model};%s{runIndex};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
     result
 
 type Feature = {
     Name: string
-    Mandatory: Feature list
-    Optional: Feature list
-    Alternative: Feature list
-    Or: Feature list
+    Mandatory: ResizeArray<Feature>
+    Optional: ResizeArray<Feature>
+    Alternative: ResizeArray<Feature>
+    Or: ResizeArray<Feature>
+    Constraints: ResizeArray<string>
 }
 
 type Step =
@@ -89,51 +90,67 @@ let Initialization() =
     fillInTransactions(transitions, steps)
     { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
 
-let Load(grammar: MetaModel) =
+let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
+
+let Load(grammar: MetaModel) : Feature =
     let lines =
         File.ReadAllLines(modelPath)
         |> Array.toList
+        |> List.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
         |> List.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
-    let contextStack = ResizeArray<Feature>()
-    let mutable currentIndent = 0
-    let mutable currentStep = grammar.Start
-    let mutable lastInstance : Feature option = None
-    let mutable root : Feature option = None
+    let mutable outOfFeatures : bool = false
+    let contextStack = ResizeArray<ResizeArray<Feature>>()
+    let mutable lastIndent = 0
+    let mutable step = grammar.Start
+    let mutable context : ResizeArray<Feature> = ResizeArray<Feature>() // fake context to start
+    // let mutable result : Feature list = []
+    let mutable result : ResizeArray<Feature> = ResizeArray<Feature>()
 
-    for (indent, content) in lines do
-        let delta = indent - currentIndent
-        currentIndent <- indent
+    for indent, content in lines do
+        let delta = indent - lastIndent
+        lastIndent <- indent
+        
+        if indent = 0 && result.Count <> 0 then
+            outOfFeatures <- true
+        elif outOfFeatures then
+            result[0].Constraints.Add(content)
+        else
+            if delta > 0 then
+                match context.Count with
+                | 0 -> ()
+                | _ -> contextStack.Add(context)
+                if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
+            elif delta < 0 && indent <> 0 then
+                for _ in 1 .. abs delta do
+                    if contextStack.Count > 0 then contextStack.RemoveAt(contextStack.Count-1)
+                if delta % 2 <> 0 then
+                    if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
-        // Adjust the context stack according to the indentation change
-        if delta > 0 then
-            match lastInstance with
-            | Some feat -> contextStack.Add(feat)
-            | None -> ()
-        elif delta < 0 then
-            for _ in 1 .. abs delta do
-                if contextStack.Count > 0 then contextStack.RemoveAt(contextStack.Count-1)
+            // Apply the current action from the grammar
+            match step with
+            | "root" ->
+                // let feat = makeFeature(content)
+                // result.Add(feat)
+                // currentContext <- result
+                ()
+            | "make" ->
+                let feat = makeFeature(content)
+                context.Add(feat)
+                if result.Count = 0 then result.Add(feat)
+                // contextStack.Add(feat)
+                // You can also attach feat to the contextStack's last element if desired
+            | "goal" ->
+                match content with
+                | "mandatory" -> context <- context[context.Count-1].Mandatory
+                | "optional" -> context <- context[context.Count-1].Optional
+                | "alternative" -> context <- context[context.Count-1].Alternative
+                | "or" -> context <- context[context.Count-1].Or
+                | _ -> printfn $"Unrecognised goal: '{content}'"
+                ()
+            | _ -> ()
 
-        // Apply the current action from the grammar
-        match currentStep with
-        | "root" ->
-            let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
-            root <- Some feat
-            lastInstance <- Some feat
-        | "make" ->
-            let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
-            lastInstance <- Some feat
-            // You can also attach feat to the contextStack's last element if desired
-        | "goal" ->
-            // Here you could update a field in the last context or attach to contextStack's last
-            ()
-        | _ -> ()
-
-        // Move to the next step in the grammar
-        if delta > 0 && grammar.Steps.ContainsKey(currentStep) then
-                currentStep <- grammar.Steps[currentStep]
-
-    root
+    result[0]
 
 let Initial() = ()
 let Update() = ()
