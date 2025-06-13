@@ -35,6 +35,7 @@ and StepChain = Step list
 
 type MetaModel = {
     MainClass: string
+    Start: string
     Steps: Dictionary<string, string>
 }
 
@@ -86,32 +87,53 @@ let Initialization() =
     let steps, _ = parseStepChain None tokens[2..] // skip [1] which is '::='
     let transitions = Dictionary<string, string>()
     fillInTransactions(transitions, steps)
-    { MainClass = tokens[0]; Steps = transitions }
+    { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
 
 let Load(grammar: MetaModel) =
-    let lines = File.ReadAllLines(modelPath) |> Array.toList |> List.map (fun line -> ((line |> Seq.takeWhile ((=) '\t') |> Seq.length), line.Trim()))
+    let lines =
+        File.ReadAllLines(modelPath)
+        |> Array.toList
+        |> List.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
-    // Simple stepper to go through grammar steps (not recursive)
-    let rec processSteps (steps: StepChain) (lines: (int * string) list) (context: Feature option) (lastInstance: Feature option) : Feature option =
-        match steps, lines with
-        | [], _ | _, [] -> context
-        | step :: restSteps, (indent, content) :: restLines ->
-            match step with
-            | Atomic "root" ->
-                let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
-                processSteps restSteps restLines (Some feat) None
-            | Atomic "make" ->
-                let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
-                // context not changed for now, but you may want to attach this feature somewhere
-                processSteps restSteps restLines context (Some feat)
-            | Atomic "goal" ->
-                processSteps restSteps restLines lastInstance lastInstance
-            | _ ->
-                processSteps restSteps restLines context lastInstance
+    let contextStack = ResizeArray<Feature>()
+    let mutable currentIndent = 0
+    let mutable currentStep = grammar.Start
+    let mutable lastInstance : Feature option = None
+    let mutable root : Feature option = None
 
-    // Start processing with top-level grammar steps, all parsed lines, and empty context/instance
-    processSteps grammar.Steps lines None None
+    for (indent, content) in lines do
+        let delta = indent - currentIndent
+        currentIndent <- indent
 
+        // Adjust the context stack according to the indentation change
+        if delta > 0 then
+            match lastInstance with
+            | Some feat -> contextStack.Add(feat)
+            | None -> ()
+        elif delta < 0 then
+            for _ in 1 .. abs delta do
+                if contextStack.Count > 0 then contextStack.RemoveAt(contextStack.Count-1)
+
+        // Apply the current action from the grammar
+        match currentStep with
+        | "root" ->
+            let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
+            root <- Some feat
+            lastInstance <- Some feat
+        | "make" ->
+            let feat = { Name = content; Mandatory = []; Optional = []; Alternative = []; Or = [] }
+            lastInstance <- Some feat
+            // You can also attach feat to the contextStack's last element if desired
+        | "goal" ->
+            // Here you could update a field in the last context or attach to contextStack's last
+            ()
+        | _ -> ()
+
+        // Move to the next step in the grammar
+        if delta > 0 && grammar.Steps.ContainsKey(currentStep) then
+                currentStep <- grammar.Steps[currentStep]
+
+    root
 
 let Initial() = ()
 let Update() = ()
