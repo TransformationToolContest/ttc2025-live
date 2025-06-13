@@ -11,6 +11,7 @@ let modelPath = getEnvOrDefault "ModelPath" "/Users/v.zaytsev/projects/ttc/live/
 let modelDirectory = getEnvOrDefault "ModelDirectory" "/Users/v.zaytsev/projects/ttc/live/models/automotive01"
 let runIndex = getEnvOrDefault "RunIndex" "0"
 let metaModelPath = "/Users/v.zaytsev/projects/ttc/live/solutions/SLESolution/specs/uvl.sle"
+let transformationPath = "/Users/v.zaytsev/projects/ttc/live/solutions/SLESolution/specs/uvl2dot.sle"
 
 let measureTime phaseName action =
     let sw = Stopwatch.StartNew()
@@ -62,7 +63,7 @@ let rec getToFirst step =
 let rec getToLast step =
     match step with
     | Atomic a -> a
-    | Sequence c | Cycle c -> getToFirst (List.last c)
+    | Sequence c | Cycle c -> getToLast (List.last c)
     
 let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
     let rec fillInPairwise(dict: Dictionary<string,string>, chain: StepChain) =
@@ -75,7 +76,6 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
             | Atomic nameA, Cycle cycB -> dict[nameA] <- getToFirst b; fillInPairwise(dict, cycB); fillInTransactions(dict, cycB); dict[getToLast b] <- getToFirst b
             | _ -> ()
         )
-
     chain
     |> List.iter (fun step ->
         match step with
@@ -83,8 +83,8 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
         | Sequence inner | Cycle inner -> fillInPairwise(dict, inner)
         )
 
-let parseTransformation (text: string) =
-    text.Split('\n')
+let parseTransformation (filename: string) =
+    File.ReadAllLines(filename)
     |> Array.choose (fun line ->
         let trimmed = line.Trim()
         if trimmed = "" then None
@@ -107,27 +107,14 @@ let parseTransformation (text: string) =
     )
     |> Array.toList
 
-// Usage example:
-let code = """
-draw FeatureModel
-template feature ::= 'A -> B [arrowhead="HEAD" arrowtail="TAIL" dir="both"]'
-each mandatory   => feature with HEAD=dot TAIL=none
-each optional    => feature with HEAD=odot TAIL=none
-each alternative => feature with HEAD=none TAIL=odot
-each or          => feature with HEAD=none TAIL=dot
-"""
-
-// let result = parseTransformation code
-// printfn "%A" result
-
-let parseGrammar() =
-    let tokens = File.ReadAllText(metaModelPath).Split(' ') |> Array.toList
+let parseGrammar(filename: string) =
+    let tokens = File.ReadAllText(filename).Split(' ') |> Array.toList
     let steps, _ = parseStepChain None tokens[2..] // skip [1] which is '::='
     let transitions = Dictionary<string, string>()
     fillInTransactions(transitions, steps)
     { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
 
-let Initialization() = (parseGrammar(), parseTransformation code)
+let Initialization() = (parseGrammar metaModelPath, parseTransformation transformationPath)
 
 let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
 
