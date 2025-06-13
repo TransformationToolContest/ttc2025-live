@@ -1,5 +1,5 @@
 {
-  "Tools": ["NMF"],
+  "Tools": ["NMF", "SLESolution"],
   "Models": [
   {
     "Name": "automotive02",

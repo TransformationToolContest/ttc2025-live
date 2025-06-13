@@ -208,8 +208,9 @@ let Update() = ()
 // Run each method in sequence and measure their time
 [<EntryPoint>]
 let main argv =
-    printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
+    // printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
     let grammar, xform = measureTime "Initialization" Initialization
+    printfn $"Loading %s{model}"
     let features = measureTime "Load" (fun () -> Load(grammar))
     measureTime "Initial" (fun () -> Initial(features, xform))
     measureTime "Update" Update
