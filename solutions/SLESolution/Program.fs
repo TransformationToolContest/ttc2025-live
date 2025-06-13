@@ -83,12 +83,51 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
         | Sequence inner | Cycle inner -> fillInPairwise(dict, inner)
         )
 
-let Initialization() =
+let parseTransformation (text: string) =
+    text.Split('\n')
+    |> Array.choose (fun line ->
+        let trimmed = line.Trim()
+        if trimmed = "" then None
+        else
+            let parts = trimmed.Split([|' '|], 3)
+            match parts.[0] with
+            | "template" when parts.Length = 3 ->
+                // template feature ::= ...
+                let feature = parts.[1]
+                let templ = parts.[2].Trim()//.TrimStart([':'; '=']).Trim()
+                Some ("template", feature, templ)
+            | "each" when parts.Length = 3 ->
+                // each <kind> => ...
+                let kind = parts.[1]
+                let rest = parts.[2].Trim()
+                Some ("each", kind, rest)
+            | "draw" when parts.Length >= 2 ->
+                Some ("draw", parts.[1], if parts.Length > 2 then parts.[2] else "")
+            | _ -> None
+    )
+    |> Array.toList
+
+// Usage example:
+let code = """
+draw FeatureModel
+template feature ::= 'A -> B [arrowhead="HEAD" arrowtail="TAIL" dir="both"]'
+each mandatory   => feature with HEAD=dot TAIL=none
+each optional    => feature with HEAD=odot TAIL=none
+each alternative => feature with HEAD=none TAIL=odot
+each or          => feature with HEAD=none TAIL=dot
+"""
+
+// let result = parseTransformation code
+// printfn "%A" result
+
+let parseGrammar() =
     let tokens = File.ReadAllText(metaModelPath).Split(' ') |> Array.toList
     let steps, _ = parseStepChain None tokens[2..] // skip [1] which is '::='
     let transitions = Dictionary<string, string>()
     fillInTransactions(transitions, steps)
     { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
+
+let Initialization() = (parseGrammar(), parseTransformation code)
 
 let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
 
@@ -127,7 +166,6 @@ let Load(grammar: MetaModel) : Feature =
                 if delta % 2 <> 0 then
                     if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
-            // Apply the current action from the grammar
             match step with
             | "root" ->
                 // let feat = makeFeature(content)
@@ -138,8 +176,6 @@ let Load(grammar: MetaModel) : Feature =
                 let feat = makeFeature(content)
                 context.Add(feat)
                 if result.Count = 0 then result.Add(feat)
-                // contextStack.Add(feat)
-                // You can also attach feat to the contextStack's last element if desired
             | "goal" ->
                 match content with
                 | "mandatory" -> context <- context[context.Count-1].Mandatory
@@ -159,7 +195,7 @@ let Update() = ()
 [<EntryPoint>]
 let main argv =
     printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
-    let grammar = measureTime "Initialization" Initialization
+    let (grammar, xform) = measureTime "Initialization" Initialization
     let features = measureTime "Load" (fun () -> Load(grammar))
     measureTime "Initial" Initial
     measureTime "Update" Update
