@@ -5,7 +5,7 @@ open System.IO
 
 let getEnvOrDefault name defaultValue = match Environment.GetEnvironmentVariable(name) with | null -> defaultValue | value -> value
 let tool = getEnvOrDefault "Tool" "SLE"
-let model = getEnvOrDefault "Model" "automotive01"
+let modelName = getEnvOrDefault "Model" "automotive01"
 let modelPath = getEnvOrDefault "ModelPath" "/Users/v.zaytsev/projects/ttc/live/models/automotive01/automotive01.uvl"
 let modelDirectory = getEnvOrDefault "ModelDirectory" "/Users/v.zaytsev/projects/ttc/live/models/automotive01"
 let runIndex = getEnvOrDefault "RunIndex" "0"
@@ -16,7 +16,7 @@ let measureTime phaseName action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{model};%s{runIndex};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
+    printfn $"%s{tool};%s{modelName};%s{runIndex};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
     result
 
 type Feature = {
@@ -84,7 +84,7 @@ type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictiona
 
 let unquote (s: string): string =
     let t = s.Trim()
-    let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '\"' || t[0] = '\'') then t[1..t.Length-2] else t
+    let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '"' || t[0] = '\'') then t[1..t.Length-2] else t
     u.Replace("\\n", "\n")
     
 let stripMeta (s: string) : string = if s.Contains("{") then s.Split("{")[0] + s.Split("}")[s.Split("}").Length-1] else s
@@ -114,10 +114,10 @@ let Initialization() = (parseGrammar metaModelPath, parseTransformation transfor
 
 let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
 
-let Load(grammar: MetaModel) : Feature =
-    eprintfn $"Loading %s{modelPath}"
+let Load(grammar: MetaModel, path: string) : Feature =
+    eprintfn $"Loading %s{path}"
     let lines =
-        File.ReadAllLines(modelPath)
+        File.ReadAllLines(path)
         |> Array.toList
         |> List.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
         |> List.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
@@ -176,11 +176,11 @@ let rec emitFeature (xform: Transformation) (feature: Feature) (lines: ResizeArr
                 emitFeature xform child lines
     ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
-let Initial(features: Feature, xform: Transformation) =
+let Initial(model: string, features: Feature, script: Transformation) =
     let output = ResizeArray<string>()
-    if xform.Templates.ContainsKey("BEFORE") then output.Add(xform.Templates["BEFORE"])
-    emitFeature xform features output
-    if xform.Templates.ContainsKey("AFTER") then output.Add(xform.Templates["AFTER"])
+    if script.Templates.ContainsKey("BEFORE") then output.Add(script.Templates["BEFORE"])
+    emitFeature script features output
+    if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
 let Update() = ()
@@ -188,8 +188,8 @@ let Update() = ()
 [<EntryPoint>]
 let main argv =
     // printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
-    let grammar, xform = measureTime "Initialization" Initialization
-    let features = measureTime "Load" (fun () -> Load(grammar))
-    measureTime "Initial" (fun () -> Initial(features, xform))
+    let grammar, script = measureTime "Initialization" Initialization
+    let features = measureTime "Load" (fun () -> Load(grammar, modelPath))
+    measureTime "Initial" (fun () -> Initial(modelName, features, script))
     measureTime "Update" Update
     0
