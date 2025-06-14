@@ -12,13 +12,6 @@ let runIndex = Int32.Parse(getEnvOrDefault "RunIndex" "0")
 let metaModelPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions", "SLE", "specs", "uvl.indentia")
 let transformationPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions",   "SLE", "specs", "uvl2dot.scripta")
 
-let measureTime phaseName index action =
-    let sw = Stopwatch.StartNew()
-    let result = action()
-    sw.Stop()
-    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
-    result
-
 type Feature = {
     Name: string
     Mandatory: ResizeArray<Feature>
@@ -28,17 +21,21 @@ type Feature = {
     Constraints: ResizeArray<string>
 }
 
-type Step =
-    | Atomic of string
-    | Sequence of StepChain
-    | Cycle of StepChain
+type Step = | Atomic of string
+            | Sequence of StepChain
+            | Cycle of StepChain
 and StepChain = Step list
 
-type MetaModel = {
-    MainClass: string
-    Start: string
-    Steps: Dictionary<string, string>
-}
+type MetaModel = {MainClass: string; Start: string; Steps: Dictionary<string, string>}
+type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
+
+
+let measureTime phaseName index action =
+    let sw = Stopwatch.StartNew()
+    let result = action()
+    sw.Stop()
+    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
+    result
 
 let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain * string list =
     let rec parseSeq (parent: Step option) (tokens: string list) (acc: StepChain) : StepChain * string list =
@@ -79,8 +76,6 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
         match step with
         | Atomic _ -> ()
         | Sequence inner | Cycle inner -> fillInPairwise(dict, inner))
-
-type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
 
 let unquote (s: string): string =
     let t = s.Trim()
@@ -150,8 +145,7 @@ let Load(grammar: MetaModel, path: string) : Feature =
                     if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
             match step with
-            | "root" ->
-                ()
+            | "root" -> ()
             | "make" ->
                 let feat = makeFeature(unquote(stripMeta(content)))
                 context.Add(feat)
@@ -163,7 +157,6 @@ let Load(grammar: MetaModel, path: string) : Feature =
                 | "alternative" -> context <- context[context.Count-1].Alternative
                 | "or" -> context <- context[context.Count-1].Or
                 | _ -> printfn $"Unrecognised goal: '{content}'"
-                ()
             | _ -> ()
     result[0]
 
