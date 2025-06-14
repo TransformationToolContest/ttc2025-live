@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SLESolution", "SLESolution.fsproj", "{3C60BF79-9543-4786-A6E0-B7282FE9F90C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SLE", "SLE.fsproj", "{3C60BF79-9543-4786-A6E0-B7282FE9F90C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

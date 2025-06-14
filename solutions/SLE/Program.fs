@@ -9,8 +9,8 @@ let model = getEnvOrDefault "Model" "automotive01"
 let modelPath = getEnvOrDefault "ModelPath" "/Users/v.zaytsev/projects/ttc/live/models/automotive01/automotive01.uvl"
 let modelDirectory = getEnvOrDefault "ModelDirectory" "/Users/v.zaytsev/projects/ttc/live/models/automotive01"
 let runIndex = getEnvOrDefault "RunIndex" "0"
-let metaModelPath = "/Users/v.zaytsev/projects/ttc/live/solutions/SLESolution/specs/uvl.sle"
-let transformationPath = "/Users/v.zaytsev/projects/ttc/live/solutions/SLESolution/specs/uvl2dot.sle"
+let metaModelPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions", "SLE", "specs", "uvl.indentia")
+let transformationPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions",   "SLE", "specs", "uvl2dot.scripta")
 
 let measureTime phaseName action =
     let sw = Stopwatch.StartNew()
@@ -115,6 +115,7 @@ let Initialization() = (parseGrammar metaModelPath, parseTransformation transfor
 let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
 
 let Load(grammar: MetaModel) : Feature =
+    eprintfn $"Loading %s{modelPath}"
     let lines =
         File.ReadAllLines(modelPath)
         |> Array.toList
@@ -180,7 +181,7 @@ let Initial(features: Feature, xform: Transformation) =
     if xform.Templates.ContainsKey("BEFORE") then output.Add(xform.Templates["BEFORE"])
     emitFeature xform features output
     if xform.Templates.ContainsKey("AFTER") then output.Add(xform.Templates["AFTER"])
-    File.WriteAllLines(Path.Combine(modelDirectory, "..", "results", model + ".dot"), output)
+    File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
 let Update() = ()
 
@@ -188,7 +189,6 @@ let Update() = ()
 let main argv =
     // printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
     let grammar, xform = measureTime "Initialization" Initialization
-    eprintfn $"Loading %s{modelPath}"
     let features = measureTime "Load" (fun () -> Load(grammar))
     measureTime "Initial" (fun () -> Initial(features, xform))
     measureTime "Update" Update
