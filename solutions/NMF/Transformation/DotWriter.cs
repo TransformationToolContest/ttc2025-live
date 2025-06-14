@@ -29,6 +29,7 @@ namespace NMFSolution.Transformation
                 WriteConstraints(featureModel, writer);
             }
             writer.WriteLine("}");
+            writer.Flush();
         }
 
         private static void WriteConstraints(IFeatureModel featureModel, TextWriter writer)
