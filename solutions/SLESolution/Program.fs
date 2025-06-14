@@ -1,5 +1,4 @@
-﻿// For more information see https://aka.ms/fsharp-console-apps
-open System
+﻿open System
 open System.Collections.Generic
 open System.Diagnostics
 open System.IO
@@ -74,14 +73,12 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
             | Atomic nameA, Atomic nameB -> dict[nameA] <- nameB
             | Atomic nameA, Sequence seqB -> dict[nameA] <- getToFirst b; fillInTransactions(dict, seqB) 
             | Atomic nameA, Cycle cycB -> dict[nameA] <- getToFirst b; fillInPairwise(dict, cycB); fillInTransactions(dict, cycB); dict[getToLast b] <- getToFirst b
-            | _ -> ()
-        )
+            | _ -> ())
     chain
     |> List.iter (fun step ->
         match step with
         | Atomic _ -> ()
-        | Sequence inner | Cycle inner -> fillInPairwise(dict, inner)
-        )
+        | Sequence inner | Cycle inner -> fillInPairwise(dict, inner))
 
 type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
 
@@ -103,8 +100,7 @@ let parseTransformation (filename: string) : Transformation =
             match parts[0] with
             | "template" -> templates[parts[1]] <- unquote(line[14+parts[1].Length..])
             | "each" -> iterators[parts[1]] <- (parts[3], parts[5..] |> Array.choose (fun pair -> match pair.Split("=") with | [|k; v|] -> Some (k, v) | _ -> None) |> Array.toList)
-            | _ -> ()
-    )
+            | _ -> ())
     {Templates = templates; Iterators = iterators}
 
 let parseGrammar(filename: string) =
@@ -127,15 +123,14 @@ let Load(grammar: MetaModel) : Feature =
 
     let mutable outOfFeatures : bool = false
     let contextStack = ResizeArray<ResizeArray<Feature>>()
-    let mutable lastIndent = 0
+    let mutable previous = 0
     let mutable step = grammar.Start
     let mutable context : ResizeArray<Feature> = ResizeArray<Feature>() // fake context to start
-    // let mutable result : Feature list = []
     let mutable result : ResizeArray<Feature> = ResizeArray<Feature>()
 
     for indent, content in lines do
-        let delta = indent - lastIndent
-        lastIndent <- indent
+        let delta = indent - previous
+        previous <- indent
         
         if indent = 0 && result.Count <> 0 then
             outOfFeatures <- true
@@ -171,46 +166,29 @@ let Load(grammar: MetaModel) : Feature =
             | _ -> ()
     result[0]
 
-let writeDot (filename: string) (lines: seq<string>) =
-    File.WriteAllLines(filename, lines)
-
-let applySubs (template: string) (subs: (string * string) list) =
-    subs
-    |> List.fold (fun (acc:string) -> acc.Replace) template
-
-let rec emitFeature (xform: Transformation) (parent: Feature option) (feature: Feature) (lines: ResizeArray<string>) =
-    let handleKind kind children =
+let rec emitFeature (xform: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
+    let handleKind (kind:string, children:ResizeArray<Feature>) =
         if xform.Iterators.ContainsKey(kind) then
-            let (templName, pairs) = xform.Iterators.[kind]
-            let template = xform.Templates.[templName]
+            let name, pairs = xform.Iterators[kind]
             for child in children do
-                let subs =
-                    [("SOURCE", feature.Name); ("TARGET", child.Name)] @ pairs
-                lines.Add(applySubs template subs)
-                emitFeature xform (Some feature) child lines
-    handleKind "mandatory" feature.Mandatory
-    handleKind "optional" feature.Optional
-    handleKind "alternative" feature.Alternative
-    handleKind "or" feature.Or
+                lines.Add(([("SOURCE", feature.Name); ("TARGET", child.Name)] @ pairs) |> List.fold (fun (acc:string) -> acc.Replace) (xform.Templates[name]))
+                emitFeature xform child lines
+    ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
 let Initial(features: Feature, xform: Transformation) =
     let output = ResizeArray<string>()
-    if xform.Templates.ContainsKey("BEFORE") then
-        output.Add(xform.Templates["BEFORE"])
-    emitFeature xform None features output
-    let outPath = Path.Combine(modelDirectory, model + ".dot")
-    if xform.Templates.ContainsKey("AFTER") then
-        output.Add(xform.Templates["AFTER"])
-    writeDot outPath output
+    if xform.Templates.ContainsKey("BEFORE") then output.Add(xform.Templates["BEFORE"])
+    emitFeature xform features output
+    if xform.Templates.ContainsKey("AFTER") then output.Add(xform.Templates["AFTER"])
+    File.WriteAllLines(Path.Combine(modelDirectory, "..", "results", model + ".dot"), output)
 
 let Update() = ()
 
-// Run each method in sequence and measure their time
 [<EntryPoint>]
 let main argv =
     // printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
     let grammar, xform = measureTime "Initialization" Initialization
-    printfn $"Loading %s{model}"
+    eprintfn $"Loading %s{modelPath}"
     let features = measureTime "Load" (fun () -> Load(grammar))
     measureTime "Initial" (fun () -> Initial(features, xform))
     measureTime "Update" Update
