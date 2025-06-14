@@ -5,18 +5,18 @@ open System.IO
 
 let getEnvOrDefault name defaultValue = match Environment.GetEnvironmentVariable(name) with | null -> defaultValue | value -> value
 let tool = getEnvOrDefault "Tool" "SLE"
-let modelName = getEnvOrDefault "Model" "automotive01"
-let modelPath = getEnvOrDefault "ModelPath" "/Users/v.zaytsev/projects/ttc/live/models/automotive01/automotive01.uvl"
-let modelDirectory = getEnvOrDefault "ModelDirectory" "/Users/v.zaytsev/projects/ttc/live/models/automotive01"
-let runIndex = getEnvOrDefault "RunIndex" "0"
+let modelName = getEnvOrDefault "Model" "automotive02"
+let modelPath = getEnvOrDefault "ModelPath" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_01.uvl"))
+let modelDirectory = getEnvOrDefault "ModelDirectory" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02"))
+let runIndex = Int32.Parse(getEnvOrDefault "RunIndex" "0")
 let metaModelPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions", "SLE", "specs", "uvl.indentia")
 let transformationPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions",   "SLE", "specs", "uvl2dot.scripta")
 
-let measureTime phaseName action =
+let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{modelName};%s{runIndex};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
+    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
     result
 
 type Feature = {
@@ -183,13 +183,23 @@ let Initial(model: string, features: Feature, script: Transformation) =
     if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
-let Update() = ()
+let Update(grammar: MetaModel, script: Transformation, path: string) =
+    let confix = path.Split("_01")
+    if confix.Length = 2 then
+        let rec processModels i =
+            let nextModel = $"{confix[0]}_%02d{i}{confix[1]}"
+            if File.Exists(nextModel) then
+                measureTime "Update" i (fun() ->
+                    let features = Load(grammar, nextModel)
+                    Initial(Path.GetFileNameWithoutExtension(nextModel), features, script))
+                processModels (i+1)
+        processModels 2
 
 [<EntryPoint>]
-let main argv =
+let main _ =
     // printfn "Tool;Scenario;RunIndex;Iteration;PhaseName;MetricName;MetricValue"
-    let grammar, script = measureTime "Initialization" Initialization
-    let features = measureTime "Load" (fun () -> Load(grammar, modelPath))
-    measureTime "Initial" (fun () -> Initial(modelName, features, script))
-    measureTime "Update" Update
+    let grammar, script = measureTime "Initialization" 0 Initialization
+    let features = measureTime "Load" 0 (fun () -> Load(grammar, modelPath))
+    measureTime "Initial" 0 (fun () -> Initial(modelName, features, script))
+    Update(grammar, script, modelPath)
     0
