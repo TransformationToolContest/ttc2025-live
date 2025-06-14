@@ -2,6 +2,12 @@
   "Tools": ["NMF", "SLESolution"],
   "Models": [
   {
+    "Name": "automotive01",
+	"Versions": [
+	  "automotive01"
+	]
+  },
+  {
     "Name": "automotive02",
 	"Versions": [
 	  "automotive02_01",
