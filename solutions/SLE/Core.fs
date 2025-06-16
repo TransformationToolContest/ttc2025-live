@@ -28,7 +28,7 @@ type Step = | Atomic of string
 and StepChain = Step list
 
 type MetaModel = {MainClass: string; Start: string; Steps: Dictionary<string, string>}
-type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string*((string*string) list)>; }
+type Transformation = {Templates: Dictionary<string,string>; Iterators: Dictionary<string,string>; }
 
 let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
@@ -87,7 +87,7 @@ let stripMeta (s: string) : string = if s.Contains("{") then s.Split("{")[0] + s
 
 let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
-    let mutable iterators = Dictionary<string,string*((string*string) list)>()
+    let mutable iterators = Dictionary<string,string>()
     File.ReadAllLines(filename)
     |> Array.toList
     |> List.iter (fun line ->
@@ -95,7 +95,7 @@ let parseTransformation (filename: string) : Transformation =
             let parts = line.Trim().Split(' ')
             match parts[0] with
             | "template" -> templates[parts[1]] <- unquote(line[14+parts[1].Length..])
-            | "each" -> iterators[parts[1]] <- (parts[3], parts[5..] |> Array.choose (fun pair -> match pair.Split("=") with | [|k; v|] -> Some (k, v) | _ -> None) |> Array.toList)
+            | "each" -> iterators[parts[1]] <- parts[5..] |> Array.fold (fun acc pair -> match pair.Split("=") with | [|k; v|] -> acc.Replace(k, v) | _ -> acc) parts[3]
             | _ -> ())
     {Templates = templates; Iterators = iterators}
 
@@ -164,9 +164,8 @@ let Load(grammar: MetaModel, path: string) : Feature =
 let rec emitFeature (script: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
     let handleKind (kind:string, children:ResizeArray<Feature>) =
         if script.Iterators.ContainsKey(kind) then
-            let name, pairs = script.Iterators[kind]
             for child in children do
-                lines.Add(([("SOURCE", feature.Name); ("TARGET", child.Name)] @ pairs) |> List.fold (fun (acc:string) -> acc.Replace) (script.Templates[name]))
+                lines.Add(script.Iterators[kind].Replace("SOURCE", feature.Name).Replace("TARGET", child.Name))
                 emitFeature script child lines
     ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
