@@ -89,8 +89,7 @@ let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
     let mutable iterators = Dictionary<string,string>()
     File.ReadAllLines(filename)
-    |> Array.toList
-    |> List.iter (fun line ->
+    |> Array.iter (fun line ->
         if not(String.IsNullOrWhiteSpace(line)) then
             let parts = line.Trim().Split(' ')
             match parts[0] with
@@ -114,9 +113,8 @@ let Load(grammar: MetaModel, path: string) : Feature =
     eprintfn $"Loading %s{path}"
     let lines =
         File.ReadAllLines(path)
-        |> Array.toList
-        |> List.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
-        |> List.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
+        |> Array.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
+        |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
     let mutable outOfFeatures : bool = false
     let contextStack = ResizeArray<ResizeArray<Feature>>()
