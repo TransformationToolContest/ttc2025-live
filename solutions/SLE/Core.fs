@@ -117,11 +117,11 @@ let Load(grammar: MetaModel, path: string) : Feature =
         |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
     let mutable outOfFeatures : bool = false
-    let contextStack = ResizeArray<ResizeArray<Feature>>()
+    let contextStack = Stack<ResizeArray<Feature>>()
     let mutable previous = 0
     let mutable step = grammar.Start
-    let mutable context : ResizeArray<Feature> = ResizeArray<Feature>() // fake context to start
-    let mutable result : ResizeArray<Feature> = ResizeArray<Feature>()
+    let mutable context = ResizeArray<Feature>() // fake context to start
+    let mutable result = ResizeArray<Feature>()
 
     for indent, content in lines do
         let delta = indent - previous
@@ -135,11 +135,11 @@ let Load(grammar: MetaModel, path: string) : Feature =
             if delta > 0 then
                 match context.Count with
                 | 0 -> ()
-                | _ -> contextStack.Add(context)
+                | _ -> contextStack.Push(context)
                 if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
             elif delta < 0 && indent <> 0 then
                 for _ in 1 .. abs delta do
-                    if contextStack.Count > 0 then contextStack.RemoveAt(contextStack.Count-1)
+                    if contextStack.Count > 0 then contextStack.Pop() |> ignore
                 if delta % 2 <> 0 then
                     if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
