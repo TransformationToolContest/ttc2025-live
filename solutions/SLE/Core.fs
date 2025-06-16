@@ -34,7 +34,8 @@ let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks}"
+    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{(sw.ElapsedTicks * 100L)}"
+    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
 
 let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain * string list =
@@ -176,14 +177,16 @@ let Initial(model: string, features: Feature, script: Transformation) =
     if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
-let Update(grammar: MetaModel, script: Transformation, path: string) =
+let Update(grammar: MetaModel, script: Transformation, name: string, path: string) =
     let confix = path.Split("_01")
     if confix.Length = 2 then
+        let prefix = name[..name.Length-3] 
         let rec processModels i =
             let nextModel = $"{confix[0]}_%02d{i}{confix[1]}"
+            let nextName = $"{prefix}_%02d{i}"
             if File.Exists(nextModel) then
                 measureTime "Update" i (fun() ->
                     let features = Load(grammar, nextModel)
-                    Initial(Path.GetFileNameWithoutExtension(nextModel), features, script))
+                    Initial(nextName, features, script))
                 processModels (i+1)
         processModels 2

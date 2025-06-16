@@ -8,5 +8,5 @@ let main _ =
     let grammar, script = measureTime "Initialization" 0 Initialization
     let features = measureTime "Load" 0 (fun () -> Load(grammar, modelPath))
     measureTime "Initial" 0 (fun () -> Initial(modelName, features, script))
-    Update(grammar, script, modelPath)
+    Update(grammar, script, modelName, modelPath)
     0
