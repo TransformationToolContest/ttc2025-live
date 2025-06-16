@@ -100,8 +100,8 @@ let parseTransformation (filename: string) : Transformation =
     {Templates = templates; Iterators = iterators}
 
 let parseGrammar(filename: string) =
-    let tokens = File.ReadAllText(filename).Split(' ') |> Array.toList
-    let steps, _ = parseStepChain None tokens[2..] // skip [1] which is '::='
+    let tokens = File.ReadAllText(filename).Split(' ')
+    let steps, _ = parseStepChain None (tokens[2..] |> Array.toList) // skip [1] which is '::='
     let transitions = Dictionary<string, string>()
     fillInTransactions(transitions, steps)
     { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
