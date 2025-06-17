@@ -106,7 +106,7 @@ namespace NMFSolution.Transformation
         private static void WriteConstraint(IAndConstraint constraint, TextWriter writer)
         {
             WriteConstraint(constraint.Left, writer);
-            writer.Write(" & ");
+            writer.Write(" &amp; ");
             WriteConstraint(constraint.Right, writer);
         }
 
