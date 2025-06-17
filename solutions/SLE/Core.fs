@@ -83,7 +83,7 @@ let unquote (s: string): string =
     let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '"' || t[0] = '\'') then t[1..t.Length-2] else t
     u.Replace("\\n", "\n")
     
-let stripMeta (s: string) : string = if s.Contains("{") then let r = s.Split('}') in s.Split("{")[0] + r[r.Length-1] else s
+let stripMeta (s: string) : string = if s.Contains("{") then let l = s.Split('{')[0] in let r = s.Split('}') in l + r[r.Length-1] else s
 
 let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
@@ -94,7 +94,7 @@ let parseTransformation (filename: string) : Transformation =
             let parts = line.Trim().Split(' ')
             match parts[0] with
             | "template" -> templates[parts[1]] <- unquote(line[14+parts[1].Length..])
-            | "each" -> iterators[parts[1]] <- parts[5..] |> Array.fold (fun acc pair -> match pair.Split("=") with | [|k; v|] -> acc.Replace(k, v) | _ -> acc) parts[3]
+            | "each" -> iterators[parts[1]] <- parts[5..] |> Array.fold (fun acc pair -> match pair.Split("=") with | [|k; v|] -> acc.Replace(k, v) | _ -> acc) templates[parts[3]]
             | _ -> ())
     {Templates = templates; Iterators = iterators}
 

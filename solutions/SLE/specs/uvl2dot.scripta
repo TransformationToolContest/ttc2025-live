@@ -1,5 +1,5 @@
 template BEFORE ::= 'digraph FeatureModel {\nrankdir="TB"\nnewrank=true\nbgcolor="#1e1e1e"\nedge [color="white"]\nnode [style="filled" fontcolor="white" fontname="Arial Unicode MS, Arial" fillcolor="#ABACEA" shape="box"];\n'
-template relation ::= 'SOURCE -> TARGET [arrowhead="HEAD" arrowtail="TAIL" dir="both"]'
+template relation ::= '"SOURCE" -> "TARGET" [arrowhead="HEAD" arrowtail="TAIL" dir="both"]'
 template boxed ::= 'NAME [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]'
 each feature |-> boxed
 each mandatory |-> relation with HEAD=dot TAIL=none
