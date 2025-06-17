@@ -83,7 +83,7 @@ let unquote (s: string): string =
     let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '"' || t[0] = '\'') then t[1..t.Length-2] else t
     u.Replace("\\n", "\n")
     
-let stripMeta (s: string) : string = if s.Contains("{") then s.Split("{")[0] + s.Split("}")[s.Split("}").Length-1] else s
+let stripMeta (s: string) : string = if s.Contains("{") then let r = s.Split('}') in s.Split("{")[0] + r[r.Length-1] else s
 
 let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
@@ -120,8 +120,8 @@ let Load(grammar: MetaModel, path: string) : Feature =
     let contextStack = Stack<ResizeArray<Feature>>()
     let mutable previous = 0
     let mutable step = grammar.Start
-    let mutable context = ResizeArray<Feature>() // fake context to start
-    let mutable result = ResizeArray<Feature>()
+    let mutable context = ResizeArray<Feature>(0) // fake context to start
+    let mutable result = ResizeArray<Feature>(lines.Length)
 
     for indent, content in lines do
         let delta = indent - previous
@@ -137,7 +137,7 @@ let Load(grammar: MetaModel, path: string) : Feature =
                 | 0 -> ()
                 | _ -> contextStack.Push(context)
                 if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
-            elif delta < 0 && indent <> 0 then
+            elif delta < 0 then // && indent <> 0 
                 for _ in 1 .. abs delta do
                     if contextStack.Count > 0 then contextStack.Pop() |> ignore
                 if delta % 2 <> 0 then
