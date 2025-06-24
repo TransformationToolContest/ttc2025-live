@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id "de.monticore.generator-withtr" version "$mc_version"
+    id "io.github.themrmilchmann.ecj" version "0.2.0" // incremental eclipse compiler
+}
+
+group = 'de.monticore.montitrans'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    if (("true").equals(getProperty('useLocalRepo'))) {
+        mavenLocal()
+    }
+    mavenCentral()
+    maven {
+        url nexusUrl
+    }
+}
+
+dependencies {
+    grammar "de.monticore:monticore-grammar:$mc_version"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    trafoGrammar "de.monticore:monticore-grammar-trafo:$mc_version"
+    // Also depend on the transformation interpreter
+    trafoImplementation "de.monticore.tf:interpreter-runtime:$mc_version"
+    trafoImplementation "org.freemarker:freemarker:2.3.28"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// create a single Jar with all dependencies
+// source: https://www.mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'LiveContestDriver': 'MontiCore solution',
+                'Main-Class': 'ttc2025.BenchmarkDriver'
+    }
+    // remove signatures as we are not signing this jar to avoid security warnings
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy DuplicatesStrategy.INCLUDE
+    with jar
+}
+
+// create a single Jar with all dependencies
+// source: https://www.mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
+task fatTrafoJar(type: Jar) {
+    manifest {
+        attributes 'LiveContestDriver': 'MontiCore-DSLTR solution',
+                'Main-Class': 'ttc.uvldslt.BenchmarkDriver'
+    }
+    // remove signatures as we are not signing this jar to avoid security warnings
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    from sourceSets.trafo.output
+    from { () -> configurations.trafoRuntimeClasspath
+            .filter {!it.getName().contains("MontiTrans-${version}.jar")}
+            .collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy DuplicatesStrategy.INCLUDE
+    with jar
+    archiveAppendix = "trafo"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.deprecation false
+    options.warnings = false
+}
+

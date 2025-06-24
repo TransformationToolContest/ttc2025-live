@@ -1,0 +1,14 @@
+
+pluginManagement {
+  repositories {
+      mavenCentral()
+      if(("true").equals(getProperty('useLocalRepo'))){
+        mavenLocal()
+      }
+      maven {
+        url nexusUrl
+      }
+
+      gradlePluginPortal()    }
+}
+rootProject.name = 'MontiTrans'
