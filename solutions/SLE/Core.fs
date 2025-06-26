@@ -6,10 +6,10 @@ open System.IO
 
 let getEnvOrDefault name defaultValue = match Environment.GetEnvironmentVariable(name) with | null -> defaultValue | value -> value
 let tool = getEnvOrDefault "Tool" "SLE"
-let modelName = getEnvOrDefault "Model" "automotive02"
-let modelPath = getEnvOrDefault "ModelPath" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_01.uvl"))
-let modelDirectory = getEnvOrDefault "ModelDirectory" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02"))
-let runIndex = Int32.Parse(getEnvOrDefault "RunIndex" "0")
+let modelName = getEnvOrDefault "Model" "linux"
+let modelPath = getEnvOrDefault "ModelPath" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "linux", "linux.uvl"))
+let modelDirectory = getEnvOrDefault "ModelDirectory" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "linux"))
+// let runIndex = Int32.Parse(getEnvOrDefault "RunIndex" "0")
 let metaModelPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions", "SLE", "specs", "uvl.indentia")
 let transformationPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions",   "SLE", "specs", "uvl2dot.scripta")
 
@@ -177,10 +177,9 @@ let Initial(model: string, features: Feature, script: Transformation) =
 let Update(grammar: MetaModel, script: Transformation, name: string, path: string) =
     let confix = path.Split("_01")
     if confix.Length = 2 then
-        let prefix = name[..name.Length-3] 
         let rec processModels i =
             let nextModel = $"{confix[0]}_%02d{i}{confix[1]}"
-            let nextName = $"{prefix}_%02d{i}"
+            let nextName = $"{name}_%02d{i}"
             if File.Exists(nextModel) then
                 measureTime "Update" i (fun() ->
                     let features = Load(grammar, nextModel)
