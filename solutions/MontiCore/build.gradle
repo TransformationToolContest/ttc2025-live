@@ -24,8 +24,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
     trafoGrammar "de.monticore:monticore-grammar-trafo:$mc_version"
-    // Also depend on the transformation interpreter
-    trafoImplementation "de.monticore.tf:interpreter-runtime:$mc_version"
+    // Also depend on the transformation interpreter (which ships some aspects for whitespace parsing as well)
+    api "de.monticore.tf:interpreter-runtime:$mc_version"
     trafoImplementation "org.freemarker:freemarker:2.3.28"
 }
 

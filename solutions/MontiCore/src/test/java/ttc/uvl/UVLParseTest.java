@@ -10,14 +10,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * Ensure all models can be parsed
+ */
 public class UVLParseTest {
   @BeforeEach
   public void setUp() throws Exception {
     LogStub.initPlusLog();
-    Log.setErrorHook(() -> {
-      throw new AssertionError("Terminated");
-    });
-    Log.enableFailQuick(true);
+    Log.enableFailQuick(false);
     UVLMill.init();
   }
 
@@ -34,6 +34,7 @@ public class UVLParseTest {
 
           System.err.println(p);
           Assertions.assertTrue(ast.isPresent());
+          Assertions.assertEquals(0, Log.getFindings().size());
         } catch (IOException e) {
           throw new RuntimeException(e);
         }

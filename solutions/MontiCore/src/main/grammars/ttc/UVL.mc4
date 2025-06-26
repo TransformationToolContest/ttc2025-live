@@ -27,12 +27,12 @@ grammar UVL extends de.monticore.MCBasics, de.monticore.types.MCBasicTypes,
     Feature = MCType? ref:Reference FeatureCardinality? Attributes? LINEBREAK (BLOCK_START Group+ BLOCK_END)?;
 
     Reference = (Id ||".")+;
-    Id = (ID_NOT_STRICT /*{setText(getText().substring(1, getText().length() - 1));}*/) | Name;
+    Id = ID_NOT_STRICT | Name;
 
     token ID_NOT_STRICT = '"' StringCharacters '"';
 
-    // Override the MC-basics Name ("Identifier") token
-    // TODO: Added $ for DSL-TR
+    // Override the MC-Basics Name ("Identifier") token with
+    // In addition, we also Added $ for DSL-TR
     @Override token Name = ('a'..'z' | 'A' ..'Z' | '$') ('a'..'z' | 'A' ..'Z' |  '_' | '0'..'9'  | '#' | '§' | '%' | '?' | '\\' | '\'' | 'ä' | 'ü' | 'ö' | 'ß' | ';')*;
 
     // UVL strings use single-quotations marks
@@ -58,12 +58,15 @@ grammar UVL extends de.monticore.MCBasics, de.monticore.types.MCBasicTypes,
     Vector = "[" (Value || ",")* "]";
 
     // Alternative to
-    Group = or:"or" GroupSpec
+   /* Group = or:"or" GroupSpec
           | alt:"alternative" GroupSpec
           | opt:"optional" GroupSpec
           | man:"mandatory" GroupSpec
           | Cardinality GroupSpec
           ;
+          */
+    // use a constant group to allow abstract syntax matching
+    Group = kind:["or"|"alternative"|"optional"|"mandatory"] GroupSpec | Cardinality GroupSpec;
 
 
     GroupSpec = LINEBREAK BLOCK_START Feature+ BLOCK_END;
@@ -112,6 +115,6 @@ grammar UVL extends de.monticore.MCBasics, de.monticore.types.MCBasicTypes,
 
     token LINEBREAK = "<LB>";
 
-    nokeyword "abstract";
+//    nokeyword "abstract";
 
 }

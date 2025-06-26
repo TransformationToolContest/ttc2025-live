@@ -50,13 +50,13 @@ public class DotWriter {
             sb.append(featureStack.peek().getRef().asString());
             sb.append(" -> ");
             sb.append(subFeature.getRef().asString());
-            if (node.isPresentAlt())
+            if (node.isAlt())
               sb.append("[arrowhead=\"none\", arrowtail=\"odot\", dir=\"both\"] \n");
-            else if (node.isPresentOr())
+            else if (node.isOr())
               sb.append("[arrowhead=\"none\", arrowtail=\"dot\", dir=\"both\"] \n");
-            else if (node.isPresentMan())
+            else if (node.getKind() == ASTConstantsUVL.MANDATORY)
               sb.append("[arrowhead=\"dot\", arrowtail=\"none\", dir=\"both\"] \n");
-            else if (node.isPresentOpt())
+            else if (node.getKind() == ASTConstantsUVL.OPTIONAL)
               sb.append("[arrowhead=\"odot\", arrowtail=\"none\", dir=\"both\"] \n");
             else
               throw new IllegalStateException("Unknown feature group type");
