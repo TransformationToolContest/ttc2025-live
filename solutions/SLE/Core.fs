@@ -94,20 +94,30 @@ let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
     | "or" -> context[context.Count-1].Or
     | _ -> printfn $"Unrecognised goal: '{target}'"; ResizeArray<Feature>()
 
+let ReadIndexedLines path = File.ReadAllLines(path)
+                            |> Array.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
+                            |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
+
+let ReadIndexedLinesFast path =
+    File.ReadLines(path)
+    |> Seq.choose (fun line ->
+        if String.IsNullOrWhiteSpace(line) then None
+        else
+            let mutable count = 0
+            while line[count] = '\t' do count <- count + 1 // NB: not checking for the line length is a performance hack that works for UVLs
+            Some (count, line.Trim()))
+    |> Seq.toArray
+
 let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
-    let lines = File.ReadAllLines(path)
-                |> Array.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
-                |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
-
     let mutable outOfFeatures : bool = false
     let contextStack = Stack<ResizeArray<'T>>()
     let mutable previous = 0
     let mutable step = grammar.Start
     let mutable context = ResizeArray<'T>(0) // fake context to start
-    let mutable result = ResizeArray<'T>(lines.Length)
+    let mutable result = ResizeArray<'T>()
 
-    for indent, content in lines do
+    for indent, content in ReadIndexedLinesFast path do
         let delta = indent - previous
         previous <- indent
         
