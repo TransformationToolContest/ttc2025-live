@@ -1,24 +1,15 @@
 ﻿namespace Tests
 
+open Microsoft.VisualStudio.TestTools.UnitTesting
 open System.IO
 open SLE.Core
-open Microsoft.VisualStudio.TestTools.UnitTesting
-
+open FeatureUtils
 
 [<TestClass>]
 [<DoNotParallelize>]
 type UnitTests () =
     let _grammar = parseGrammar metaModelPath
 
-    member this.countFeatures (feature:Feature) : int =
-        1 +
-        Seq.sum [
-            feature.Mandatory |> Seq.sumBy this.countFeatures
-            feature.Optional |> Seq.sumBy this.countFeatures
-            feature.Alternative |> Seq.sumBy this.countFeatures
-            feature.Or |> Seq.sumBy this.countFeatures
-        ]
-       
     member this.solutionPath (folder:string) (uvl:string) =
         Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", folder, uvl + ".uvl")
     
@@ -42,17 +33,17 @@ type UnitTests () =
     [<TestMethod>]
     member this.CountFeaturesInAutomotive01 () =
         let features = Load _grammar (this.solutionPath "automotive01" "automotive01") makeFeature matchGoalFeature
-        Assert.AreEqual<int>(708+1805, this.countFeatures(features))
+        Assert.AreEqual<int>(708+1805, countFeatures(features))
 
     [<TestMethod>]
     member this.CountFeaturesInAutomotive02_01 () =
         let features = Load _grammar (this.solutionPath "automotive02" "automotive02_01") makeFeature matchGoalFeature
-        Assert.AreEqual<int>(1396+4071+8442+101, this.countFeatures(features))
+        Assert.AreEqual<int>(1396+4071+8442+101, countFeatures(features))
 
     [<TestMethod>]
     member this.CountFeaturesInAutomotive02_02 () =
         let features = Load _grammar (this.solutionPath "automotive02" "automotive02_02") makeFeature matchGoalFeature
-        Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
+        Assert.AreEqual<int>(4336+1705+97+11604, countFeatures(features))
     
     // [<TestMethod>]
     // member this.CountFeaturesInAutomotive02_03 () =

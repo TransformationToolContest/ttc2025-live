@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <Compile Include="MSTestSettings.fs"/>
+        <Compile Include="FeatureUtils.fs" />
         <Compile Include="UnitTests.fs" />
     </ItemGroup>
 
