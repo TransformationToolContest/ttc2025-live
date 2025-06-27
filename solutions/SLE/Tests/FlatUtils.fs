@@ -14,8 +14,6 @@ let rec countFeaturesInContainer (container:Container) : int =
 
 let makeContainer(content: string) = { Name = content; Storage = ResizeArray<Container>() }
 
-let matchGoalContainer (target: string) (context: ResizeArray<Container>) =
-    match context.Count with
-                         | 0 -> context.Add({Name = "root"; Storage = ResizeArray()})
-                         | _ -> ()
+let matchGoalContainer _ (context: ResizeArray<Container>) =
+    if context.Count = 0 then context.Add {Name = "root"; Storage = ResizeArray()}
     context[context.Count-1].Storage
