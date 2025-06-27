@@ -3,12 +3,14 @@
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open System.IO
 open SLE.Core
+open FlatUtils
 open FeatureUtils
 
 [<TestClass>]
 [<DoNotParallelize>]
 type UnitTests () =
     let _grammar = parseGrammar metaModelPath
+    let _flatGrammar = parseGrammar flatMetaModelPath
 
     member this.solutionPath (folder:string) (uvl:string) =
         Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", folder, uvl + ".uvl")
@@ -59,3 +61,13 @@ type UnitTests () =
     // member this.CountFeaturesInAutomotive02_04 () =
     //     let features = Load _grammar (this.solutionPath "automotive02" "automotive02_04") makeFeature matchGoalFeature
     //     Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
+
+    [<TestMethod>]
+    member this.CountFeaturesInFlatContainer () =
+        let features = Load _flatGrammar (this.solutionPath "berkeleydb" "berkeleydb") makeContainer matchGoalContainer
+        Assert.AreEqual<int>(76, countFeaturesInContainer features)
+
+    [<TestMethod>]
+    member this.CountFeaturesInAutomotive02_04Container () =
+        let features = Load _grammar (this.solutionPath "automotive02" "automotive02_04") makeContainer matchGoalContainer
+        Assert.AreEqual<int>(18616, countFeaturesInContainer features)
