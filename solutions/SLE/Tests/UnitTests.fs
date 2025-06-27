@@ -31,6 +31,11 @@ type UnitTests () =
         Assert.AreEqual<int>(0, feature.Or.Count)
 
     [<TestMethod>]
+    member this.CountFeaturesInBerkeleyDB () =
+        let features = Load _grammar (this.solutionPath "berkeleydb" "berkeleydb") makeFeature matchGoalFeature
+        Assert.AreEqual<int>(76, countFeatures(features))
+
+    [<TestMethod>]
     member this.CountFeaturesInAutomotive01 () =
         let features = Load _grammar (this.solutionPath "automotive01" "automotive01") makeFeature matchGoalFeature
         Assert.AreEqual<int>(708+1805, countFeatures(features))

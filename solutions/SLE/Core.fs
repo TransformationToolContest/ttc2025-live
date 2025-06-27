@@ -78,7 +78,8 @@ let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
     |> List.iter (fun step ->
         match step with
         | Atomic _ -> ()
-        | Sequence inner | Cycle inner -> fillInPairwise(dict, inner))
+        | Sequence inner -> fillInPairwise(dict, inner)
+        | Cycle inner -> dict[getToLast step] <- getToFirst step; fillInPairwise(dict, inner))
 
 let unquote (s: string): string =
     let t = s.Trim()
@@ -113,6 +114,7 @@ let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Fea
 
 let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
     match target with
+    | "features" -> context
     | "mandatory" -> context[context.Count-1].Mandatory
     | "optional" -> context[context.Count-1].Optional
     | "alternative" -> context[context.Count-1].Alternative
@@ -152,7 +154,6 @@ let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:st
                     if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
             match step with
-            | "root" -> ()
             | "make" -> let feat = make(unquote(stripMeta(content)))
                         context.Add(feat)
                         if result.Count = 0 then result.Add(feat)
@@ -175,7 +176,7 @@ let Initial (model:string) (features:Feature) (script:Transformation) =
     if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
-let Update(grammar: MetaModel, script: Transformation, name: string, path: string) =
+let Update (grammar:MetaModel) (script:Transformation) (name:string) (path:string) =
     let confix = path.Split("_01")
     if confix.Length = 2 then
         let rec processModels i =
