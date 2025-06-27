@@ -18,6 +18,9 @@ type UnitTests () =
             feature.Alternative |> Seq.sumBy this.countFeatures
             feature.Or |> Seq.sumBy this.countFeatures
         ]
+       
+    member this.solutionPath (folder:string) (uvl:string) =
+        Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", folder, uvl + ".uvl")
     
     [<TestMethod>]
     member this.Trivial () =
@@ -38,25 +41,25 @@ type UnitTests () =
 
     [<TestMethod>]
     member this.CountFeaturesInAutomotive01 () =
-        let features = Load(_grammar, Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive01", "automotive01.uvl"))
+        let features = Load _grammar (this.solutionPath "automotive01" "automotive01") makeFeature matchGoalFeature
         Assert.AreEqual<int>(708+1805, this.countFeatures(features))
 
     [<TestMethod>]
     member this.CountFeaturesInAutomotive02_01 () =
-        let features = Load(_grammar, Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_01.uvl"))
+        let features = Load _grammar (this.solutionPath "automotive02" "automotive02_01") makeFeature matchGoalFeature
         Assert.AreEqual<int>(1396+4071+8442+101, this.countFeatures(features))
 
     [<TestMethod>]
     member this.CountFeaturesInAutomotive02_02 () =
-        let features = Load(_grammar, Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_02.uvl"))
+        let features = Load _grammar (this.solutionPath "automotive02" "automotive02_02") makeFeature matchGoalFeature
         Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
-
-    // [<TestMethod>]
-    // member this.CountFeaturesInAutomotive02_03 () =
-    //     let features = Load(_grammar, Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_03.uvl"))
-    //     Assert.AreEqual<int>(4481+1776+90+12087, this.countFeatures(features))
     
     // [<TestMethod>]
+    // member this.CountFeaturesInAutomotive02_03 () =
+    //     let features = Load _grammar (this.solutionPath "automotive02" "automotive02_03") makeFeature matchGoalFeature
+    //     Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
+    //
+    // [<TestMethod>]
     // member this.CountFeaturesInAutomotive02_04 () =
-    //     let features = Load(_grammar, Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_04.uvl"))
+    //     let features = Load _grammar (this.solutionPath "automotive02" "automotive02_04") makeFeature matchGoalFeature
     //     Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))

@@ -119,7 +119,7 @@ let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
     | "or" -> context[context.Count-1].Or
     | _ -> printfn $"Unrecognised goal: '{target}'"; ResizeArray<Feature>()
 
-let Load<'T>(grammar: MetaModel, path: string, make: string -> 'T, matchGoal: string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
+let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
     let lines =
         File.ReadAllLines(path)
@@ -143,9 +143,7 @@ let Load<'T>(grammar: MetaModel, path: string, make: string -> 'T, matchGoal: st
             addExtra(result[0], content)
         else
             if delta > 0 then
-                match context.Count with
-                | 0 -> ()
-                | _ -> contextStack.Push(context)
+                if context.Count > 0 then contextStack.Push(context)
                 if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
             elif delta < 0 then // && indent <> 0 
                 for _ in 1 .. abs delta do
@@ -170,7 +168,7 @@ let rec emitFeature (script: Transformation) (feature: Feature) (lines: ResizeAr
                 emitFeature script child lines
     ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
-let Initial(model: string, features: Feature, script: Transformation) =
+let Initial (model:string) (features:Feature) (script:Transformation) =
     let output = ResizeArray<string>()
     if script.Templates.ContainsKey("BEFORE") then output.Add(script.Templates["BEFORE"])
     emitFeature script features output
@@ -184,8 +182,6 @@ let Update(grammar: MetaModel, script: Transformation, name: string, path: strin
             let nextModel = $"{confix[0]}_%02d{i}{confix[1]}"
             let nextName = $"{name}_%02d{i}"
             if File.Exists(nextModel) then
-                measureTime "Update" i (fun() ->
-                    let features = Load<Feature>(grammar, nextModel, makeFeature, matchGoalFeature)
-                    Initial(nextName, features, script))
+                measureTime "Update" i (fun() -> Initial nextName (Load grammar nextModel makeFeature matchGoalFeature) script)
                 processModels (i+1)
         processModels 2
