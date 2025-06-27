@@ -37,20 +37,6 @@ let measureTime phaseName index action =
     printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
 
-let rec parseStepChain (parent: Step option) (tokens: string list) : StepChain * string list =
-    let rec parseSeq (parent: Step option) (tokens: string list) (acc: StepChain) : StepChain * string list =
-        match tokens with
-        | [] -> List.rev acc, []
-        | token :: rest ->
-            if token = "=>" then parseSeq parent rest acc
-            elif token = ")" || token = "]" then List.rev acc, rest
-            elif token = "(" || token = "[" then
-                let steps, rem = parseStepChain None rest
-                let seqStep = (if token = "(" then Sequence steps else Cycle steps)
-                parseSeq parent rem (seqStep :: acc)
-            else parseSeq parent rest ((Atomic token) :: acc)
-    parseSeq parent tokens []
-
 let rec getToFirst step =
     match step with
     | Atomic a -> a
@@ -61,23 +47,6 @@ let rec getToLast step =
     | Atomic a -> a
     | Sequence c | Cycle c -> getToLast (List.last c)
     
-let rec fillInTransactions (dict: Dictionary<string,string>, chain: StepChain) =
-    let rec fillInPairwise(dict: Dictionary<string,string>, chain: StepChain) =
-        chain
-        |> List.pairwise
-        |> List.iter (fun (a, b) ->
-            match a, b with
-            | Atomic nameA, Atomic nameB -> dict[nameA] <- nameB
-            | Atomic nameA, Sequence seqB -> dict[nameA] <- getToFirst b; fillInTransactions(dict, seqB) 
-            | Atomic nameA, Cycle cycB -> dict[nameA] <- getToFirst b; fillInPairwise(dict, cycB); fillInTransactions(dict, cycB); dict[getToLast b] <- getToFirst b
-            | _ -> ())
-    chain
-    |> List.iter (fun step ->
-        match step with
-        | Atomic _ -> ()
-        | Sequence inner -> fillInPairwise(dict, inner)
-        | Cycle inner -> dict[getToLast step] <- getToFirst step; fillInPairwise(dict, inner))
-
 let unquote (s: string): string =
     let t = s.Trim()
     let u = if t.Length >= 2 && t[0] = t[t.Length-1] && (t[0] = '"' || t[0] = '\'') then t[1..t.Length-2] else t
@@ -98,63 +67,34 @@ let parseTransformation (filename: string) : Transformation =
             | _ -> ())
     {Templates = templates; Iterators = iterators}
 
-let rec parseStepChainAndTransitions 
-    (dict: Dictionary<string, string>) 
-    (tokens: string list)
-    : string option * string option * string list =
-    
-    let rec parseSeq tokens (acc: string option) (last: string option) (prev: Step option) : string option * string option * string list =
+let rec parseStepChain (dict: Dictionary<string, string>) (tokens: string list) : string option * string option * string list =
+    let rec parseSequence tokens (acc: string option) (last: string option) (prev: Step option) : string option * string option * string list =
         match tokens with
         | [] -> acc, last, []
         | token :: rest ->
-            if token = "=>" then parseSeq rest acc last prev
+            if token = "=>" then parseSequence rest acc last prev
             elif token = ")" || token = "]" then acc, last, rest
             elif token = "(" || token = "[" then
-                // Parse the inner sequence or cycle
-                let firstInner, lastInner, rem = parseStepChainAndTransitions dict rest
-                let thisStepFirst = firstInner
-                let thisStepLast = lastInner
-                // Link previous atomic to first of inner (if needed)
+                let firstInner, lastInner, rem = parseStepChain dict rest
                 match prev, firstInner with
                 | Some (Atomic nameA), Some nameB -> dict[nameA] <- nameB
                 | _ -> ()
-                // If cycle, link last to first
                 if token = "[" then
                     match lastInner, firstInner with
                     | Some l, Some f -> dict[l] <- f
                     | _ -> ()
-                // Continue with previous being the inner step's last
-                parseSeq rem (if acc.IsNone then firstInner else acc) (if thisStepLast.IsSome then thisStepLast else last) (Some (if token = "(" then Sequence [] else Cycle []))
-            else
-                // Token is an atomic symbol
-                let name = token
-                // Link previous atomic to this one
-                match prev with
-                | Some (Atomic nameA) -> dict[nameA] <- name
-                | _ -> ()
-                parseSeq rest (if acc.IsNone then Some name else acc) (Some name) (Some (Atomic name))
-    parseSeq tokens None None None
+                parseSequence rem (if acc.IsNone then firstInner else acc) (if lastInner.IsSome then lastInner else last) (Some (if token = "(" then Sequence [] else Cycle []))
+            else match prev with
+                 | Some (Atomic nameA) -> dict[nameA] <- token
+                 | _ -> ()
+                 parseSequence rest (if acc.IsNone then Some token else acc) (Some token) (Some (Atomic token))
+    parseSequence tokens None None None
 
 let parseGrammar(filename: string) =
-    let tokens = File.ReadAllText(filename).Split(' ')
-    // skip [1] which is '::='
-    let tokens = tokens |> Array.toList |> List.skip 2
+    let tokens = File.ReadAllText(filename).Split(' ') |> Array.toList |> List.skip 2 // skip [1] which is '::='
     let transitions = Dictionary<string, string>()
-    let firstStep, _, _ = parseStepChainAndTransitions transitions tokens
-    {
-        MainClass = tokens[0]
-        Start = firstStep.Value
-        Steps = transitions
-    }
-    
-let parseGrammarOld(filename: string) =
-    let tokens = File.ReadAllText(filename).Split(' ')
-    let steps, _ = parseStepChain None (tokens[2..] |> Array.toList) // skip [1] which is '::='
-    let transitions = Dictionary<string, string>()
-    fillInTransactions(transitions, steps)
-    { MainClass = tokens[0]; Start = getToFirst steps[0]; Steps = transitions }
-
-
+    let firstStep, _, _ = parseStepChain transitions tokens
+    { MainClass = tokens[0]; Start = firstStep.Value; Steps = transitions }
 
 let Initialization() = (parseGrammar metaModelPath, parseTransformation transformationPath)
 
@@ -171,10 +111,9 @@ let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
 
 let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
-    let lines =
-        File.ReadAllLines(path)
-        |> Array.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
-        |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
+    let lines = File.ReadAllLines(path)
+                |> Array.filter (fun line -> not (String.IsNullOrWhiteSpace(line)))
+                |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
     let mutable outOfFeatures : bool = false
     let contextStack = Stack<ResizeArray<'T>>()
@@ -184,10 +123,6 @@ let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:st
     let mutable result = ResizeArray<'T>(lines.Length)
 
     for indent, content in lines do
-        // printfn "DEBUG: Last element of context: %A" (if context.Count > 0 then box context[context.Count - 1] else box "None")
-        // printfn $"DEBUG: Length of contextStack: %d{contextStack.Count}"
-        // printfn $"DEBUG: Step: %s{step}, line '%s{content}'\n"
-        
         let delta = indent - previous
         previous <- indent
         
