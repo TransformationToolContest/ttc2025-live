@@ -44,8 +44,7 @@ let parseTransformation (filename: string) : Transformation =
     let mutable iterators = Dictionary<string,string>()
     File.ReadAllLines(filename)
     |> Array.iter (fun line ->
-        if not(String.IsNullOrWhiteSpace(line)) then
-            let parts = line.Trim().Split(' ')
+            let parts = line.TrimEnd().Split(' ')
             match parts[0] with
             | "template" -> templates[parts[1]] <- unquote(line[14+parts[1].Length..])
             | "each" -> iterators[parts[1]] <- parts[5..] |> Array.fold (fun acc pair -> match pair.Split("=") with | [|k; v|] -> acc.Replace(k, v) | _ -> acc) templates[parts[3]]
@@ -96,7 +95,7 @@ let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
 
 let ReadIndexedLines path =
     File.ReadLines(path)
-    |> Seq.choose (fun line -> if String.IsNullOrWhiteSpace(line) then None else let trimmed = line.TrimStart() in Some (line.Length - trimmed.Length, trimmed))
+    |> Seq.choose (fun line -> let trimmed = line.TrimStart() in if line = "" then None else Some (line.Length - trimmed.Length, trimmed))
 
 let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
@@ -120,8 +119,7 @@ let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:st
                 if context.Count > 0 then contextStack.Push(context)
                 if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
             elif delta < 0 then // && indent <> 0 
-                for _ in 1 .. abs delta do
-                    if contextStack.Count > 0 then contextStack.Pop() |> ignore
+                for _ in 1 .. (min -delta contextStack.Count) do contextStack.Pop() |> ignore
                 if delta % 2 <> 0 then
                     if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
 
