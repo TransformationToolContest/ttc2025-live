@@ -22,6 +22,8 @@ type Feature = {
     Constraints: ResizeArray<string>
 }
 
+let addExtra(e: obj, element: string) = match e with | :? Feature as f -> f.Constraints.Add(element) | _ -> ()
+
 type Step = | Atomic of string
             | Sequence of StepChain
             | Cycle of StepChain
@@ -109,7 +111,15 @@ let Initialization() = (parseGrammar metaModelPath, parseTransformation transfor
 
 let makeFeature(content: string) = { Name = content; Mandatory = ResizeArray<Feature>(); Optional = ResizeArray<Feature>(); Alternative = ResizeArray<Feature>(); Or = ResizeArray<Feature>(); Constraints = ResizeArray<string>() }
 
-let Load(grammar: MetaModel, path: string) : Feature =
+let matchGoalFeature (target: string) (context: ResizeArray<Feature>) =
+    match target with
+    | "mandatory" -> context[context.Count-1].Mandatory
+    | "optional" -> context[context.Count-1].Optional
+    | "alternative" -> context[context.Count-1].Alternative
+    | "or" -> context[context.Count-1].Or
+    | _ -> printfn $"Unrecognised goal: '{target}'"; ResizeArray<Feature>()
+
+let Load<'T>(grammar: MetaModel, path: string, make: string -> 'T, matchGoal: string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
     let lines =
         File.ReadAllLines(path)
@@ -117,11 +127,11 @@ let Load(grammar: MetaModel, path: string) : Feature =
         |> Array.map (fun line -> (line |> Seq.takeWhile ((=) '\t') |> Seq.length, line.Trim()))
 
     let mutable outOfFeatures : bool = false
-    let contextStack = Stack<ResizeArray<Feature>>()
+    let contextStack = Stack<ResizeArray<'T>>()
     let mutable previous = 0
     let mutable step = grammar.Start
-    let mutable context = ResizeArray<Feature>(0) // fake context to start
-    let mutable result = ResizeArray<Feature>(lines.Length)
+    let mutable context = ResizeArray<'T>(0) // fake context to start
+    let mutable result = ResizeArray<'T>(lines.Length)
 
     for indent, content in lines do
         let delta = indent - previous
@@ -130,7 +140,7 @@ let Load(grammar: MetaModel, path: string) : Feature =
         if indent = 0 && result.Count <> 0 then
             outOfFeatures <- true
         elif outOfFeatures then
-            result[0].Constraints.Add(content)
+            addExtra(result[0], content)
         else
             if delta > 0 then
                 match context.Count with
@@ -145,17 +155,10 @@ let Load(grammar: MetaModel, path: string) : Feature =
 
             match step with
             | "root" -> ()
-            | "make" ->
-                let feat = makeFeature(unquote(stripMeta(content)))
-                context.Add(feat)
-                if result.Count = 0 then result.Add(feat)
-            | "goal" ->
-                match content with
-                | "mandatory" -> context <- context[context.Count-1].Mandatory
-                | "optional" -> context <- context[context.Count-1].Optional
-                | "alternative" -> context <- context[context.Count-1].Alternative
-                | "or" -> context <- context[context.Count-1].Or
-                | _ -> printfn $"Unrecognised goal: '{content}'"
+            | "make" -> let feat = make(unquote(stripMeta(content)))
+                        context.Add(feat)
+                        if result.Count = 0 then result.Add(feat)
+            | "goal" -> context <- matchGoal content context
             | _ -> ()
     result[0]
 
@@ -182,7 +185,7 @@ let Update(grammar: MetaModel, script: Transformation, name: string, path: strin
             let nextName = $"{name}_%02d{i}"
             if File.Exists(nextModel) then
                 measureTime "Update" i (fun() ->
-                    let features = Load(grammar, nextModel)
+                    let features = Load<Feature>(grammar, nextModel, makeFeature, matchGoalFeature)
                     Initial(nextName, features, script))
                 processModels (i+1)
         processModels 2
