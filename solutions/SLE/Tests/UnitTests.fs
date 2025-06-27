@@ -52,15 +52,15 @@ type UnitTests () =
         let features = Load _grammar (this.solutionPath "automotive02" "automotive02_02") makeFeature matchGoalFeature
         Assert.AreEqual<int>(4336+1705+97+11604, countFeatures(features))
     
-    // [<TestMethod>]
-    // member this.CountFeaturesInAutomotive02_03 () =
-    //     let features = Load _grammar (this.solutionPath "automotive02" "automotive02_03") makeFeature matchGoalFeature
-    //     Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
-    //
-    // [<TestMethod>]
-    // member this.CountFeaturesInAutomotive02_04 () =
-    //     let features = Load _grammar (this.solutionPath "automotive02" "automotive02_04") makeFeature matchGoalFeature
-    //     Assert.AreEqual<int>(4336+1705+97+11604, this.countFeatures(features))
+    [<TestMethod>]
+    member this.CountFeaturesInAutomotive02_03 () =
+        let features = Load _grammar (this.solutionPath "automotive02" "automotive02_03") makeFeature matchGoalFeature
+        Assert.AreEqual<int>(1776+4481+12087+90, countFeatures(features))
+    
+    [<TestMethod>]
+    member this.CountFeaturesInAutomotive02_04 () =
+        let features = Load _grammar (this.solutionPath "automotive02" "automotive02_04") makeFeature matchGoalFeature
+        Assert.AreEqual<int>(1790+4597+12176+53, countFeatures(features))
 
     [<TestMethod>]
     member this.CountFeaturesInFlatContainer () =
