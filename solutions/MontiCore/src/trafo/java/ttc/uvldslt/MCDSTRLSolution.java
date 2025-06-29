@@ -10,9 +10,11 @@ import de.se_rwth.commons.logging.Log;
 import ttc.tr.UVLTFGenTool;
 import ttc.tr.uvltr.UVLTRMill;
 import ttc.uvl.UVLMill;
+import ttc.uvl._ast.ASTFeatureModel;
 import ttc2025.ISolution;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -37,7 +39,7 @@ public class MCDSTRLSolution implements ISolution {
     glex.setGlobalValue("pm", new PatternMatchingAdapter<>(
             t -> UVLTRMill.parser().parse_String(t),
             tool::checkCoCos,
-            tool::createODRule, () -> new ReflectionDSLGrammarAccessor<>(UVLMill.class)
+            tool::createODRule, () -> new dslaccessor.UVLAccessor()
     ));
   }
 
@@ -49,23 +51,33 @@ public class MCDSTRLSolution implements ISolution {
   }
 
 
+  String lastModelPath; // To ensure we only load one
+  ASTFeatureModel astFeatureModel;
   @Override
   public void load(String modelPath, String model) {
-
+    try {
+      // create a graph model (serialized by the benchmark driver) or directly write a dot file, as you prefer
+      this.astFeatureModel = UVLMill.parser().parse(modelPath).get();
+      this.lastModelPath = modelPath;
+    }catch (IOException e){
+      throw new RuntimeException(e);
+    }
   }
+
 
   @Override
   public Objects initial(String modelPath, String model, String targetPath) throws Exception {
+    if (!Objects.equals(lastModelPath, modelPath)) {
+      throw new IllegalStateException("Trying to use a model which was not loaded last");
+    }
     // create a graph model (serialized by the benchmark driver) or directly write a dot file, as you prefer
     // Parse
-    var ast = UVLMill.parser().parse(modelPath);
-
     File targetFile = new File(targetPath).getAbsoluteFile();
     if (!targetFile.getParentFile().exists())
       targetFile.getParentFile().mkdirs();
 
     // Call template
-    engine.generate("templates.01CreateDot.ftl", targetFile.toPath(), ast.get());
+    engine.generate("templates.01CreateDot.ftl", targetFile.toPath(), astFeatureModel);
 
     return null;
   }
