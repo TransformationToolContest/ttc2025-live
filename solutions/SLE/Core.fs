@@ -6,9 +6,9 @@ open System.IO
 
 let getEnvOrDefault name defaultValue = match Environment.GetEnvironmentVariable(name) with | null -> defaultValue | value -> value
 let tool = getEnvOrDefault "Tool" "SLE"
-let modelName = getEnvOrDefault "Model" "linux"
+let modelName = getEnvOrDefault "Model" "automotive02_04"
 let modelPath = getEnvOrDefault "ModelPath" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02", "automotive02_04.uvl"))
-let modelDirectory = getEnvOrDefault "ModelDirectory" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "linux"))
+let modelDirectory = getEnvOrDefault "ModelDirectory" (Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "models", "automotive02"))
 let metaModelPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions", "SLE", "specs", "uvl.indentia")
 let transformationPath = Path.Combine(Directory.GetCurrentDirectory().Split("solutions")[0], "solutions",   "SLE", "specs", "uvl2dot.scripta")
 
@@ -31,13 +31,9 @@ let measureTime phaseName index action =
     printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
     
-let unquote (s: string): string =
-    let t = s.Trim()
-    let l = t.Length
-    let u = if l >= 2 && t[0] = t[l-1] && (t[0] = '"' || t[0] = '\'') then t[1..l-2] else t
-    u.Replace("\\n", "\n")
-    
+let unquote (s: string): string = let t = s.Trim() in let l = t.Length in (if l >= 2 && t[0] = t[l-1] && (t[0] = '"' || t[0] = '\'') then t[1..l-2] else t).Replace("\\n", "\n")
 let stripMeta (s: string) : string = if s.Contains("{") then let l = s.Split('{')[0] in let r = s.Split('}') in l + r[r.Length-1] else s
+let makeSafeForSVG (text: string) : string = ["&", "&amp;"; "<=>", "⇔"; "=>", "⇒"; "<", "&lt;"; ">", "&gt;"; "\"", "&quot;"; "'", "&apos;" ] |> List.fold _.Replace text
 
 let parseTransformation (filename: string) : Transformation =
     let mutable templates = Dictionary<string,string>()
@@ -90,7 +86,7 @@ let ReadIndexedLines path =
     File.ReadLines(path)
     |> Seq.choose (fun line -> let trimmed = line.TrimStart() in if line = "" then None else Some (line.Length - trimmed.Length, trimmed))
 
-let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:string -> ResizeArray<'T> -> ResizeArray<'T>) : 'T =
+let Load<'T> (grammar:MetaModel) (path:string) (make:string->'T) (goal:string->ResizeArray<'T>->ResizeArray<'T>) : 'T =
     eprintfn $"Loading %s{path}"
     let mutable outOfFeatures : bool = false
     let contextStack = Stack<ResizeArray<'T>>()
@@ -120,7 +116,7 @@ let Load<'T> (grammar:MetaModel) (path:string) (make:string -> 'T) (matchGoal:st
             | "make" -> let feat = make(unquote(stripMeta(content)))
                         context.Add(feat)
                         if result.Count = 0 then result.Add(feat)
-            | "goal" -> context <- matchGoal content context
+            | "goal" -> context <- goal content context
             | _ -> ()
     result[0]
 
@@ -132,15 +128,22 @@ let rec emitFeature (script: Transformation) (feature: Feature) (lines: ResizeAr
                 emitFeature script child lines
     ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
+let rec emitConstraint (script: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
+    if script.Iterators.ContainsKey("constraint") then
+        for child in feature.Constraints do
+            lines.Add(script.Iterators["constraint"].Replace("TEXT", makeSafeForSVG(child)))
+
 let Initial (model:string) (features:Feature) (script:Transformation) =
+    let applyIfExists (script:Transformation) (name:string) (output:ResizeArray<string>) =
+        if script.Templates.ContainsKey(name) then output.Add(script.Templates[name])
     let output = ResizeArray<string>()
-    if script.Templates.ContainsKey("BEFORE") then output.Add(script.Templates["BEFORE"])
+    applyIfExists script "BEFORE" output
     emitFeature script features output
     if features.Constraints.Count > 0 then
-        if script.Templates.ContainsKey("BEFORE_CONSTRAINTS") then output.Add(script.Templates["BEFORE_CONSTRAINTS"])
-        if script.Templates.ContainsKey("AFTER_CONSTRAINTS") then output.Add(script.Templates["AFTER_CONSTRAINTS"])
-        
-    if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
+        applyIfExists script "BEFORE_CONSTRAINTS" output
+        emitConstraint script features output
+        applyIfExists script "AFTER_CONSTRAINTS" output
+    applyIfExists script "AFTER" output
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
 let Update (grammar:MetaModel) (script:Transformation) (name:string) (path:string) =

@@ -7,3 +7,7 @@ each optional |-> relation with HEAD=odot TAIL=none
 each alternative |-> relation with HEAD=none TAIL=odot
 each or |-> relation with HEAD=none TAIL=dot
 template AFTER ::= '}'
+template BEFORE_CONSTRAINTS ::= '\nsubgraph cluster_constraints{\nlabel="Constraints" color="white" fontcolor="white"\n    constraints [shape="box" color="#1e1e1e" label=<<table border="0" cellpadding="0" cellspacing="0" cellborder="0">'
+template AFTER_CONSTRAINTS ::= '</table>>]\n}'
+template html_table ::= '<tr><td align="left">TEXT</td></tr>'
+each constraint |-> html_table
