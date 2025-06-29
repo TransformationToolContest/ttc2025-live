@@ -13,6 +13,7 @@ The `docs/UVL_to_Dot_TTC_2025_Live_Contest.pdf` file contains the [case descript
 ## Solution Prerequisites
 
 * NMF: You need to install the [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet)
+* MontiCore: You need to install [Gradle + Java 11](https://monticore.github.io/monticore/docs/GettingStarted/) (other versions might work)
 
 Add your prerequisites here!
 
