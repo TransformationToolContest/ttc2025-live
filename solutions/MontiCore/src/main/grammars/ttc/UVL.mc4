@@ -3,11 +3,11 @@ package ttc;
 /**
  * This is a quickly written grammar for the UVL language
  * while using some aspects of language composition.
+ * Note: This grammar does not contain any symbol-related definitions
+ * and most likely violates multiple best-practices
  */
 grammar UVL extends de.monticore.MCBasics, de.monticore.types.MCBasicTypes,
     de.monticore.literals.MCCommonLiterals, de.monticore.expressions.ExpressionsBasis  {
-
-// TODO: Whacky void grammar
 
     FeatureModel = Namespace? LINEBREAK? Includes? LINEBREAK? Imports? LINEBREAK? Features? LINEBREAK? Constraints?;
 

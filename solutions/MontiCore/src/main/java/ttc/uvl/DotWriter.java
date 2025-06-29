@@ -70,12 +70,14 @@ public class DotWriter {
       sb.append(feature.getRef().asString());
       sb.append(" [fillcolor=\"#ABACEA\" tooltip=\"Cardinality: None\" shape=\"");
       // TODO: Actually model abstract in the ast?
-      if (feature.isPresentAttributes() && feature.getAttributes().getAttributeList().stream().anyMatch(
-              a -> dispatcher.isUVLASTValueAttribute(a) && dispatcher.asUVLASTValueAttribute(a).getKey().equals("abstract")
-      ))
+      if (feature.isPresentAttributes() &&
+              feature.getAttributes().getAttributeList().stream()
+                      .filter(dispatcher::isUVLASTValueAttribute)
+                      .anyMatch(a -> dispatcher.asUVLASTValueAttribute(a).getKey().equals("abstract"))) {
         sb.append("invhouse");
-      else
+      } else {
         sb.append("box");
+      }
       sb.append("\"]");
     }
 

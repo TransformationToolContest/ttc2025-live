@@ -3,7 +3,7 @@
 <#--And the concrete syntax of the feature contains an optional {abstract}, matched as $A-->
 <#--Reference $FName - its abstract syntax reduces the chain overhead (by avoiding the match onto the Id-->
 <#--unfortunately UVL uses linebreaks and indentation  -->
-<#list pm.match("Feature $F [[ Reference $FName opt [[ $A [[ {abstract} ]] ]]  <LB>  ]]", ast) as match>
-  ${match['$F'].get().getRef().asString()}
+<#list pm.match("Reference $FName opt [[ $A [[ {abstract} ]] ]]  <LB>  ", ast) as match>
+  ${match['$FName'].get().asString()}
   [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="${match['$A'].isPresent()?then("invhouse","box")}"]
 </#list>

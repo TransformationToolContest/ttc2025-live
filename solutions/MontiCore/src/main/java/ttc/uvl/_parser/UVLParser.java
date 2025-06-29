@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import de.monticore.parser.whitespace.WhitespacePreprocessingTokenSource;
+import org.antlr.v4.runtime.Lexer;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class UVLParser extends UVLParserTOP {
   public UVLParser() {
   }
 
-  public CommonTokenStream getPreprocessedTokenStream(UVLAntlrLexer lexer) {
+  public CommonTokenStream getPreprocessedTokenStream(Lexer lexer) {
     WhitespacePreprocessingTokenSource tokensWithPreprocessing = new WhitespacePreprocessingTokenSource(
             lexer,
             new CommonToken(UVLAntlrLexer.LINEBREAK, LINEBREAK),
