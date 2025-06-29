@@ -98,26 +98,19 @@ let Load<'T> (grammar:MetaModel) (path:string) (make:string->'T) (goal:string->R
     for indent, content in ReadIndexedLines path do
         let delta = indent - previous
         previous <- indent
-        
-        if indent = 0 && result.Count <> 0 then
-            outOfFeatures <- true
-        elif outOfFeatures then
-            addExtra(result[0], content)
+        if indent = 0 && result.Count <> 0 then outOfFeatures <- true
+        elif outOfFeatures then addExtra(result[0], content)
         else
             if delta > 0 then
                 if context.Count > 0 then contextStack.Push(context)
                 if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
             elif delta < 0 then // && indent <> 0 
-                for _ in 1 .. (min -delta contextStack.Count) do contextStack.Pop() |> ignore
-                if delta % 2 <> 0 then
-                    if grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
-
-            match step with
-            | "make" -> let feat = make(unquote(stripMeta(content)))
-                        context.Add(feat)
-                        if result.Count = 0 then result.Add(feat)
-            | "goal" -> context <- goal content context
-            | _ -> ()
+                [1 .. (min -delta contextStack.Count)] |> List.iter (fun _ -> contextStack.Pop() |> ignore)
+                if delta % 2 <> 0 && grammar.Steps.ContainsKey(step) then step <- grammar.Steps[step]
+            if step = "goal" then context <- goal content context
+            elif step = "make" then let feat = make(unquote(stripMeta(content)))
+                                    context.Add(feat)
+                                    if result.Count = 0 then result.Add(feat)
     result[0]
 
 let rec emitFeature (script: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
@@ -128,10 +121,9 @@ let rec emitFeature (script: Transformation) (feature: Feature) (lines: ResizeAr
                 emitFeature script child lines
     ["mandatory", feature.Mandatory; "optional", feature.Optional; "alternative", feature.Alternative;  "or", feature.Or] |> List.iter handleKind
 
-let rec emitConstraint (script: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
+let emitConstraint (script: Transformation) (feature: Feature) (lines: ResizeArray<string>) =
     if script.Iterators.ContainsKey("constraint") then
-        for child in feature.Constraints do
-            lines.Add(script.Iterators["constraint"].Replace("TEXT", makeSafeForSVG(child)))
+        feature.Constraints |> Seq.iter (fun child -> lines.Add(script.Iterators["constraint"].Replace("TEXT", makeSafeForSVG(child))))
 
 let Initial (model:string) (features:Feature) (script:Transformation) =
     let applyIfExists (script:Transformation) (name:string) (output:ResizeArray<string>) =
