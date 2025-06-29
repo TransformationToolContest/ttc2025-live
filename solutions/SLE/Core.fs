@@ -27,8 +27,8 @@ let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks * 100L}"
-    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Memory;%d{Environment.WorkingSet}"
+    printfn $"%s{tool};%s{modelName};0;%d{index};%s{phaseName};Time;%d{sw.ElapsedTicks * 100L}"
+    printfn $"%s{tool};%s{modelName};0;%d{index};%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
     
 let unquote (s: string): string = let t = s.Trim() in let l = t.Length in (if l >= 2 && t[0] = t[l-1] && (t[0] = '"' || t[0] = '\'') then t[1..l-2] else t).Replace("\\n", "\n")
@@ -63,11 +63,10 @@ let rec parseStepChain (dict: Dictionary<string, string>) (tokens: string[]) (st
                   parseSequence (idx+1) (if acc.IsNone then Some token else acc) (Some token) (Some token)
     parseSequence startIdx None None None
 
-let parseGrammar(filename: string) =
-    let tokens = File.ReadAllText(filename).Split(' ') 
-    let transitions = Dictionary<string, string>()
-    let firstStep, _, _ = parseStepChain transitions tokens 2 // skip tokens[1] which is '::='
-    { MainClass = tokens[0]; Start = firstStep.Value; Steps = transitions }
+let parseGrammar(filename: string) = let tokens = File.ReadAllText(filename).Split(' ') 
+                                     let transitions = Dictionary<string, string>()
+                                     let firstStep, _, _ = parseStepChain transitions tokens 2 // skip tokens[1] which is '::='
+                                     { MainClass = tokens[0]; Start = firstStep.Value; Steps = transitions }
 
 let Initialization() = (parseGrammar metaModelPath, parseTransformation transformationPath)
 
@@ -125,15 +124,16 @@ let emitConstraint (script: Transformation) (feature: Feature) (lines: ResizeArr
     if script.Iterators.ContainsKey("constraint") then
         feature.Constraints |> Seq.iter (fun child -> lines.Add(script.Iterators["constraint"].Replace("TEXT", makeSafeForSVG(child))))
 
-let Initial (model:string) (features:Feature) (script:Transformation) =
+let Initial (model:string) (feature:Feature) (script:Transformation) =
     let applyIfExists (script:Transformation) (name:string) (output:ResizeArray<string>) =
         if script.Templates.ContainsKey(name) then output.Add(script.Templates[name])
     let output = ResizeArray<string>()
     applyIfExists script "BEFORE" output
-    emitFeature script features output
-    if features.Constraints.Count > 0 then
+    if script.Iterators.ContainsKey("feature") then output.Add(script.Iterators["feature"].Replace("NAME", feature.Name))
+    emitFeature script feature output
+    if feature.Constraints.Count > 0 then
         applyIfExists script "BEFORE_CONSTRAINTS" output
-        emitConstraint script features output
+        emitConstraint script feature output
         applyIfExists script "AFTER_CONSTRAINTS" output
     applyIfExists script "AFTER" output
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
