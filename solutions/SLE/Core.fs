@@ -27,7 +27,7 @@ let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{(sw.ElapsedTicks * 100L)}"
+    printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Time;%d{sw.ElapsedTicks * 100L}"
     printfn $"%s{tool};%s{modelName};%d{index};0;%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
     
@@ -51,33 +51,26 @@ let parseTransformation (filename: string) : Transformation =
             | _ -> ())
     {Templates = templates; Iterators = iterators}
 
-let rec parseStepChain (dict: Dictionary<string, string>) (tokens: string list) : string option * string option * string list =
-    let rec parseSequence tokens (acc: string option) (last: string option) (prev: string option) : string option * string option * string list =
-        match tokens with
-        | [] -> acc, last, []
-        | token :: rest ->
-            if token = "=>" then parseSequence rest acc last prev
-            elif token = ")" || token = "]" then acc, last, rest
-            elif token = "(" || token = "[" then
-                let firstInner, lastInner, rem = parseStepChain dict rest
-                match prev, firstInner with
-                | Some nameA, Some nameB -> dict[nameA] <- nameB
-                | _ -> ()
-                if token = "[" then
-                    match lastInner, firstInner with
-                    | Some l, Some f -> dict[l] <- f
-                    | _ -> ()
-                parseSequence rem (if acc.IsNone then firstInner else acc) (if lastInner.IsSome then lastInner else last) None
-            else match prev with
-                 | Some nameA -> dict[nameA] <- token
-                 | _ -> ()
-                 parseSequence rest (if acc.IsNone then Some token else acc) (Some token) (Some token)
-    parseSequence tokens None None None
+let rec parseStepChain (dict: Dictionary<string, string>) (tokens: string[]) (startIdx: int) : string option * string option * int =
+    let rec parseSequence idx (acc: string option) (past: string option) (prev: string option) : string option * string option * int =
+        if idx >= tokens.Length then acc, past, idx
+        else let token = tokens[idx]
+             if token = "=>" then parseSequence (idx+1) acc past prev
+             elif token = ")" || token = "]" then acc, past, idx+1
+             elif token = "(" || token = "[" then
+                 let first, last, remIdx = parseStepChain dict tokens (idx+1)
+                 if prev.IsSome && first.IsSome then dict[prev.Value] <- first.Value
+                 if token = "[" && last.IsSome && first.IsSome then dict[last.Value] <- first.Value
+                 parseSequence remIdx (if acc.IsNone then first else acc) (if last.IsSome then last else past) None
+             else
+                  if prev.IsSome then dict[prev.Value] <- token 
+                  parseSequence (idx+1) (if acc.IsNone then Some token else acc) (Some token) (Some token)
+    parseSequence startIdx None None None
 
 let parseGrammar(filename: string) =
-    let tokens = File.ReadAllText(filename).Split(' ') |> Array.toList |> List.skip 2 // skip [1] which is '::='
+    let tokens = File.ReadAllText(filename).Split(' ') 
     let transitions = Dictionary<string, string>()
-    let firstStep, _, _ = parseStepChain transitions tokens
+    let firstStep, _, _ = parseStepChain transitions tokens 2 // skip tokens[1] which is '::='
     { MainClass = tokens[0]; Start = firstStep.Value; Steps = transitions }
 
 let Initialization() = (parseGrammar metaModelPath, parseTransformation transformationPath)
@@ -143,6 +136,10 @@ let Initial (model:string) (features:Feature) (script:Transformation) =
     let output = ResizeArray<string>()
     if script.Templates.ContainsKey("BEFORE") then output.Add(script.Templates["BEFORE"])
     emitFeature script features output
+    if features.Constraints.Count > 0 then
+        if script.Templates.ContainsKey("BEFORE_CONSTRAINTS") then output.Add(script.Templates["BEFORE_CONSTRAINTS"])
+        if script.Templates.ContainsKey("AFTER_CONSTRAINTS") then output.Add(script.Templates["AFTER_CONSTRAINTS"])
+        
     if script.Templates.ContainsKey("AFTER") then output.Add(script.Templates["AFTER"])
     File.WriteAllLines(Path.Combine(modelDirectory, "results", $"{model}_{tool}.dot"), output)
 
