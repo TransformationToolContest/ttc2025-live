@@ -88,18 +88,20 @@ abstract class DSL2AccessorTask extends JavaExec {
         super.exec();
     }
 }
-// Where can we find the monticore-grammar CDs?
+
 configurations {
-    reports
-    dsl2accessor
+    reports // Where can we find the monticore-grammar CDs?
+    dsl2accessor // Where can we find the tool to run the dsl2accessor task?
 }
 dependencies {
+    // required for dsl2accessor
     reports( "de.monticore:monticore-grammar:${mc_version}:reports") {
         transitive = false // only the reports, not the grammars dependencies
     }
     dsl2accessor "de.monticore.tf:interpreter-runtime:$mc_version"
 }
 
+// A task for creating ASTNode#get(String) like functionality, required for the interpreter
 tasks.register("dsl2accessor", DSL2AccessorTask) {
     classpath = configurations.dsl2accessor
     mainClass = 'de.monticore.accessorgenerator.AccessorGenerator'
@@ -113,8 +115,5 @@ tasks.register("dsl2accessor", DSL2AccessorTask) {
     dependsOn(tasks.named("generateMCGrammars"))
 }
 tasks.compileJava.dependsOn(tasks.dsl2accessor)
-
-
-
 
 sourceSets.main.java.srcDirs(project.layout.buildDirectory.dir("dsl2accessor/javaout"))
