@@ -1,7 +1,9 @@
+/* (c) https://github.com/MontiCore/monticore */
 package ttc.uvl._ast;
 
 public class ASTGroup extends ASTGroupTOP {
 
+  // Add some helper functions to expose the constants to FTL
   public boolean isOr() {
     return this.getKind() == ASTConstantsUVL.OR;
   }

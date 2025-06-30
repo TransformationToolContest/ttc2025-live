@@ -13,7 +13,7 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Add support
+ * Add support for whitespace sensitivity to the parser
  */
 public class UVLParser extends UVLParserTOP {
 

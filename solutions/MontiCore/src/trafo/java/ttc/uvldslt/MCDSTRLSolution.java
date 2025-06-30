@@ -4,7 +4,6 @@ import de.monticore.ast.ASTNode;
 import de.monticore.generating.GeneratorEngine;
 import de.monticore.generating.GeneratorSetup;
 import de.monticore.generating.templateengine.GlobalExtensionManagement;
-import de.monticore.trafo.util.ReflectionDSLGrammarAccessor;
 import de.monticore.trafo.templating.PatternMatchingAdapter;
 import de.se_rwth.commons.logging.Log;
 import ttc.tr.UVLTFGenTool;
@@ -94,5 +93,18 @@ public class MCDSTRLSolution implements ISolution {
         throw new RuntimeException(e);
       }
     };
+  }
+
+  /**
+   * Start the {@link MCDSTRLSolution} on the automotive01 model
+   * @param args ignored
+   */
+  public static void main(String[] args) throws Exception {
+    MCDSTRLSolution solution = new MCDSTRLSolution();
+    solution.initialize();
+
+    solution.load("models\\automotive01\\automotive01.uvl", "automotive");
+
+    solution.initial("models\\automotive01\\automotive01.uvl", "automotive", "testOut/test.dot");
   }
 }

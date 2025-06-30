@@ -13,7 +13,8 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * A solution using the {@link DotWriter} to print the
+ * A solution using the {@link DotWriter} to print the DOT model by traversing
+ * an UVL model
  */
 public class MCSolution implements ISolution {
 

@@ -8,7 +8,7 @@ import ttc.uvl._visitor.UVLTraverser;
 import java.util.Stack;
 
 /**
- * TODO ABC
+ * Re-implementation of the reference solution using MontiCore & Java
  */
 public class DotWriter {
   protected String work(ASTFeatureModel ast) {
@@ -43,6 +43,7 @@ public class DotWriter {
 
         @Override
         public void traverse(ASTGroup node) {
+          // Handle groups via their subfeatures
           for (var subFeature : node.getGroupSpec().getFeatureList()) {
             featureStack.push(subFeature);
             subFeature.accept(getTraverser());
@@ -69,7 +70,7 @@ public class DotWriter {
       }
       sb.append(feature.getRef().asString());
       sb.append(" [fillcolor=\"#ABACEA\" tooltip=\"Cardinality: None\" shape=\"");
-      // TODO: Actually model abstract in the ast?
+      // We could/should? model abstract features on the Feature-AST-node directly
       if (feature.isPresentAttributes() &&
               feature.getAttributes().getAttributeList().stream()
                       .filter(dispatcher::isUVLASTValueAttribute)
@@ -89,6 +90,7 @@ public class DotWriter {
       sb.append("    constraints [shape=\"box\" color=\"#1e1e1e\" label=<<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" cellborder=\"0\"> \n");
       sb.append("    ");
       var traverser = UVLMill.traverser();
+      // print constraints
       traverser.setUVLHandler(new UVLHandler() {
         UVLTraverser realThis;
 
