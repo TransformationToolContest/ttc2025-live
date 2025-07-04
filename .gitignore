@@ -27,3 +27,5 @@ diagrams/
 results/
 __pycache__/
 solutions/.vs/
+*.user
+*.swp

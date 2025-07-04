@@ -1,6 +1,12 @@
 {
-  "Tools": ["NMF"],
+  "Tools": ["NMF", "SLE"],
   "Models": [
+  {
+    "Name": "automotive01",
+	"Versions": [
+	  "automotive01"
+	]
+  },
   {
     "Name": "automotive02",
 	"Versions": [
