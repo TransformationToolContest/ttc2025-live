@@ -1,0 +1,23 @@
+package ttc.tr;
+
+/**
+ * This grammar contains hand-written additions to the transformation grammar.
+ * This highlights the extensibility of the derivation process.
+ */
+grammar UVLTRHC   {
+    // We compose a Java-like language into the DSTL, which unfortunately adds a keyword "abstract"
+    nokeyword "abstract";
+
+    // Allow a placeholder for constants group -> the UVL2ODVisitor adds an attribute if the CG is present -> future work for now
+    //    UVL_Kind_Constant_Pat implements ITFUVL_Kind_Constant  astimplements de.monticore.tf.ast.IAttributePattern  =
+    //      Kind:["or"|"alternative"|"optional"|"mandatory"] | "$_";
+
+
+  // Instead: Add the "$_" alternative at the Group_Pat level
+  Group_Pat  implements ITFGroup , IUVLTFPart  astimplements de.monticore.tf.ast.IPattern
+    =  "Group" schemaVarName:Name  // Match only on the abstract syntax/existence
+    | (kind:ITFUVL_Kind_Constant | "$_") groupSpec:ITFGroupSpec  | cardinality:ITFCardinality groupSpec:ITFGroupSpec  // match only on the concrete syntax (+ schema variables)
+    |(("Group" ? schemaVarName:Name|"Group" schemaVarName:Name ?)"[["( (kind:ITFUVL_Kind_Constant | "$_" ) groupSpec:ITFGroupSpec|cardinality:ITFCardinality groupSpec:ITFGroupSpec)"]]");
+
+
+}

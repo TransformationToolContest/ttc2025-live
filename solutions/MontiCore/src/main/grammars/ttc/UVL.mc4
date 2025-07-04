@@ -1,0 +1,120 @@
+package ttc;
+
+/**
+ * This is a quickly written grammar for the UVL language
+ * while using some aspects of language composition.
+ * Note: This grammar does not contain any symbol-related definitions
+ * and most likely violates multiple best-practices
+ */
+grammar UVL extends de.monticore.MCBasics, de.monticore.types.MCBasicTypes,
+    de.monticore.literals.MCCommonLiterals, de.monticore.expressions.ExpressionsBasis  {
+
+    FeatureModel = Namespace? LINEBREAK? Includes? LINEBREAK? Imports? LINEBREAK? Features? LINEBREAK? Constraints?;
+
+    Namespace = "namespace" Reference ;
+
+    Includes = "include" BLOCK_START (include:Reference LINEBREAK)* BLOCK_END;
+    IncludeLine = majorLevel:["Boolean" | "Arithmetic" | "Type"]
+      ("." (MinorLevel | star:"*"))?;
+    MinorLevel = minor:["group-cardinality" | "feature-cardinality" | "aggregate-function" | "string-constraints"];
+
+    Imports = "imports" LINEBREAK BLOCK_START (ImportStatement LINEBREAK)* BLOCK_END;
+
+    ImportStatement = ns:Reference ("as" alias:Reference)?;
+
+    Features = "features" LINEBREAK BLOCK_START Feature BLOCK_END;
+
+    Feature = MCType? ref:Reference FeatureCardinality? Attributes? LINEBREAK (BLOCK_START Group+ BLOCK_END)?;
+
+    Reference = (Id ||".")+;
+    Id = ID_NOT_STRICT | Name;
+
+    token ID_NOT_STRICT = '"' StringCharacters '"';
+
+    // Override the MC-Basics Name ("Identifier") token with
+    // In addition, we also Added $ for DSL-TR
+    @Override token Name = ('a'..'z' | 'A' ..'Z' | '$') ('a'..'z' | 'A' ..'Z' |  '_' | '0'..'9'  | '#' | '§' | '%' | '?' | '\\' | '\'' | 'ä' | 'ü' | 'ö' | 'ß' | ';')*;
+
+    // UVL strings use single-quotations marks
+    @Override token String = '\'' StringCharacters '\''  : {setText(getText().substring(1, getText().length() - 1));};
+
+    // and remove the idea of chars (by means of an impossible token)
+    @Override token Char = "_______DO_NOT_USE_REMOVED";
+
+    FeatureCardinality = "cardinality" Cardinality;
+
+    Attributes = "{" (Attribute || ",")* "}";
+
+    interface Attribute;
+    ValueAttribute implements Attribute = key:Name value:Value?;
+    SingleConstraintAttribute implements Attribute = "constraint" Constraint;
+    ListConstraintAttribute implements Attribute = "constraints" "["  (LINEBREAK BLOCK_START Constraint LINEBREAK BLOCK_END)*  "]";
+
+    interface Value;
+    LiteralValue implements Value = Literal;
+    AttributesValue implements Value = Attributes;
+    VectorValue implements Value = Vector;
+
+    Vector = "[" (Value || ",")* "]";
+
+    // Alternative to
+   /* Group = or:"or" GroupSpec
+          | alt:"alternative" GroupSpec
+          | opt:"optional" GroupSpec
+          | man:"mandatory" GroupSpec
+          | Cardinality GroupSpec
+          ;
+          */
+    // use a constant group to allow abstract syntax matching
+    Group = kind:["or"|"alternative"|"optional"|"mandatory"] GroupSpec | Cardinality GroupSpec;
+
+
+    GroupSpec = LINEBREAK BLOCK_START Feature+ BLOCK_END;
+
+    Constraints = "constraints" LINEBREAK BLOCK_START (Constraint LINEBREAK)* BLOCK_END;
+    interface Constraint;
+
+    EquationConstraint implements Constraint = Equation;
+    LiteralConstraint implements Constraint = Reference;
+    ParenthesisConstraint implements Constraint = "(" Constraint ")";
+    NotConstraint implements Constraint = "!" Constraint;
+    AndConstraint implements Constraint = l:Constraint "&" r:Constraint;
+    OrConstraint implements Constraint = l:Constraint "|" r:Constraint;
+    ImplicationConstraint implements Constraint = l:Constraint "=>" r:Constraint;
+    EquivalenceConstraint implements Constraint = l:Constraint "<=>" r:Constraint;
+
+    Cardinality = "(" from:Digits (".." (to:Digits | toStar:"*"))? ")";
+
+    interface Equation;
+
+    EqualEquation implements Equation = l:Expression "=" r:Expression;
+    LowerEquation implements Equation = l:Expression "<" r:Expression;
+    GreaterEquation implements Equation = l:Expression ">" r:Expression;
+    LowerEqualsEquation implements Equation = l:Expression "<=" r:Expression;
+    GreaterEqualsEquation implements Equation = l:Expression ">=" r:Expression;
+    NotEqualsEquation implements Equation = l:Expression "!=" r:Expression;
+
+    SumAggregateFunction implements Expression <330> = "sum" "(" (r1:Reference ",")? r2:Reference ")";
+    AvgAggregateFunction implements Expression <330> = "avg" "(" (r1:Reference ",")? r2:Reference ")";
+    StringAggregateFunctionExpression implements Expression<330>  = "len" "(" r2:Reference ")";
+    FloorAggregateFunctionExpression implements Expression<330>  = "floor" "(" r2:Reference ")";
+    CeilAggregateFunctionExpression implements Expression<330>  = "ceil" "(" r2:Reference ")";
+
+
+    /**
+     * Token for the start of a block.
+     * @token BLOCK_START The start of a code block.
+     */
+    token BLOCK_START = "<BS>";
+
+    /**
+     * Token for the end of a block.
+     * @token BLOCK_END The end of a code block.
+     */
+    token BLOCK_END = "<BE>";
+
+    token LINEBREAK = "<LB>";
+
+//    nokeyword "abstract";
+
+}

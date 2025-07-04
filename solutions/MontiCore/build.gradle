@@ -1,0 +1,119 @@
+plugins {
+    id 'java'
+    id "de.monticore.generator-withtr" version "$mc_version"
+    id "io.github.themrmilchmann.ecj" version "0.2.0" // incremental eclipse compiler
+}
+
+group = 'de.monticore.montitrans'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    if (("true").equals(getProperty('useLocalRepo'))) {
+        mavenLocal()
+    }
+    mavenCentral()
+    maven {
+        url nexusUrl
+    }
+}
+
+dependencies {
+    grammar "de.monticore:monticore-grammar:$mc_version"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    trafoGrammar "de.monticore:monticore-grammar-trafo:$mc_version"
+    // Also depend on the transformation interpreter (which ships some aspects for whitespace parsing as well)
+    api "de.monticore.tf:interpreter-runtime:$mc_version"
+    trafoImplementation "org.freemarker:freemarker:2.3.28"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// create a single Jar with all dependencies
+// source: https://www.mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'LiveContestDriver': 'MontiCore solution',
+                'Main-Class': 'ttc2025.BenchmarkDriver'
+    }
+    // remove signatures as we are not signing this jar to avoid security warnings
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy DuplicatesStrategy.INCLUDE
+    with jar
+}
+
+// create a single Jar with all dependencies
+// source: https://www.mkyong.com/gradle/gradle-create-a-jar-file-with-dependencies/
+task fatTrafoJar(type: Jar) {
+    manifest {
+        attributes 'LiveContestDriver': 'MontiCore-DSLTR solution',
+                'Main-Class': 'ttc.uvldslt.BenchmarkDriver'
+    }
+    // remove signatures as we are not signing this jar to avoid security warnings
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    from sourceSets.trafo.output
+    from { () -> configurations.trafoRuntimeClasspath
+            .filter {!it.getName().contains("MontiTrans-${version}.jar")}
+            .collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy DuplicatesStrategy.INCLUDE
+    with jar
+    archiveAppendix = "trafo"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.deprecation false
+    options.warnings = false
+}
+
+
+//
+abstract class DSL2AccessorTask extends JavaExec {
+    @InputFile  abstract RegularFileProperty getDSLCD();
+    @InputFiles  abstract ConfigurableFileCollection getAdditionalCDs();
+
+    @OutputDirectory abstract DirectoryProperty getJavaOut()
+
+    @TaskAction
+    @Override
+    public void exec() {
+        args(getDSLCD().get().getAsFile().getAbsolutePath());
+        args(getJavaOut().get().getAsFile().getAbsolutePath());
+        getAdditionalCDs().getFiles().forEach(f -> args(f.getAbsolutePath()))
+        super.exec();
+    }
+}
+
+configurations {
+    reports // Where can we find the monticore-grammar CDs?
+    dsl2accessor // Where can we find the tool to run the dsl2accessor task?
+}
+dependencies {
+    // required for dsl2accessor
+    reports( "de.monticore:monticore-grammar:${mc_version}:reports") {
+        transitive = false // only the reports, not the grammars dependencies
+    }
+    dsl2accessor "de.monticore.tf:interpreter-runtime:$mc_version"
+}
+
+// A task for creating ASTNode#get(String) like functionality, required for the interpreter
+tasks.register("dsl2accessor", DSL2AccessorTask) {
+    classpath = configurations.dsl2accessor
+    mainClass = 'de.monticore.accessorgenerator.AccessorGenerator'
+    getDSLCD().set(project.provider {
+        return tasks.generateMCGrammars.getReportDir().file("src/main/grammars/ttc/UVL__mc4/ttc.uvl/UVL.cd").get()
+    })
+    additionalCDs.setFrom(configurations.reports)
+
+    javaOut = project.layout.buildDirectory.dir("dsl2accessor/javaout")
+
+    dependsOn(tasks.named("generateMCGrammars"))
+}
+tasks.compileJava.dependsOn(tasks.dsl2accessor)
+
+sourceSets.main.java.srcDirs(project.layout.buildDirectory.dir("dsl2accessor/javaout"))

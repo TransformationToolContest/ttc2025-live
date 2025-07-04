@@ -1,0 +1,17 @@
+
+pluginManagement {
+  repositories {
+      mavenCentral()
+      if(("true").equals(getProperty('useLocalRepo'))){
+        mavenLocal()
+      }
+      maven {
+        url nexusUrl
+      }
+
+      gradlePluginPortal()    }
+}
+plugins {
+  id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
+}
+rootProject.name = 'MontiCore'
