@@ -1,9 +1,50 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMFSolution", "NMFSolution.csproj", "{7404EAF1-E28C-4CBF-A199-276D6C22AF07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "models", "models", "{DFDF6878-52C3-4EA6-9080-9B973C0DE06E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "automotive02", "automotive02", "{9E504961-156C-40F3-BC7C-898DF22CBD98}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\models\automotive02\automotive02_01.uvl = ..\..\models\automotive02\automotive02_01.uvl
+		..\..\models\automotive02\automotive02_02.diff = ..\..\models\automotive02\automotive02_02.diff
+		..\..\models\automotive02\automotive02_02.uvl = ..\..\models\automotive02\automotive02_02.uvl
+		..\..\models\automotive02\automotive02_03.diff = ..\..\models\automotive02\automotive02_03.diff
+		..\..\models\automotive02\automotive02_03.uvl = ..\..\models\automotive02\automotive02_03.uvl
+		..\..\models\automotive02\automotive02_04.diff = ..\..\models\automotive02\automotive02_04.diff
+		..\..\models\automotive02\automotive02_04.uvl = ..\..\models\automotive02\automotive02_04.uvl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{02CE077F-431A-4C96-8472-4DA09E549540}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\config\config.json = ..\..\config\config.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "busybox", "busybox", "{1BD1EBD5-8A0F-47C4-92C5-8E9EB4380FC5}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\models\busybox\busybox_01.uvl = ..\..\models\busybox\busybox_01.uvl
+		..\..\models\busybox\busybox_02.diff = ..\..\models\busybox\busybox_02.diff
+		..\..\models\busybox\busybox_02.uvl = ..\..\models\busybox\busybox_02.uvl
+		..\..\models\busybox\busybox_03.diff = ..\..\models\busybox\busybox_03.diff
+		..\..\models\busybox\busybox_03.uvl = ..\..\models\busybox\busybox_03.uvl
+		..\..\models\busybox\busybox_04.diff = ..\..\models\busybox\busybox_04.diff
+		..\..\models\busybox\busybox_04.uvl = ..\..\models\busybox\busybox_04.uvl
+		..\..\models\busybox\busybox_05.diff = ..\..\models\busybox\busybox_05.diff
+		..\..\models\busybox\busybox_05.uvl = ..\..\models\busybox\busybox_05.uvl
+		..\..\models\busybox\busybox_06.diff = ..\..\models\busybox\busybox_06.diff
+		..\..\models\busybox\busybox_06.uvl = ..\..\models\busybox\busybox_06.uvl
+		..\..\models\busybox\busybox_07.diff = ..\..\models\busybox\busybox_07.diff
+		..\..\models\busybox\busybox_07.uvl = ..\..\models\busybox\busybox_07.uvl
+		..\..\models\busybox\busybox_08.diff = ..\..\models\busybox\busybox_08.diff
+		..\..\models\busybox\busybox_08.uvl = ..\..\models\busybox\busybox_08.uvl
+		..\..\models\busybox\busybox_09.diff = ..\..\models\busybox\busybox_09.diff
+		..\..\models\busybox\busybox_09.uvl = ..\..\models\busybox\busybox_09.uvl
+		..\..\models\busybox\busybox_10.diff = ..\..\models\busybox\busybox_10.diff
+		..\..\models\busybox\busybox_10.uvl = ..\..\models\busybox\busybox_10.uvl
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +59,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9E504961-156C-40F3-BC7C-898DF22CBD98} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
+		{1BD1EBD5-8A0F-47C4-92C5-8E9EB4380FC5} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0226491F-8EDC-4EE8-B110-84CCD49CDB86}

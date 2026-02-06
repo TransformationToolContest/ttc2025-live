@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	<OutDir>bin</OutDir>
   </PropertyGroup>
@@ -17,7 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="NMF-AnyText" Version="2.0.435" />
+    <PackageReference Include="NMF-AnyText" Version="2.3.4" />
+    <PackageReference Include="NMF-Repository" Version="2.0.463" />
   </ItemGroup>
 
 </Project>

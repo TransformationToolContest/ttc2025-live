@@ -4,7 +4,9 @@ using NMF.AnyText.Rules;
 using NMF.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,12 +43,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
 
         protected override bool AcceptOneOrMoreAdd(OneOrMoreRule rule, RuleApplication toAdd, List<RuleApplication> added)
         {
-            return added.Count == 0 || toAdd.Length == default || toAdd.CurrentPosition.Col == added[added.Count - 1].CurrentPosition.Col;
+            return added.Count == 0 || toAdd.CurrentPosition.Col == added[added.Count - 1].CurrentPosition.Col;
         }
 
         protected override bool AcceptZeroOrMoreAdd(ZeroOrMoreRule star, RuleApplication toAdd, List<RuleApplication> added)
         {
-            return added.Count == 0 || toAdd.Length == default || toAdd.CurrentPosition.Col == added[added.Count - 1].CurrentPosition.Col;
+            return added.Count == 0 || toAdd.CurrentPosition.Col == added[added.Count - 1].CurrentPosition.Col;
         }
 
         protected override bool AcceptSequenceAdd(SequenceRule sequence, ref RuleApplication toAdd, List<RuleApplication> added)

@@ -55,4 +55,4 @@ NotConstraint:
     '!' <nsp> inner=Constraint;
 
 terminal FeatureName:
-    /[\w_\/+]+|"[\w_\/+]+"/;
+    /[\w_\/\+]+|"[\w_\/\+]+"/;

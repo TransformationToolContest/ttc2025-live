@@ -123,7 +123,7 @@ namespace NMFSolution.Transformation
             {
                 WriteFeatureGroup((dynamic)group, feature, writer);
             }
-            writer.WriteLine($"{feature.Name} [fillcolor=\"#ABACEA\" tooltip=\"Cardinality: None\" shape=\"{(feature.IsAbstract.GetValueOrDefault() ? "invhouse" : "box")}\"]");
+            writer.WriteLine($"{feature.Name} [fillcolor=\"#ABACEA\" tooltip=\"Cardinality: None\" shape=\"{(feature.IsAbstract ? "invhouse" : "box")}\"]");
         }
 
         private static void WriteFeatureGroup(IAlternativeFeatureGroup featureGroup, IFeature parent, TextWriter writer)
