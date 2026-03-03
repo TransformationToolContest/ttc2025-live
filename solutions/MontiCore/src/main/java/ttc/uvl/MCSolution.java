@@ -62,9 +62,8 @@ public class MCSolution implements ISolution {
 
   @Override
   public Supplier<Object> computeChanges(String modelPath, String model, int iteration, String targetPath) {
-    // lines added here are not considered for time measurements, for instance to load changes
-    load(modelPath, model);
     return () -> {
+      load(modelPath, model);
       // lines here are considered for time measurement
       try {
         return initial(modelPath, model, targetPath);

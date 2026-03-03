@@ -28,8 +28,8 @@ namespace TTC2025.UvlToDot.UniversalVariability
     using NMF.Utilities;
     using System.Collections.Specialized;
     using NMF.Models.Repository;
-
-
+    
+    
     /// <summary>
     /// The default implementation of the FeatureModel class
     /// </summary>
@@ -38,25 +38,25 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//FeatureModel")]
     public partial class FeatureModel : ModelElement, IFeatureModel, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _constraintsReference = new Lazy<ITypedElement>(RetrieveConstraintsReference);
-
+        
         /// <summary>
         /// The backing field for the Constraints property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IConstraint> _constraints;
-
+        
         private static Lazy<ITypedElement> _featuresReference = new Lazy<ITypedElement>(RetrieveFeaturesReference);
-
+        
         /// <summary>
         /// The backing field for the Features property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeature> _features;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -69,7 +69,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._features.CollectionChanging += this.FeaturesCollectionChanging;
             this._features.CollectionChanged += this.FeaturesCollectionChanged;
         }
-
+        
         /// <summary>
         /// The constraints property
         /// </summary>
@@ -86,7 +86,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._constraints;
             }
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -103,7 +103,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._features;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -114,7 +114,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new FeatureModelChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -125,7 +125,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new FeatureModelReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -140,12 +140,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveConstraintsReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.FeatureModel.ClassInstance)).Resolve("constraints")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Constraints property to the parent model element
         /// </summary>
@@ -155,7 +155,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Constraints", e, _constraintsReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Constraints property to the parent model element
         /// </summary>
@@ -165,12 +165,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Constraints", e, _constraintsReference);
         }
-
+        
         private static ITypedElement RetrieveFeaturesReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.FeatureModel.ClassInstance)).Resolve("features")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Features property to the parent model element
         /// </summary>
@@ -180,7 +180,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Features property to the parent model element
         /// </summary>
@@ -190,7 +190,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -208,7 +208,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -226,7 +226,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -238,15 +238,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the FeatureModel class
         /// </summary>
         public class FeatureModelChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private FeatureModel _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -254,7 +254,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -268,7 +268,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -277,7 +277,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -286,7 +286,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -304,7 +304,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -313,7 +313,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.Clear();
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -331,7 +331,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -343,7 +343,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; constraintsEnumerator.MoveNext();
+                    ; constraintsEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = constraintsEnumerator.Current;
@@ -358,7 +358,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -370,7 +370,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -379,20 +379,20 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IConstraint constraintItem = item.As<IConstraint>();
-                if (((constraintItem != null)
+                if (((constraintItem != null) 
                             && this._parent.Constraints.Remove(constraintItem)))
                 {
                     return true;
                 }
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -402,15 +402,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Constraints).Concat(this._parent.Features).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the FeatureModel class
         /// </summary>
         public class FeatureModelReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private FeatureModel _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -418,7 +418,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -432,7 +432,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -441,7 +441,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -450,7 +450,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -468,7 +468,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -477,7 +477,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Constraints.Clear();
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -495,7 +495,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -507,7 +507,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; constraintsEnumerator.MoveNext();
+                    ; constraintsEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = constraintsEnumerator.Current;
@@ -522,7 +522,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -534,7 +534,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -543,20 +543,20 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IConstraint constraintItem = item.As<IConstraint>();
-                if (((constraintItem != null)
+                if (((constraintItem != null) 
                             && this._parent.Constraints.Remove(constraintItem)))
                 {
                     return true;
                 }
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -567,7 +567,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the Feature class
     /// </summary>
@@ -578,33 +578,33 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [DebuggerDisplayAttribute("Feature {Name}")]
     public partial class Feature : ModelElement, IFeature, IModelElement
     {
-
+        
         /// <summary>
         /// The backing field for the IsAbstract property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private bool _isAbstract;
-
+        
         private static Lazy<ITypedElement> _isAbstractAttribute = new Lazy<ITypedElement>(RetrieveIsAbstractAttribute);
-
+        
         /// <summary>
         /// The backing field for the Name property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private string _name;
-
+        
         private static Lazy<ITypedElement> _nameAttribute = new Lazy<ITypedElement>(RetrieveNameAttribute);
-
+        
         private static Lazy<ITypedElement> _groupsReference = new Lazy<ITypedElement>(RetrieveGroupsReference);
-
+        
         /// <summary>
         /// The backing field for the Groups property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeatureGroup> _groups;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -614,7 +614,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._groups.CollectionChanging += this.GroupsCollectionChanging;
             this._groups.CollectionChanged += this.GroupsCollectionChanged;
         }
-
+        
         /// <summary>
         /// The isAbstract property
         /// </summary>
@@ -641,7 +641,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The name property
         /// </summary>
@@ -669,7 +669,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The groups property
         /// </summary>
@@ -686,7 +686,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._groups;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -697,7 +697,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new FeatureChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -708,7 +708,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new FeatureReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -723,7 +723,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         /// <summary>
         /// Gets a value indicating whether the current model element can be identified by an attribute value
         /// </summary>
@@ -734,22 +734,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return true;
             }
         }
-
+        
         private static ITypedElement RetrieveIsAbstractAttribute()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.Feature.ClassInstance)).Resolve("isAbstract")));
         }
-
+        
         private static ITypedElement RetrieveNameAttribute()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.Feature.ClassInstance)).Resolve("name")));
         }
-
+        
         private static ITypedElement RetrieveGroupsReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.Feature.ClassInstance)).Resolve("groups")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Groups property to the parent model element
         /// </summary>
@@ -759,7 +759,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Groups", e, _groupsReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Groups property to the parent model element
         /// </summary>
@@ -769,7 +769,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Groups", e, _groupsReference);
         }
-
+        
         /// <summary>
         /// Resolves the given attribute name
         /// </summary>
@@ -788,7 +788,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetAttributeValue(attribute, index);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -802,7 +802,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -822,7 +822,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given attribute
         /// </summary>
@@ -840,7 +840,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForAttribute(attribute);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -854,7 +854,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -866,7 +866,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// Gets the identifier string for this model element
         /// </summary>
@@ -879,15 +879,49 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return this.Name.ToString();
         }
-
+        
+        /// <summary>
+        /// Creates the uri with the given fragment starting from the current model element
+        /// </summary>
+        protected override Uri CreateUriWithFragment(string fragment, bool absolute, IModelElement baseElement)
+        {
+            return this.CreateUriFromGlobalIdentifier(fragment, absolute);
+        }
+        
+        /// <summary>
+        /// Propagates through the composition hierarchy that an entire subtree has been added to a new model
+        /// </summary>
+        protected override void PropagateNewModel(Model newModel, Model oldModel, IModelElement subtreeRoot)
+        {
+            string id = this.ToIdentifierString();
+            if ((oldModel != null))
+            {
+                oldModel.UnregisterId(id, this);
+            }
+            if ((newModel != null))
+            {
+                newModel.RegisterId(id, this);
+            }
+            base.PropagateNewModel(newModel, oldModel, subtreeRoot);
+        }
+        
+        /// <summary>
+        /// Notifies clients that the identifier changed
+        /// </summary>
+        protected override void OnKeyChanged(ValueChangedEventArgs e)
+        {
+            UpdateRegisteredIdentifier(e);
+            base.OnKeyChanged(e);
+        }
+        
         /// <summary>
         /// The collection class to to represent the children of the Feature class
         /// </summary>
         public class FeatureChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private Feature _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -895,7 +929,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -908,7 +942,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -916,7 +950,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -924,7 +958,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -937,7 +971,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Groups.Add(groupsCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -945,7 +979,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -959,7 +993,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -971,7 +1005,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; groupsEnumerator.MoveNext();
+                    ; groupsEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = groupsEnumerator.Current;
@@ -983,7 +1017,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     groupsEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -992,14 +1026,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeatureGroup featureGroupItem = item.As<IFeatureGroup>();
-                if (((featureGroupItem != null)
+                if (((featureGroupItem != null) 
                             && this._parent.Groups.Remove(featureGroupItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -1009,15 +1043,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Groups).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the Feature class
         /// </summary>
         public class FeatureReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private Feature _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -1025,7 +1059,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -1038,7 +1072,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -1046,7 +1080,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -1054,7 +1088,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -1067,7 +1101,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Groups.Add(groupsCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -1075,7 +1109,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Groups.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -1089,7 +1123,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -1101,7 +1135,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; groupsEnumerator.MoveNext();
+                    ; groupsEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = groupsEnumerator.Current;
@@ -1113,7 +1147,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     groupsEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -1122,14 +1156,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeatureGroup featureGroupItem = item.As<IFeatureGroup>();
-                if (((featureGroupItem != null)
+                if (((featureGroupItem != null) 
                             && this._parent.Groups.Remove(featureGroupItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -1139,22 +1173,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Groups).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the isAbstract property
         /// </summary>
         private sealed class IsAbstractProxy : ModelPropertyChange<IFeature, bool>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public IsAbstractProxy(IFeature modelElement) :
+            public IsAbstractProxy(IFeature modelElement) : 
                     base(modelElement, "isAbstract")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -1170,22 +1204,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the name property
         /// </summary>
         private sealed class NameProxy : ModelPropertyChange<IFeature, string>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public NameProxy(IFeature modelElement) :
+            public NameProxy(IFeature modelElement) : 
                     base(modelElement, "name")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -1202,7 +1236,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the FeatureGroup class
     /// </summary>
@@ -1211,9 +1245,9 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//FeatureGroup")]
     public abstract partial class FeatureGroup : ModelElement, IFeatureGroup, IModelElement
     {
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -1228,7 +1262,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -1241,7 +1275,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             return _classInstance;
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the OrFeatureGroup class
     /// </summary>
@@ -1250,17 +1284,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OrFeatureGroup")]
     public partial class OrFeatureGroup : FeatureGroup, IOrFeatureGroup, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _featuresReference = new Lazy<ITypedElement>(RetrieveFeaturesReference);
-
+        
         /// <summary>
         /// The backing field for the Features property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeature> _features;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -1270,7 +1304,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._features.CollectionChanging += this.FeaturesCollectionChanging;
             this._features.CollectionChanged += this.FeaturesCollectionChanged;
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -1287,7 +1321,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._features;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -1298,7 +1332,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new OrFeatureGroupChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -1309,7 +1343,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new OrFeatureGroupReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -1324,12 +1358,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveFeaturesReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.OrFeatureGroup.ClassInstance)).Resolve("features")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Features property to the parent model element
         /// </summary>
@@ -1339,7 +1373,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Features property to the parent model element
         /// </summary>
@@ -1349,7 +1383,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -1363,7 +1397,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -1377,7 +1411,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -1389,15 +1423,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OrFeatureGroup class
         /// </summary>
         public class OrFeatureGroupChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OrFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -1405,7 +1439,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -1418,7 +1452,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -1426,7 +1460,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -1434,7 +1468,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -1447,7 +1481,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -1455,7 +1489,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -1469,7 +1503,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -1481,7 +1515,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -1493,7 +1527,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -1502,14 +1536,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -1519,15 +1553,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Features).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OrFeatureGroup class
         /// </summary>
         public class OrFeatureGroupReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OrFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -1535,7 +1569,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -1548,7 +1582,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -1556,7 +1590,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -1564,7 +1598,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -1577,7 +1611,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -1585,7 +1619,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -1599,7 +1633,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -1611,7 +1645,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -1623,7 +1657,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -1632,14 +1666,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -1650,7 +1684,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the MandatoryFeatureGroup class
     /// </summary>
@@ -1659,17 +1693,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//MandatoryFeatureGroup")]
     public partial class MandatoryFeatureGroup : FeatureGroup, IMandatoryFeatureGroup, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _featuresReference = new Lazy<ITypedElement>(RetrieveFeaturesReference);
-
+        
         /// <summary>
         /// The backing field for the Features property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeature> _features;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -1679,7 +1713,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._features.CollectionChanging += this.FeaturesCollectionChanging;
             this._features.CollectionChanged += this.FeaturesCollectionChanged;
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -1696,7 +1730,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._features;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -1707,7 +1741,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new MandatoryFeatureGroupChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -1718,7 +1752,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new MandatoryFeatureGroupReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -1733,12 +1767,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveFeaturesReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.MandatoryFeatureGroup.ClassInstance)).Resolve("features")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Features property to the parent model element
         /// </summary>
@@ -1748,7 +1782,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Features property to the parent model element
         /// </summary>
@@ -1758,7 +1792,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -1772,7 +1806,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -1786,7 +1820,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -1798,15 +1832,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the MandatoryFeatureGroup class
         /// </summary>
         public class MandatoryFeatureGroupChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private MandatoryFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -1814,7 +1848,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -1827,7 +1861,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -1835,7 +1869,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -1843,7 +1877,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -1856,7 +1890,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -1864,7 +1898,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -1878,7 +1912,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -1890,7 +1924,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -1902,7 +1936,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -1911,14 +1945,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -1928,15 +1962,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Features).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the MandatoryFeatureGroup class
         /// </summary>
         public class MandatoryFeatureGroupReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private MandatoryFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -1944,7 +1978,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -1957,7 +1991,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -1965,7 +1999,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -1973,7 +2007,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -1986,7 +2020,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -1994,7 +2028,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -2008,7 +2042,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -2020,7 +2054,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -2032,7 +2066,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -2041,14 +2075,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -2059,7 +2093,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the OptionalFeatureGroup class
     /// </summary>
@@ -2068,17 +2102,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OptionalFeatureGroup")]
     public partial class OptionalFeatureGroup : FeatureGroup, IOptionalFeatureGroup, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _featuresReference = new Lazy<ITypedElement>(RetrieveFeaturesReference);
-
+        
         /// <summary>
         /// The backing field for the Features property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeature> _features;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -2088,7 +2122,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._features.CollectionChanging += this.FeaturesCollectionChanging;
             this._features.CollectionChanged += this.FeaturesCollectionChanged;
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -2105,7 +2139,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._features;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -2116,7 +2150,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new OptionalFeatureGroupChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -2127,7 +2161,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new OptionalFeatureGroupReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -2142,12 +2176,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveFeaturesReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.OptionalFeatureGroup.ClassInstance)).Resolve("features")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Features property to the parent model element
         /// </summary>
@@ -2157,7 +2191,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Features property to the parent model element
         /// </summary>
@@ -2167,7 +2201,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -2181,7 +2215,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -2195,7 +2229,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -2207,15 +2241,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OptionalFeatureGroup class
         /// </summary>
         public class OptionalFeatureGroupChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OptionalFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -2223,7 +2257,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -2236,7 +2270,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -2244,7 +2278,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -2252,7 +2286,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -2265,7 +2299,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -2273,7 +2307,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -2287,7 +2321,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -2299,7 +2333,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -2311,7 +2345,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -2320,14 +2354,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -2337,15 +2371,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Features).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OptionalFeatureGroup class
         /// </summary>
         public class OptionalFeatureGroupReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OptionalFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -2353,7 +2387,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -2366,7 +2400,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -2374,7 +2408,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -2382,7 +2416,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -2395,7 +2429,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -2403,7 +2437,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -2417,7 +2451,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -2429,7 +2463,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -2441,7 +2475,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -2450,14 +2484,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -2468,7 +2502,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the AlternativeFeatureGroup class
     /// </summary>
@@ -2477,17 +2511,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//AlternativeFeatureGroup")]
     public partial class AlternativeFeatureGroup : FeatureGroup, IAlternativeFeatureGroup, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _featuresReference = new Lazy<ITypedElement>(RetrieveFeaturesReference);
-
+        
         /// <summary>
         /// The backing field for the Features property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private ObservableCompositionList<IFeature> _features;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Creates a new instance
         /// </summary>
@@ -2497,7 +2531,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             this._features.CollectionChanging += this.FeaturesCollectionChanging;
             this._features.CollectionChanged += this.FeaturesCollectionChanged;
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -2514,7 +2548,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return this._features;
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -2525,7 +2559,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new AlternativeFeatureGroupChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -2536,7 +2570,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new AlternativeFeatureGroupReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -2551,12 +2585,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveFeaturesReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.AlternativeFeatureGroup.ClassInstance)).Resolve("features")));
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanging notifications for the Features property to the parent model element
         /// </summary>
@@ -2566,7 +2600,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Forwards CollectionChanged notifications for the Features property to the parent model element
         /// </summary>
@@ -2576,7 +2610,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             this.OnCollectionChanged("Features", e, _featuresReference);
         }
-
+        
         /// <summary>
         /// Gets the Model element collection for the given feature
         /// </summary>
@@ -2590,7 +2624,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCollectionForFeature(feature);
         }
-
+        
         /// <summary>
         /// Gets the property name for the given container
         /// </summary>
@@ -2604,7 +2638,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetCompositionName(container);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -2616,15 +2650,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the AlternativeFeatureGroup class
         /// </summary>
         public class AlternativeFeatureGroupChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private AlternativeFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -2632,7 +2666,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -2645,7 +2679,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -2653,7 +2687,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -2661,7 +2695,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -2674,7 +2708,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -2682,7 +2716,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -2696,7 +2730,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -2708,7 +2742,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -2720,7 +2754,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -2729,14 +2763,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -2746,15 +2780,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Features).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the AlternativeFeatureGroup class
         /// </summary>
         public class AlternativeFeatureGroupReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private AlternativeFeatureGroup _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -2762,7 +2796,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -2775,7 +2809,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -2783,7 +2817,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged += this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -2791,7 +2825,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.AsNotifiable().CollectionChanged -= this.PropagateCollectionChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -2804,7 +2838,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     this._parent.Features.Add(featuresCasted);
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -2812,7 +2846,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Features.Clear();
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -2826,7 +2860,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -2838,7 +2872,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 try
                 {
                     for (
-                    ; featuresEnumerator.MoveNext();
+                    ; featuresEnumerator.MoveNext(); 
                     )
                     {
                         array[arrayIndex] = featuresEnumerator.Current;
@@ -2850,7 +2884,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     featuresEnumerator.Dispose();
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -2859,14 +2893,14 @@ namespace TTC2025.UvlToDot.UniversalVariability
             public override bool Remove(IModelElement item)
             {
                 IFeature featureItem = item.As<IFeature>();
-                if (((featureItem != null)
+                if (((featureItem != null) 
                             && this._parent.Features.Remove(featureItem)))
                 {
                     return true;
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -2877,7 +2911,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the Constraint class
     /// </summary>
@@ -2886,9 +2920,9 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//Constraint")]
     public partial class Constraint : ModelElement, IConstraint, IModelElement
     {
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -2903,7 +2937,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -2916,7 +2950,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             return _classInstance;
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the ImpliesConstraint class
     /// </summary>
@@ -2925,25 +2959,25 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//ImpliesConstraint")]
     public partial class ImpliesConstraint : Constraint, IImpliesConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _consequenceReference = new Lazy<ITypedElement>(RetrieveConsequenceReference);
-
+        
         /// <summary>
         /// The backing field for the Consequence property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _consequence;
-
+        
         private static Lazy<ITypedElement> _givenReference = new Lazy<ITypedElement>(RetrieveGivenReference);
-
+        
         /// <summary>
         /// The backing field for the Given property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _given;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The consequence property
         /// </summary>
@@ -2982,7 +3016,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The given property
         /// </summary>
@@ -3021,7 +3055,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -3032,7 +3066,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new ImpliesConstraintChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -3043,7 +3077,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new ImpliesConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -3058,12 +3092,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveConsequenceReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.ImpliesConstraint.ClassInstance)).Resolve("consequence")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Consequence property must reset
         /// </summary>
@@ -3076,12 +3110,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Consequence = null;
             }
         }
-
+        
         private static ITypedElement RetrieveGivenReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.ImpliesConstraint.ClassInstance)).Resolve("given")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Given property must reset
         /// </summary>
@@ -3094,7 +3128,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Given = null;
             }
         }
-
+        
         /// <summary>
         /// Gets the relative URI fragment for the given child model element
         /// </summary>
@@ -3112,7 +3146,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -3131,7 +3165,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -3151,7 +3185,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -3169,7 +3203,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -3181,15 +3215,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the ImpliesConstraint class
         /// </summary>
         public class ImpliesConstraintChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private ImpliesConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -3197,7 +3231,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -3217,7 +3251,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -3226,7 +3260,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -3235,7 +3269,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -3261,7 +3295,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -3270,7 +3304,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Consequence = null;
                 this._parent.Given = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -3288,7 +3322,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -3307,7 +3341,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -3327,7 +3361,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -3337,15 +3371,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Consequence).Concat(this._parent.Given).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the ImpliesConstraint class
         /// </summary>
         public class ImpliesConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private ImpliesConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -3353,7 +3387,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -3373,7 +3407,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -3382,7 +3416,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -3391,7 +3425,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -3417,7 +3451,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -3426,7 +3460,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Consequence = null;
                 this._parent.Given = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -3444,7 +3478,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -3463,7 +3497,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -3483,7 +3517,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -3493,22 +3527,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Consequence).Concat(this._parent.Given).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the consequence property
         /// </summary>
         private sealed class ConsequenceProxy : ModelPropertyChange<IImpliesConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public ConsequenceProxy(IImpliesConstraint modelElement) :
+            public ConsequenceProxy(IImpliesConstraint modelElement) : 
                     base(modelElement, "consequence")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -3524,22 +3558,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the given property
         /// </summary>
         private sealed class GivenProxy : ModelPropertyChange<IImpliesConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public GivenProxy(IImpliesConstraint modelElement) :
+            public GivenProxy(IImpliesConstraint modelElement) : 
                     base(modelElement, "given")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -3556,7 +3590,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the EquivalenceConstraint class
     /// </summary>
@@ -3565,25 +3599,25 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//EquivalenceConstraint")]
     public partial class EquivalenceConstraint : Constraint, IEquivalenceConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _rightReference = new Lazy<ITypedElement>(RetrieveRightReference);
-
+        
         /// <summary>
         /// The backing field for the Right property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _right;
-
+        
         private static Lazy<ITypedElement> _leftReference = new Lazy<ITypedElement>(RetrieveLeftReference);
-
+        
         /// <summary>
         /// The backing field for the Left property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _left;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -3622,7 +3656,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -3661,7 +3695,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -3672,7 +3706,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new EquivalenceConstraintChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -3683,7 +3717,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new EquivalenceConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -3698,12 +3732,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveRightReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.EquivalenceConstraint.ClassInstance)).Resolve("right")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Right property must reset
         /// </summary>
@@ -3716,12 +3750,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Right = null;
             }
         }
-
+        
         private static ITypedElement RetrieveLeftReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.EquivalenceConstraint.ClassInstance)).Resolve("left")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Left property must reset
         /// </summary>
@@ -3734,7 +3768,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Left = null;
             }
         }
-
+        
         /// <summary>
         /// Gets the relative URI fragment for the given child model element
         /// </summary>
@@ -3752,7 +3786,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -3771,7 +3805,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -3791,7 +3825,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -3809,7 +3843,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -3821,15 +3855,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the EquivalenceConstraint class
         /// </summary>
         public class EquivalenceConstraintChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private EquivalenceConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -3837,7 +3871,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -3857,7 +3891,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -3866,7 +3900,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -3875,7 +3909,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -3901,7 +3935,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -3910,7 +3944,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -3928,7 +3962,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -3947,7 +3981,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -3967,7 +4001,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -3977,15 +4011,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the EquivalenceConstraint class
         /// </summary>
         public class EquivalenceConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private EquivalenceConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -3993,7 +4027,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -4013,7 +4047,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -4022,7 +4056,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -4031,7 +4065,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -4057,7 +4091,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -4066,7 +4100,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -4084,7 +4118,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -4103,7 +4137,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -4123,7 +4157,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -4133,22 +4167,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the right property
         /// </summary>
         private sealed class RightProxy : ModelPropertyChange<IEquivalenceConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public RightProxy(IEquivalenceConstraint modelElement) :
+            public RightProxy(IEquivalenceConstraint modelElement) : 
                     base(modelElement, "right")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -4164,22 +4198,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the left property
         /// </summary>
         private sealed class LeftProxy : ModelPropertyChange<IEquivalenceConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public LeftProxy(IEquivalenceConstraint modelElement) :
+            public LeftProxy(IEquivalenceConstraint modelElement) : 
                     base(modelElement, "left")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -4196,7 +4230,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the AndConstraint class
     /// </summary>
@@ -4205,25 +4239,25 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//AndConstraint")]
     public partial class AndConstraint : Constraint, IAndConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _rightReference = new Lazy<ITypedElement>(RetrieveRightReference);
-
+        
         /// <summary>
         /// The backing field for the Right property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _right;
-
+        
         private static Lazy<ITypedElement> _leftReference = new Lazy<ITypedElement>(RetrieveLeftReference);
-
+        
         /// <summary>
         /// The backing field for the Left property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _left;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -4262,7 +4296,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -4301,7 +4335,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -4312,7 +4346,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new AndConstraintChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -4323,7 +4357,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new AndConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -4338,12 +4372,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveRightReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.AndConstraint.ClassInstance)).Resolve("right")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Right property must reset
         /// </summary>
@@ -4356,12 +4390,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Right = null;
             }
         }
-
+        
         private static ITypedElement RetrieveLeftReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.AndConstraint.ClassInstance)).Resolve("left")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Left property must reset
         /// </summary>
@@ -4374,7 +4408,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Left = null;
             }
         }
-
+        
         /// <summary>
         /// Gets the relative URI fragment for the given child model element
         /// </summary>
@@ -4392,7 +4426,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -4411,7 +4445,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -4431,7 +4465,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -4449,7 +4483,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -4461,15 +4495,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the AndConstraint class
         /// </summary>
         public class AndConstraintChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private AndConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -4477,7 +4511,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -4497,7 +4531,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -4506,7 +4540,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -4515,7 +4549,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -4541,7 +4575,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -4550,7 +4584,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -4568,7 +4602,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -4587,7 +4621,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -4607,7 +4641,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -4617,15 +4651,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the AndConstraint class
         /// </summary>
         public class AndConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private AndConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -4633,7 +4667,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -4653,7 +4687,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -4662,7 +4696,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -4671,7 +4705,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -4697,7 +4731,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -4706,7 +4740,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -4724,7 +4758,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -4743,7 +4777,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -4763,7 +4797,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -4773,22 +4807,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the right property
         /// </summary>
         private sealed class RightProxy : ModelPropertyChange<IAndConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public RightProxy(IAndConstraint modelElement) :
+            public RightProxy(IAndConstraint modelElement) : 
                     base(modelElement, "right")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -4804,22 +4838,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the left property
         /// </summary>
         private sealed class LeftProxy : ModelPropertyChange<IAndConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public LeftProxy(IAndConstraint modelElement) :
+            public LeftProxy(IAndConstraint modelElement) : 
                     base(modelElement, "left")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -4836,7 +4870,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the OrConstraint class
     /// </summary>
@@ -4845,25 +4879,25 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OrConstraint")]
     public partial class OrConstraint : Constraint, IOrConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _rightReference = new Lazy<ITypedElement>(RetrieveRightReference);
-
+        
         /// <summary>
         /// The backing field for the Right property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _right;
-
+        
         private static Lazy<ITypedElement> _leftReference = new Lazy<ITypedElement>(RetrieveLeftReference);
-
+        
         /// <summary>
         /// The backing field for the Left property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _left;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -4902,7 +4936,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -4941,7 +4975,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -4952,7 +4986,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new OrConstraintChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -4963,7 +4997,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new OrConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -4978,12 +5012,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveRightReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.OrConstraint.ClassInstance)).Resolve("right")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Right property must reset
         /// </summary>
@@ -4996,12 +5030,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Right = null;
             }
         }
-
+        
         private static ITypedElement RetrieveLeftReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.OrConstraint.ClassInstance)).Resolve("left")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Left property must reset
         /// </summary>
@@ -5014,7 +5048,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Left = null;
             }
         }
-
+        
         /// <summary>
         /// Gets the relative URI fragment for the given child model element
         /// </summary>
@@ -5032,7 +5066,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -5051,7 +5085,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -5071,7 +5105,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -5089,7 +5123,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -5101,15 +5135,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OrConstraint class
         /// </summary>
         public class OrConstraintChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OrConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -5117,7 +5151,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -5137,7 +5171,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -5146,7 +5180,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -5155,7 +5189,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -5181,7 +5215,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -5190,7 +5224,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -5208,7 +5242,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -5227,7 +5261,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -5247,7 +5281,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -5257,15 +5291,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the OrConstraint class
         /// </summary>
         public class OrConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private OrConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -5273,7 +5307,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -5293,7 +5327,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -5302,7 +5336,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange += this.PropagateValueChanges;
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -5311,7 +5345,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.BubbledChange -= this.PropagateValueChanges;
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -5337,7 +5371,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -5346,7 +5380,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this._parent.Right = null;
                 this._parent.Left = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -5364,7 +5398,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -5383,7 +5417,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -5403,7 +5437,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -5413,22 +5447,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Right).Concat(this._parent.Left).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the right property
         /// </summary>
         private sealed class RightProxy : ModelPropertyChange<IOrConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public RightProxy(IOrConstraint modelElement) :
+            public RightProxy(IOrConstraint modelElement) : 
                     base(modelElement, "right")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -5444,22 +5478,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the left property
         /// </summary>
         private sealed class LeftProxy : ModelPropertyChange<IOrConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public LeftProxy(IOrConstraint modelElement) :
+            public LeftProxy(IOrConstraint modelElement) : 
                     base(modelElement, "left")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -5476,7 +5510,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the FeatureConstraint class
     /// </summary>
@@ -5485,17 +5519,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//FeatureConstraint")]
     public partial class FeatureConstraint : Constraint, IFeatureConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _featureReference = new Lazy<ITypedElement>(RetrieveFeatureReference);
-
+        
         /// <summary>
         /// The backing field for the Feature property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IFeature _feature;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The feature property
         /// </summary>
@@ -5529,7 +5563,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -5540,7 +5574,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new FeatureConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -5555,12 +5589,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveFeatureReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.FeatureConstraint.ClassInstance)).Resolve("feature")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Feature property must reset
         /// </summary>
@@ -5573,7 +5607,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Feature = null;
             }
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -5588,7 +5622,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -5603,7 +5637,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -5617,7 +5651,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -5629,15 +5663,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the FeatureConstraint class
         /// </summary>
         public class FeatureConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private FeatureConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -5645,7 +5679,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -5661,7 +5695,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -5669,7 +5703,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -5677,7 +5711,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -5694,7 +5728,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -5702,7 +5736,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Feature = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -5716,7 +5750,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -5730,7 +5764,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -5745,7 +5779,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -5755,22 +5789,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Feature).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the feature property
         /// </summary>
         private sealed class FeatureProxy : ModelPropertyChange<IFeatureConstraint, IFeature>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public FeatureProxy(IFeatureConstraint modelElement) :
+            public FeatureProxy(IFeatureConstraint modelElement) : 
                     base(modelElement, "feature")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -5787,7 +5821,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The default implementation of the NotConstraint class
     /// </summary>
@@ -5796,17 +5830,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//NotConstraint")]
     public partial class NotConstraint : Constraint, INotConstraint, IModelElement
     {
-
+        
         private static Lazy<ITypedElement> _innerReference = new Lazy<ITypedElement>(RetrieveInnerReference);
-
+        
         /// <summary>
         /// The backing field for the Inner property
         /// </summary>
         [DebuggerBrowsableAttribute(DebuggerBrowsableState.Never)]
         private IConstraint _inner;
-
+        
         private static IClass _classInstance;
-
+        
         /// <summary>
         /// The inner property
         /// </summary>
@@ -5845,7 +5879,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
             }
         }
-
+        
         /// <summary>
         /// Gets the child model elements of this model element
         /// </summary>
@@ -5856,7 +5890,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.Children.Concat(new NotConstraintChildrenCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the referenced model elements of this model element
         /// </summary>
@@ -5867,7 +5901,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return base.ReferencedElements.Concat(new NotConstraintReferencedElementsCollection(this));
             }
         }
-
+        
         /// <summary>
         /// Gets the Class model for this type
         /// </summary>
@@ -5882,12 +5916,12 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return _classInstance;
             }
         }
-
+        
         private static ITypedElement RetrieveInnerReference()
         {
             return ((ITypedElement)(((ModelElement)(TTC2025.UvlToDot.UniversalVariability.NotConstraint.ClassInstance)).Resolve("inner")));
         }
-
+        
         /// <summary>
         /// Handles the event that the Inner property must reset
         /// </summary>
@@ -5900,7 +5934,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 this.Inner = null;
             }
         }
-
+        
         /// <summary>
         /// Gets the relative URI fragment for the given child model element
         /// </summary>
@@ -5914,7 +5948,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetRelativePathForNonIdentifiedChild(element);
         }
-
+        
         /// <summary>
         /// Resolves the given URI to a child model element
         /// </summary>
@@ -5929,7 +5963,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetModelElementForReference(reference, index);
         }
-
+        
         /// <summary>
         /// Sets a value to the given feature
         /// </summary>
@@ -5944,7 +5978,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             base.SetFeature(feature, value);
         }
-
+        
         /// <summary>
         /// Gets the property expression for the given reference
         /// </summary>
@@ -5958,7 +5992,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return base.GetExpressionForReference(reference);
         }
-
+        
         /// <summary>
         /// Gets the Class for this model element
         /// </summary>
@@ -5970,15 +6004,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
             return _classInstance;
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the NotConstraint class
         /// </summary>
         public class NotConstraintChildrenCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private NotConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -5986,7 +6020,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -6002,7 +6036,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -6010,7 +6044,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -6018,7 +6052,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -6035,7 +6069,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -6043,7 +6077,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Inner = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -6057,7 +6091,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -6071,7 +6105,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -6086,7 +6120,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -6096,15 +6130,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Inner).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// The collection class to to represent the children of the NotConstraint class
         /// </summary>
         public class NotConstraintReferencedElementsCollection : ReferenceCollection, ICollectionExpression<IModelElement>, ICollection<IModelElement>
         {
-
+            
             private NotConstraint _parent;
-
+            
             /// <summary>
             /// Creates a new instance
             /// </summary>
@@ -6112,7 +6146,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent = parent;
             }
-
+            
             /// <summary>
             /// Gets the amount of elements contained in this collection
             /// </summary>
@@ -6128,7 +6162,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return count;
                 }
             }
-
+            
             /// <summary>
             /// Registers event hooks to keep the collection up to date
             /// </summary>
@@ -6136,7 +6170,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange += this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Unregisters all event hooks registered by AttachCore
             /// </summary>
@@ -6144,7 +6178,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.BubbledChange -= this.PropagateValueChanges;
             }
-
+            
             /// <summary>
             /// Adds the given element to the collection
             /// </summary>
@@ -6161,7 +6195,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     }
                 }
             }
-
+            
             /// <summary>
             /// Clears the collection and resets all references that implement it.
             /// </summary>
@@ -6169,7 +6203,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 this._parent.Inner = null;
             }
-
+            
             /// <summary>
             /// Gets a value indicating whether the given element is contained in the collection
             /// </summary>
@@ -6183,7 +6217,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Copies the contents of the collection to the given array starting from the given array index
             /// </summary>
@@ -6197,7 +6231,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     arrayIndex = (arrayIndex + 1);
                 }
             }
-
+            
             /// <summary>
             /// Removes the given item from the collection
             /// </summary>
@@ -6212,7 +6246,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 }
                 return false;
             }
-
+            
             /// <summary>
             /// Gets an enumerator that enumerates the collection
             /// </summary>
@@ -6222,22 +6256,22 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return Enumerable.Empty<IModelElement>().Concat(this._parent.Inner).GetEnumerator();
             }
         }
-
+        
         /// <summary>
         /// Represents a proxy to represent an incremental access to the inner property
         /// </summary>
         private sealed class InnerProxy : ModelPropertyChange<INotConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Creates a new observable property access proxy
             /// </summary>
             /// <param name="modelElement">The model instance element for which to create the property access proxy</param>
-            public InnerProxy(INotConstraint modelElement) :
+            public InnerProxy(INotConstraint modelElement) : 
                     base(modelElement, "inner")
             {
             }
-
+            
             /// <summary>
             /// Gets or sets the value of this expression
             /// </summary>
@@ -6254,7 +6288,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             }
         }
     }
-
+    
     /// <summary>
     /// The public interface for NotConstraint
     /// </summary>
@@ -6263,7 +6297,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//NotConstraint")]
     public partial interface INotConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The inner property
         /// </summary>
@@ -6277,7 +6311,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for FeatureConstraint
     /// </summary>
@@ -6286,7 +6320,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//FeatureConstraint")]
     public partial interface IFeatureConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The feature property
         /// </summary>
@@ -6300,7 +6334,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for OrConstraint
     /// </summary>
@@ -6309,7 +6343,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OrConstraint")]
     public partial interface IOrConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -6322,7 +6356,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -6336,7 +6370,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for AndConstraint
     /// </summary>
@@ -6345,7 +6379,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//AndConstraint")]
     public partial interface IAndConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -6358,7 +6392,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -6372,7 +6406,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for EquivalenceConstraint
     /// </summary>
@@ -6381,7 +6415,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//EquivalenceConstraint")]
     public partial interface IEquivalenceConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The right property
         /// </summary>
@@ -6394,7 +6428,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The left property
         /// </summary>
@@ -6408,7 +6442,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for ImpliesConstraint
     /// </summary>
@@ -6417,7 +6451,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//ImpliesConstraint")]
     public partial interface IImpliesConstraint : IModelElement, IConstraint
     {
-
+        
         /// <summary>
         /// The consequence property
         /// </summary>
@@ -6430,7 +6464,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The given property
         /// </summary>
@@ -6444,7 +6478,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             set;
         }
     }
-
+    
     /// <summary>
     /// The public interface for Constraint
     /// </summary>
@@ -6454,7 +6488,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     public partial interface IConstraint : IModelElement
     {
     }
-
+    
     /// <summary>
     /// The public interface for AlternativeFeatureGroup
     /// </summary>
@@ -6463,7 +6497,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//AlternativeFeatureGroup")]
     public partial interface IAlternativeFeatureGroup : IModelElement, IFeatureGroup
     {
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -6478,7 +6512,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
         }
     }
-
+    
     /// <summary>
     /// The public interface for OptionalFeatureGroup
     /// </summary>
@@ -6487,7 +6521,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OptionalFeatureGroup")]
     public partial interface IOptionalFeatureGroup : IModelElement, IFeatureGroup
     {
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -6502,7 +6536,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
         }
     }
-
+    
     /// <summary>
     /// The public interface for MandatoryFeatureGroup
     /// </summary>
@@ -6511,7 +6545,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//MandatoryFeatureGroup")]
     public partial interface IMandatoryFeatureGroup : IModelElement, IFeatureGroup
     {
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -6526,7 +6560,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
         }
     }
-
+    
     /// <summary>
     /// The public interface for OrFeatureGroup
     /// </summary>
@@ -6535,7 +6569,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//OrFeatureGroup")]
     public partial interface IOrFeatureGroup : IModelElement, IFeatureGroup
     {
-
+        
         /// <summary>
         /// The features property
         /// </summary>
@@ -6550,7 +6584,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
         }
     }
-
+    
     /// <summary>
     /// The public interface for FeatureGroup
     /// </summary>
@@ -6560,7 +6594,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     public partial interface IFeatureGroup : IModelElement
     {
     }
-
+    
     /// <summary>
     /// The public interface for Feature
     /// </summary>
@@ -6569,7 +6603,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//Feature")]
     public partial interface IFeature : IModelElement
     {
-
+        
         /// <summary>
         /// The isAbstract property
         /// </summary>
@@ -6583,7 +6617,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The name property
         /// </summary>
@@ -6597,7 +6631,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
             set;
         }
-
+        
         /// <summary>
         /// The groups property
         /// </summary>
@@ -6612,7 +6646,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             get;
         }
     }
-
+    
     /// <summary>
     /// The public interface for FeatureModel
     /// </summary>
@@ -6621,7 +6655,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
     [ModelRepresentationClassAttribute("https://transformationtoolcontest.github.io/uvl#//FeatureModel")]
     public partial interface IFeatureModel : IModelElement
     {
-
+        
         /// <summary>
         /// The constraints property
         /// </summary>
@@ -6635,7 +6669,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             get;
         }
-
+        
         /// <summary>
         /// The features property
         /// </summary>

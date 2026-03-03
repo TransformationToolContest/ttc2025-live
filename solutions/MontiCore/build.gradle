@@ -63,6 +63,7 @@ task fatTrafoJar(type: Jar) {
     duplicatesStrategy DuplicatesStrategy.INCLUDE
     with jar
     archiveAppendix = "trafo"
+    dependsOn(fatJar)
 }
 
 tasks.withType(JavaCompile).configureEach {

@@ -27,7 +27,7 @@ let measureTime phaseName index action =
     let sw = Stopwatch.StartNew()
     let result = action()
     sw.Stop()
-    printfn $"%s{tool};%s{modelName};0;%d{index};%s{phaseName};Time;%d{sw.ElapsedTicks * 100L}"
+    printfn $"%s{tool};%s{modelName};0;%d{index};%s{phaseName};Time;%d{sw.Elapsed.Ticks * 100L}"
     printfn $"%s{tool};%s{modelName};0;%d{index};%s{phaseName};Memory;%d{Environment.WorkingSet}"
     result
     

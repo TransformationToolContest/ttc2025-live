@@ -1,5 +1,5 @@
 {
-  "Tools": ["NMF", "SLE"],
+  "Tools": ["NMF","NMF-incremental","SLE","MontiCore"],
   "Models": [
   {
     "Name": "automotive01",

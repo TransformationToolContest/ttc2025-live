@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMFSolution", "NMFSolution.csproj", "{7404EAF1-E28C-4CBF-A199-276D6C22AF07}"
 EndProject
@@ -44,6 +44,69 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "busybox", "busybox", "{1BD1
 		..\..\models\busybox\busybox_09.uvl = ..\..\models\busybox\busybox_09.uvl
 		..\..\models\busybox\busybox_10.diff = ..\..\models\busybox\busybox_10.diff
 		..\..\models\busybox\busybox_10.uvl = ..\..\models\busybox\busybox_10.uvl
+		..\..\models\busybox\busybox_11.diff = ..\..\models\busybox\busybox_11.diff
+		..\..\models\busybox\busybox_11.uvl = ..\..\models\busybox\busybox_11.uvl
+		..\..\models\busybox\busybox_12.diff = ..\..\models\busybox\busybox_12.diff
+		..\..\models\busybox\busybox_12.uvl = ..\..\models\busybox\busybox_12.uvl
+		..\..\models\busybox\busybox_13.diff = ..\..\models\busybox\busybox_13.diff
+		..\..\models\busybox\busybox_13.uvl = ..\..\models\busybox\busybox_13.uvl
+		..\..\models\busybox\busybox_14.diff = ..\..\models\busybox\busybox_14.diff
+		..\..\models\busybox\busybox_14.uvl = ..\..\models\busybox\busybox_14.uvl
+		..\..\models\busybox\busybox_15.diff = ..\..\models\busybox\busybox_15.diff
+		..\..\models\busybox\busybox_15.uvl = ..\..\models\busybox\busybox_15.uvl
+		..\..\models\busybox\busybox_16.diff = ..\..\models\busybox\busybox_16.diff
+		..\..\models\busybox\busybox_16.uvl = ..\..\models\busybox\busybox_16.uvl
+		..\..\models\busybox\busybox_17.diff = ..\..\models\busybox\busybox_17.diff
+		..\..\models\busybox\busybox_17.uvl = ..\..\models\busybox\busybox_17.uvl
+		..\..\models\busybox\busybox_18.diff = ..\..\models\busybox\busybox_18.diff
+		..\..\models\busybox\busybox_18.uvl = ..\..\models\busybox\busybox_18.uvl
+		..\..\models\busybox\busybox_19.diff = ..\..\models\busybox\busybox_19.diff
+		..\..\models\busybox\busybox_19.uvl = ..\..\models\busybox\busybox_19.uvl
+		..\..\models\busybox\busybox_20.diff = ..\..\models\busybox\busybox_20.diff
+		..\..\models\busybox\busybox_20.uvl = ..\..\models\busybox\busybox_20.uvl
+		..\..\models\busybox\busybox_21.diff = ..\..\models\busybox\busybox_21.diff
+		..\..\models\busybox\busybox_21.uvl = ..\..\models\busybox\busybox_21.uvl
+		..\..\models\busybox\busybox_22.diff = ..\..\models\busybox\busybox_22.diff
+		..\..\models\busybox\busybox_22.uvl = ..\..\models\busybox\busybox_22.uvl
+		..\..\models\busybox\busybox_23.diff = ..\..\models\busybox\busybox_23.diff
+		..\..\models\busybox\busybox_23.uvl = ..\..\models\busybox\busybox_23.uvl
+		..\..\models\busybox\busybox_24.diff = ..\..\models\busybox\busybox_24.diff
+		..\..\models\busybox\busybox_24.uvl = ..\..\models\busybox\busybox_24.uvl
+		..\..\models\busybox\busybox_25.diff = ..\..\models\busybox\busybox_25.diff
+		..\..\models\busybox\busybox_25.uvl = ..\..\models\busybox\busybox_25.uvl
+		..\..\models\busybox\busybox_26.diff = ..\..\models\busybox\busybox_26.diff
+		..\..\models\busybox\busybox_26.uvl = ..\..\models\busybox\busybox_26.uvl
+		..\..\models\busybox\busybox_27.diff = ..\..\models\busybox\busybox_27.diff
+		..\..\models\busybox\busybox_27.uvl = ..\..\models\busybox\busybox_27.uvl
+		..\..\models\busybox\busybox_28.diff = ..\..\models\busybox\busybox_28.diff
+		..\..\models\busybox\busybox_28.uvl = ..\..\models\busybox\busybox_28.uvl
+		..\..\models\busybox\busybox_29.diff = ..\..\models\busybox\busybox_29.diff
+		..\..\models\busybox\busybox_29.uvl = ..\..\models\busybox\busybox_29.uvl
+		..\..\models\busybox\busybox_30.diff = ..\..\models\busybox\busybox_30.diff
+		..\..\models\busybox\busybox_30.uvl = ..\..\models\busybox\busybox_30.uvl
+		..\..\models\busybox\busybox_31.diff = ..\..\models\busybox\busybox_31.diff
+		..\..\models\busybox\busybox_31.uvl = ..\..\models\busybox\busybox_31.uvl
+		..\..\models\busybox\busybox_32.diff = ..\..\models\busybox\busybox_32.diff
+		..\..\models\busybox\busybox_32.uvl = ..\..\models\busybox\busybox_32.uvl
+		..\..\models\busybox\busybox_33.diff = ..\..\models\busybox\busybox_33.diff
+		..\..\models\busybox\busybox_33.uvl = ..\..\models\busybox\busybox_33.uvl
+		..\..\models\busybox\busybox_34.diff = ..\..\models\busybox\busybox_34.diff
+		..\..\models\busybox\busybox_34.uvl = ..\..\models\busybox\busybox_34.uvl
+		..\..\models\busybox\busybox_35.diff = ..\..\models\busybox\busybox_35.diff
+		..\..\models\busybox\busybox_35.uvl = ..\..\models\busybox\busybox_35.uvl
+		..\..\models\busybox\busybox_36.diff = ..\..\models\busybox\busybox_36.diff
+		..\..\models\busybox\busybox_36.uvl = ..\..\models\busybox\busybox_36.uvl
+		..\..\models\busybox\busybox_37.diff = ..\..\models\busybox\busybox_37.diff
+		..\..\models\busybox\busybox_37.uvl = ..\..\models\busybox\busybox_37.uvl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{E08C58DD-AA6E-4645-B0BF-7875C38D2C17}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\models\demo\demo_01.uvl = ..\..\models\demo\demo_01.uvl
+		..\..\models\demo\demo_02.diff = ..\..\models\demo\demo_02.diff
+		..\..\models\demo\demo_02.uvl = ..\..\models\demo\demo_02.uvl
+		..\..\models\demo\demo_03.diff = ..\..\models\demo\demo_03.diff
+		..\..\models\demo\demo_03.uvl = ..\..\models\demo\demo_03.uvl
 	EndProjectSection
 EndProject
 Global
@@ -63,6 +126,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9E504961-156C-40F3-BC7C-898DF22CBD98} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 		{1BD1EBD5-8A0F-47C4-92C5-8E9EB4380FC5} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
+		{E08C58DD-AA6E-4645-B0BF-7875C38D2C17} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0226491F-8EDC-4EE8-B110-84CCD49CDB86}

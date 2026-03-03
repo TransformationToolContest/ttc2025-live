@@ -4,9 +4,9 @@
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Constraint" UpperBound="-1" Name="constraints" />
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Feature" UpperBound="-1" Name="features" />
 	</Types>
-	<Types xsi:type="nmeta:Class" Name="Feature">
+	<Types xsi:type="nmeta:Class" Identifier="#//Feature/name" IdentifierScope="Global" Name="Feature">
 		<References IsContainment="true" ReferenceType="nmeta:Class #//FeatureGroup" UpperBound="-1" Name="groups" />
-		<Attributes Type="nmeta:PrimitiveType http://nmf.codeplex.com/nmeta/#//Boolean" Name="isAbstract" />
+		<Attributes LowerBound="1" Type="nmeta:PrimitiveType http://nmf.codeplex.com/nmeta/#//Boolean" Name="isAbstract" />
 		<Attributes LowerBound="1" Type="nmeta:PrimitiveType http://nmf.codeplex.com/nmeta/#//String" Name="name" />
 	</Types>
 	<Types xsi:type="nmeta:Class" IsAbstract="true" Name="FeatureGroup" />
@@ -27,7 +27,7 @@
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Constraint" Name="consequence" />
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Constraint" Name="given" />
 	</Types>
-	<Types xsi:type="nmeta:Class" Name="EquivalenceConstraint">
+	<Types xsi:type="nmeta:Class" BaseTypes="#//Constraint" Name="EquivalenceConstraint">
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Constraint" Name="right" />
 		<References IsContainment="true" ReferenceType="nmeta:Class #//Constraint" Name="left" />
 	</Types>

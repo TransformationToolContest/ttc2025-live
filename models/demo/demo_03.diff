@@ -1,0 +1,13 @@
+diff --git a/demo_02.uvl b/demo_03.uvl
+index f879373..f517495 100644
+--- a/demo_02.uvl
++++ b/demo_03.uvl
+@@ -8,7 +8,7 @@ features
+                 alternative
+                     Ketchup
+                     Mustard
+-            Cheese
++                    Cheese
+             Cucumber
+             Bacon
+             Tomato

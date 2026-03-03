@@ -16,7 +16,7 @@ using Parser = NMF.AnyText.Parser;
 
 namespace NMFSolution.Verbs
 {
-    [Verb("uvl-to-dot-inc", HelpText = "The actual benchmark")]
+    [Verb("uvl-to-dot-inc", HelpText = "The actual benchmark executed incrementally")]
     internal class UvlToDotIncrementalVerb : VerbBase, ISolution
     {
         private UniversalVariabilityGrammar _grammar;
@@ -30,23 +30,12 @@ namespace NMFSolution.Verbs
             var diffPath = Path.ChangeExtension(modelPath, "diff");
             var diffLines = File.ReadLines(diffPath);
             var edits = DiffParser.ToTextEdits(diffLines);
+            Console.Error.WriteLine("Updating to iteration " + iteration.ToString());
             return () =>
             {
-                Console.Error.WriteLine("Updating to iteration " + iteration.ToString());
                 _loadedFeatureModel = (FeatureModel) _parser.Update(edits);
-                CheckModel();
                 return Initial(modelPath, model, targetPath);
             };
-        }
-
-        private void CheckModel()
-        {
-            var brokenFeatureConstraint = _loadedFeatureModel.Descendants().OfType<FeatureConstraint>().FirstOrDefault(fc => fc.Feature == null);
-            if (brokenFeatureConstraint != null)
-            {
-                _parser.Context.TryGetDefinitions(brokenFeatureConstraint, out var definitions);
-                Debugger.Break();
-            }
         }
         
         public Model Initial(string modelPath, string model, string targetPath)

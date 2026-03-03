@@ -4,9 +4,7 @@ using NMF.AnyText.Rules;
 using NMF.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,17 +14,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
     {
         partial class FeatureConstraintFeatureFeatureRule
         {
-            protected override bool TryResolveReference(IFeatureConstraint contextElement, string input, ParseContext context, out IFeature? resolved)
-            {
-                resolved = null;
-                var featureModel = contextElement.Ancestors().OfType<FeatureModel>().FirstOrDefault();
-                if (featureModel != null)
-                {
-                    resolved = featureModel.Descendants().OfType<Feature>().FirstOrDefault(f => f.Name == input);
-                    return resolved != null;
-                }
-                return false;
-            }
+            //protected override bool TryResolveReference(IFeatureConstraint contextElement, string input, ParseContext context, out IFeature? resolved)
+            //{
+            //    resolved = null;
+            //    var featureModel = contextElement?.Ancestors().OfType<FeatureModel>().FirstOrDefault();
+            //    if (featureModel != null)
+            //    {
+            //        resolved = featureModel.Descendants().OfType<Feature>().FirstOrDefault(f => f.Name == input);
+            //        return resolved != null;
+            //    }
+            //    return false;
+            //}
         }
 
         protected override ParseContext CreateParseContext()
