@@ -31,7 +31,10 @@ AlternativeFeatureGroup:
         features+=Feature <nl>+ <unind> <nl>;
 
 Constraint:
-    ImpliesConstraint | EquivalenceConstraint | AndConstraint | OrConstraint |  NotConstraint | ParenthesesConstraint | FeatureConstraint;
+    ImpliesConstraint | EquivalenceConstraint | AndConstraint | OrConstraint |  NotConstraint | SimpleConstraint;
+    
+SimpleConstraint returns Constraint:
+    FeatureConstraint | ParenthesesConstraint;
 
 parantheses ParenthesesConstraint:
     '(' <nsp> Constraint <nsp> ')';
@@ -52,7 +55,7 @@ FeatureConstraint:
     feature=[Feature];
 
 NotConstraint:
-    '!' <nsp> inner=Constraint;
+    '!' <nsp> inner=SimpleConstraint;
 
 terminal FeatureName:
     /[\w_\/\+]+|"[\w_\/\+]+"/;

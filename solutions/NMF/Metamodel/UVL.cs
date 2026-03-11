@@ -96,7 +96,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public ICollectionExpression<IFeature> Features
+        public IListExpression<IFeature> Features
         {
             get
             {
@@ -1314,7 +1314,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public ICollectionExpression<IFeature> Features
+        public IListExpression<IFeature> Features
         {
             get
             {
@@ -1723,7 +1723,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public ICollectionExpression<IFeature> Features
+        public IListExpression<IFeature> Features
         {
             get
             {
@@ -2132,7 +2132,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public ICollectionExpression<IFeature> Features
+        public IListExpression<IFeature> Features
         {
             get
             {
@@ -2541,7 +2541,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        public ICollectionExpression<IFeature> Features
+        public IListExpression<IFeature> Features
         {
             get
             {
@@ -6507,7 +6507,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        ICollectionExpression<IFeature> Features
+        IListExpression<IFeature> Features
         {
             get;
         }
@@ -6531,7 +6531,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        ICollectionExpression<IFeature> Features
+        IListExpression<IFeature> Features
         {
             get;
         }
@@ -6555,7 +6555,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        ICollectionExpression<IFeature> Features
+        IListExpression<IFeature> Features
         {
             get;
         }
@@ -6579,7 +6579,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        ICollectionExpression<IFeature> Features
+        IListExpression<IFeature> Features
         {
             get;
         }
@@ -6679,7 +6679,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         [XmlAttributeAttribute(false)]
         [ContainmentAttribute()]
         [ConstantAttribute()]
-        ICollectionExpression<IFeature> Features
+        IListExpression<IFeature> Features
         {
             get;
         }

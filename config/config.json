@@ -1,90 +1,157 @@
 {
   "Tools": ["NMF","NMF-incremental","SLE","MontiCore"],
-  "Models": [
-  {
-    "Name": "automotive01",
-	"Versions": [
-	  "automotive01"
-	]
-  },
-  {
-    "Name": "automotive02",
-	"Versions": [
-	  "automotive02_01",
-	  "automotive02_02",
-	  "automotive02_03",
-	  "automotive02_04"
-	]
-  },
-  {
-    "Name": "berkeleydb",
-	"Versions": [
-	  "berkeleydb"
-	]
-  },
-  {
-    "Name": "busybox",
-	"Versions": [
-	  "busybox_01",
-	  "busybox_02",
-	  "busybox_03",
-	  "busybox_04",
-	  "busybox_05",
-	  "busybox_06",
-	  "busybox_07",
-	  "busybox_08",
-	  "busybox_09",
-	  "busybox_10",
-	  "busybox_11",
-	  "busybox_12",
-	  "busybox_13",
-	  "busybox_14",
-	  "busybox_15",
-	  "busybox_16",
-	  "busybox_17",
-	  "busybox_18",
-	  "busybox_19",
-	  "busybox_20",
-	  "busybox_21",
-	  "busybox_22",
-	  "busybox_23",
-	  "busybox_24",
-	  "busybox_25",
-	  "busybox_26",
-	  "busybox_27",
-	  "busybox_28",
-	  "busybox_29",
-	  "busybox_30",
-	  "busybox_31",
-	  "busybox_32",
-	  "busybox_33",
-	  "busybox_34",
-	  "busybox_35",
-	  "busybox_36",
-	  "busybox_37"
-	]
-  },
-  {
-    "Name": "financialservices",
-	"Versions": [
-	  "financialservices_01",
-	  "financialservices_02",
-	  "financialservices_03",
-	  "financialservices_04",
-	  "financialservices_05",
-	  "financialservices_06",
-	  "financialservices_07",
-	  "financialservices_08",
-	  "financialservices_09",
-	  "financialservices_10"
-	]
-  },
-  {
-    "Name": "linux",
-	"Versions": [
-	  "linux"
-	]
-  }],
+	"Models": [
+		{
+			"Name": "automotive01",
+			"Versions": [
+				"automotive01"
+			]
+		},
+		{
+			"Name": "automotive02",
+			"Versions": [
+				"automotive02_01",
+				"automotive02_02",
+				"automotive02_03",
+				"automotive02_04"
+			]
+		},
+		{
+			"Name": "automotive02_sorted",
+			"Versions": [
+				"automotive02_sorted_01",
+				"automotive02_sorted_02",
+				"automotive02_sorted_03",
+				"automotive02_sorted_04"
+			]
+		},
+		{
+			"Name": "berkeleydb",
+			"Versions": [
+				"berkeleydb"
+			]
+		},
+		{
+			"Name": "busybox",
+			"Versions": [
+				"busybox_01",
+				"busybox_02",
+				"busybox_03",
+				"busybox_04",
+				"busybox_05",
+				"busybox_06",
+				"busybox_07",
+				"busybox_08",
+				"busybox_09",
+				"busybox_10",
+				"busybox_11",
+				"busybox_12",
+				"busybox_13",
+				"busybox_14",
+				"busybox_15",
+				"busybox_16",
+				"busybox_17",
+				"busybox_18",
+				"busybox_19",
+				"busybox_20",
+				"busybox_21",
+				"busybox_22",
+				"busybox_23",
+				"busybox_24",
+				"busybox_25",
+				"busybox_26",
+				"busybox_27",
+				"busybox_28",
+				"busybox_29",
+				"busybox_30",
+				"busybox_31",
+				"busybox_32",
+				"busybox_33",
+				"busybox_34",
+				"busybox_35",
+				"busybox_36",
+				"busybox_37"
+			]
+		},
+		{
+			"Name": "busybox_sorted",
+			"Versions": [
+				"busybox_sorted_01",
+				"busybox_sorted_02",
+				"busybox_sorted_03",
+				"busybox_sorted_04",
+				"busybox_sorted_05",
+				"busybox_sorted_06",
+				"busybox_sorted_07",
+				"busybox_sorted_08",
+				"busybox_sorted_09",
+				"busybox_sorted_10",
+				"busybox_sorted_11",
+				"busybox_sorted_12",
+				"busybox_sorted_13",
+				"busybox_sorted_14",
+				"busybox_sorted_15",
+				"busybox_sorted_16",
+				"busybox_sorted_17",
+				"busybox_sorted_18",
+				"busybox_sorted_19",
+				"busybox_sorted_20",
+				"busybox_sorted_21",
+				"busybox_sorted_22",
+				"busybox_sorted_23",
+				"busybox_sorted_24",
+				"busybox_sorted_25",
+				"busybox_sorted_26",
+				"busybox_sorted_27",
+				"busybox_sorted_28",
+				"busybox_sorted_29",
+				"busybox_sorted_30",
+				"busybox_sorted_31",
+				"busybox_sorted_32",
+				"busybox_sorted_33",
+				"busybox_sorted_34",
+				"busybox_sorted_35",
+				"busybox_sorted_36",
+				"busybox_sorted_37"
+			]
+		},
+		{
+			"Name": "financialservices",
+			"Versions": [
+				"financialservices_01",
+				"financialservices_02",
+				"financialservices_03",
+				"financialservices_04",
+				"financialservices_05",
+				"financialservices_06",
+				"financialservices_07",
+				"financialservices_08",
+				"financialservices_09",
+				"financialservices_10"
+			]
+		},
+		{
+			"Name": "financialservices_sorted",
+			"Versions": [
+				"financialservices_sorted_01",
+				"financialservices_sorted_02",
+				"financialservices_sorted_03",
+				"financialservices_sorted_04",
+				"financialservices_sorted_05",
+				"financialservices_sorted_06",
+				"financialservices_sorted_07",
+				"financialservices_sorted_08",
+				"financialservices_sorted_09",
+				"financialservices_sorted_10"
+			]
+		},
+		{
+			"Name": "linux",
+			"Versions": [
+				"linux"
+			]
+		}
+	],
   "MaxVersions": 40,
   "Runs": 5,
   "Timeout": 6000

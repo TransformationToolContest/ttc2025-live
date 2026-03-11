@@ -20,14 +20,14 @@ using System.Text.RegularExpressions;
 
 namespace TTC2025.UvlToDot.UniversalVariability
 {
-
-
+    
+    
     /// <summary>
     /// Denotes a class capable to parse the language uvl
     /// </summary>
     public partial class UniversalVariabilityGrammar : ReflectiveGrammar
     {
-
+        
         /// <summary>
         /// Gets the language id for this grammar
         /// </summary>
@@ -38,7 +38,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return "uvl";
             }
         }
-
+        
         /// <summary>
         /// Gets the root rule
         /// </summary>
@@ -48,13 +48,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             return context.ResolveRule<FeatureModelRule>();
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;FeatureModel&apos;
         /// </summary>
         public partial class FeatureModelRule : ModelElementRule<FeatureModel>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -67,15 +67,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         RuleFormatter.ZeroOrMore(context.ResolveFormattedRule<FeatureModelFeaturesFeatureRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline),
                         context.ResolveKeyword("constraints", FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.ZeroOrMore(context.ResolveFormattedRule<FeatureModelConstraintsConstraintRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(1, "features");
+                RegisterFeature(3, "constraints");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;Feature&apos;
         /// </summary>
         public partial class FeatureRule : ModelElementRule<Feature>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -92,15 +94,18 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveFormattedRule<FeatureNameFeatureNameRule>(),
                         RuleFormatter.ZeroOrOne(context.ResolveFormattedRule<FeatureIsAbstractRule>(), FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.ZeroOrMore(context.ResolveFormattedRule<FeatureGroupsFeatureGroupRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(5, "name");
+                RegisterFeature(6, "isAbstract");
+                RegisterFeature(7, "groups");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;FeatureGroup&apos;
         /// </summary>
         public partial class FeatureGroupRule : ChoiceRule
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -115,13 +120,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveRule<AlternativeFeatureGroupRule>()};
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;OrFeatureGroup&apos;
         /// </summary>
         public partial class OrFeatureGroupRule : ModelElementRule<OrFeatureGroup>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -132,15 +137,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Rules = new FormattedRule[] {
                         context.ResolveKeyword("or", FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.OneOrMore(context.ResolveFormattedRule<OrFeatureGroupFeaturesFeatureRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(1, "features");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;MandatoryFeatureGroup&apos;
         /// </summary>
         public partial class MandatoryFeatureGroupRule : ModelElementRule<MandatoryFeatureGroup>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -151,15 +157,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Rules = new FormattedRule[] {
                         context.ResolveKeyword("mandatory", FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.OneOrMore(context.ResolveFormattedRule<MandatoryFeatureGroupFeaturesFeatureRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(1, "features");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;OptionalFeatureGroup&apos;
         /// </summary>
         public partial class OptionalFeatureGroupRule : ModelElementRule<OptionalFeatureGroup>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -170,15 +177,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Rules = new FormattedRule[] {
                         context.ResolveKeyword("optional", FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.OneOrMore(context.ResolveFormattedRule<OptionalFeatureGroupFeaturesFeatureRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(1, "features");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;AlternativeFeatureGroup&apos;
         /// </summary>
         public partial class AlternativeFeatureGroupRule : ModelElementRule<AlternativeFeatureGroup>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -189,15 +197,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Rules = new FormattedRule[] {
                         context.ResolveKeyword("alternative", FormattingInstruction.Indent, FormattingInstruction.Newline),
                         RuleFormatter.OneOrMore(context.ResolveFormattedRule<AlternativeFeatureGroupFeaturesFeatureRule>(FormattingInstruction.Newline), FormattingInstruction.Unindent, FormattingInstruction.Newline)};
+                RegisterFeature(1, "features");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;Constraint&apos;
         /// </summary>
         public partial class ConstraintRule : ChoiceRule
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -211,17 +220,35 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveRule<AndConstraintRule>(),
                         context.ResolveRule<OrConstraintRule>(),
                         context.ResolveRule<NotConstraintRule>(),
-                        context.ResolveRule<ParenthesesConstraintRule>(),
-                        context.ResolveRule<FeatureConstraintRule>()};
+                        context.ResolveRule<SimpleConstraintRule>()};
             }
         }
-
+        
+        /// <summary>
+        /// A rule class representing the rule &apos;SimpleConstraint&apos;
+        /// </summary>
+        public partial class SimpleConstraintRule : ChoiceRule
+        {
+            
+            /// <summary>
+            /// Initializes the current grammar rule
+            /// </summary>
+            /// <param name="context">the grammar context in which the rule is initialized</param>
+            /// <remarks>Do not modify the contents of this method as it will be overridden as the contents of the AnyText file change.</remarks>
+            public override void Initialize(GrammarContext context)
+            {
+                Alternatives = new FormattedRule[] {
+                        context.ResolveRule<FeatureConstraintRule>(),
+                        context.ResolveRule<ParenthesesConstraintRule>()};
+            }
+        }
+        
         /// <summary>
         /// A rule class representing the rule &apos;ParenthesesConstraint&apos;
         /// </summary>
         public partial class ParenthesesConstraintRule : ParanthesesRule
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -235,13 +262,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveKeyword(")")};
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;ImpliesConstraint&apos;
         /// </summary>
         public partial class ImpliesConstraintRule : ModelElementRule<ImpliesConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -253,15 +280,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveFormattedRule<ImpliesConstraintGivenConstraintRule>(),
                         context.ResolveKeyword("=>"),
                         context.ResolveFormattedRule<ImpliesConstraintConsequenceConstraintRule>()};
+                RegisterFeature(0, "given");
+                RegisterFeature(2, "consequence");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;EquivalenceConstraint&apos;
         /// </summary>
         public partial class EquivalenceConstraintRule : ModelElementRule<EquivalenceConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -273,15 +302,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveFormattedRule<EquivalenceConstraintLeftConstraintRule>(),
                         context.ResolveKeyword("<=>"),
                         context.ResolveFormattedRule<EquivalenceConstraintRightConstraintRule>()};
+                RegisterFeature(0, "left");
+                RegisterFeature(2, "right");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;AndConstraint&apos;
         /// </summary>
         public partial class AndConstraintRule : ModelElementRule<AndConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -293,15 +324,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveFormattedRule<AndConstraintLeftConstraintRule>(),
                         context.ResolveKeyword("&"),
                         context.ResolveFormattedRule<AndConstraintRightConstraintRule>()};
+                RegisterFeature(0, "left");
+                RegisterFeature(2, "right");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;OrConstraint&apos;
         /// </summary>
         public partial class OrConstraintRule : ModelElementRule<OrConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -313,15 +346,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
                         context.ResolveFormattedRule<OrConstraintLeftConstraintRule>(),
                         context.ResolveKeyword("|"),
                         context.ResolveFormattedRule<OrConstraintRightConstraintRule>()};
+                RegisterFeature(0, "left");
+                RegisterFeature(2, "right");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;FeatureConstraint&apos;
         /// </summary>
         public partial class FeatureConstraintRule : ModelElementRule<FeatureConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -331,15 +366,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Rules = new FormattedRule[] {
                         context.ResolveFormattedRule<FeatureConstraintFeatureFeatureRule>()};
+                RegisterFeature(0, "feature");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;NotConstraint&apos;
         /// </summary>
         public partial class NotConstraintRule : ModelElementRule<NotConstraint>
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -349,16 +385,17 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Rules = new FormattedRule[] {
                         context.ResolveKeyword("!", FormattingInstruction.SupressSpace),
-                        context.ResolveFormattedRule<NotConstraintInnerConstraintRule>()};
+                        context.ResolveFormattedRule<NotConstraintInnerSimpleConstraintRule>()};
+                RegisterFeature(1, "inner");
             }
         }
-
+        
         /// <summary>
         /// A rule class representing the rule &apos;FeatureName&apos;
         /// </summary>
         public partial class FeatureNameRule : NMF.AnyText.Rules.RegexRule
         {
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -366,16 +403,16 @@ namespace TTC2025.UvlToDot.UniversalVariability
             /// <remarks>Do not modify the contents of this method as it will be overridden as the contents of the AnyText file change.</remarks>
             public override void Initialize(GrammarContext context)
             {
-                Regex = new Regex("^[\\w_/\\+]+|\"[\\w_/\\+]+\"", RegexOptions.Compiled);
+                Regex = new Regex("^[\\w_/\\+]+|^\"[\\w_/\\+]+\"", RegexOptions.Compiled);
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to constraints
         /// </summary>
         public partial class FeatureModelConstraintsConstraintRule : AddAssignRule<IFeatureModel, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -386,7 +423,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "constraints";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -397,7 +434,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -409,13 +446,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Constraints;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to features
         /// </summary>
         public partial class FeatureModelFeaturesFeatureRule : AddAssignRule<IFeatureModel, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -426,7 +463,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "features";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -437,7 +474,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -449,13 +486,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Features;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to groups
         /// </summary>
         public partial class FeatureGroupsFeatureGroupRule : AddAssignRule<IFeature, IFeatureGroup>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -466,7 +503,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "groups";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -477,7 +514,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureGroupRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -489,13 +526,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Groups;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to isAbstract
         /// </summary>
         public partial class FeatureIsAbstractRule : ExistsAssignRule<IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -506,7 +543,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "isAbstract";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -516,7 +553,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveKeyword("{abstract}");
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -527,7 +564,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.IsAbstract;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -539,13 +576,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.IsAbstract = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to name
         /// </summary>
         public partial class FeatureNameFeatureNameRule : AssignRule<IFeature, string>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -556,7 +593,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "name";
                 }
             }
-
+            
             /// <summary>
             /// Gets the first contained rule application that represents an identifier
             /// </summary>
@@ -567,7 +604,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return true;
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -577,7 +614,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<FeatureNameRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -588,7 +625,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Name;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -600,13 +637,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Name = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to features
         /// </summary>
         public partial class OrFeatureGroupFeaturesFeatureRule : AddAssignRule<IOrFeatureGroup, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -617,7 +654,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "features";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -628,7 +665,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -640,13 +677,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Features;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to features
         /// </summary>
         public partial class MandatoryFeatureGroupFeaturesFeatureRule : AddAssignRule<IMandatoryFeatureGroup, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -657,7 +694,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "features";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -668,7 +705,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -680,13 +717,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Features;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to features
         /// </summary>
         public partial class OptionalFeatureGroupFeaturesFeatureRule : AddAssignRule<IOptionalFeatureGroup, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -697,7 +734,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "features";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -708,7 +745,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -720,13 +757,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Features;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to features
         /// </summary>
         public partial class AlternativeFeatureGroupFeaturesFeatureRule : AddAssignRule<IAlternativeFeatureGroup, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -737,7 +774,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "features";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -748,7 +785,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 Inner = context.ResolveFormattedRule<FeatureRule>();
                 IndexCalculation = IndexCalculationScheme.Simple;
             }
-
+            
             /// <summary>
             /// Obtains the child collection
             /// </summary>
@@ -760,13 +797,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 return semanticElement.Features;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to consequence
         /// </summary>
         public partial class ImpliesConstraintConsequenceConstraintRule : AssignRule<IImpliesConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -777,7 +814,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "consequence";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -787,7 +824,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -798,7 +835,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Consequence;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -810,13 +847,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Consequence = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to given
         /// </summary>
         public partial class ImpliesConstraintGivenConstraintRule : AssignRule<IImpliesConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -827,7 +864,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "given";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -837,7 +874,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -848,7 +885,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Given;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -860,13 +897,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Given = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to right
         /// </summary>
         public partial class EquivalenceConstraintRightConstraintRule : AssignRule<IEquivalenceConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -877,7 +914,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "right";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -887,7 +924,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -898,7 +935,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Right;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -910,13 +947,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Right = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to left
         /// </summary>
         public partial class EquivalenceConstraintLeftConstraintRule : AssignRule<IEquivalenceConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -927,7 +964,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "left";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -937,7 +974,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -948,7 +985,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Left;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -960,13 +997,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Left = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to right
         /// </summary>
         public partial class AndConstraintRightConstraintRule : AssignRule<IAndConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -977,7 +1014,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "right";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -987,7 +1024,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -998,7 +1035,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Right;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -1010,13 +1047,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Right = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to left
         /// </summary>
         public partial class AndConstraintLeftConstraintRule : AssignRule<IAndConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -1027,7 +1064,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "left";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -1037,7 +1074,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -1048,7 +1085,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Left;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -1060,13 +1097,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Left = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to right
         /// </summary>
         public partial class OrConstraintRightConstraintRule : AssignRule<IOrConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -1077,7 +1114,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "right";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -1087,7 +1124,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -1098,7 +1135,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Right;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -1110,13 +1147,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Right = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to left
         /// </summary>
         public partial class OrConstraintLeftConstraintRule : AssignRule<IOrConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -1127,7 +1164,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "left";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -1137,7 +1174,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<ConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -1148,7 +1185,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Left;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -1160,13 +1197,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Left = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to feature
         /// </summary>
         public partial class FeatureConstraintFeatureFeatureRule : AssignModelReferenceRule<IFeatureConstraint, IFeature>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -1177,7 +1214,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "feature";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -1187,7 +1224,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 Inner = context.ResolveFormattedRule<FeatureNameRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -1198,7 +1235,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Feature;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>
@@ -1210,13 +1247,13 @@ namespace TTC2025.UvlToDot.UniversalVariability
                 semanticElement.Feature = propertyValue;
             }
         }
-
+        
         /// <summary>
         /// Rule to assign the contents of the inner rule to inner
         /// </summary>
-        public partial class NotConstraintInnerConstraintRule : AssignRule<INotConstraint, IConstraint>
+        public partial class NotConstraintInnerSimpleConstraintRule : AssignRule<INotConstraint, IConstraint>
         {
-
+            
             /// <summary>
             /// Gets the name of the feature that is assigned
             /// </summary>
@@ -1227,7 +1264,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
                     return "inner";
                 }
             }
-
+            
             /// <summary>
             /// Initializes the current grammar rule
             /// </summary>
@@ -1235,9 +1272,9 @@ namespace TTC2025.UvlToDot.UniversalVariability
             /// <remarks>Do not modify the contents of this method as it will be overridden as the contents of the AnyText file change.</remarks>
             public override void Initialize(GrammarContext context)
             {
-                Inner = context.ResolveFormattedRule<ConstraintRule>();
+                Inner = context.ResolveFormattedRule<SimpleConstraintRule>();
             }
-
+            
             /// <summary>
             /// Gets the value of the given property
             /// </summary>
@@ -1248,7 +1285,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
             {
                 return semanticElement.Inner;
             }
-
+            
             /// <summary>
             /// Assigns the value to the given semantic element
             /// </summary>

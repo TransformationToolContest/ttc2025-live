@@ -34,6 +34,7 @@ namespace NMFSolution.Verbs
             return () =>
             {
                 _loadedFeatureModel = (FeatureModel) _parser.Update(edits);
+                if (_parser.Context.Errors.Any()) throw new InvalidOperationException("Parser found errors");
                 return Initial(modelPath, model, targetPath);
             };
         }
@@ -55,6 +56,7 @@ namespace NMFSolution.Verbs
             Console.Error.WriteLine("Loading " + modelPath);
             _parser = _grammar.CreateParser();
             _loadedFeatureModel = _parser.Initialize(File.ReadAllLines(modelPath)) as FeatureModel;
+            if (_parser.Context.Errors.Any()) throw new InvalidOperationException("Parser found errors");
         }
 
         protected override void ExecuteCore()

@@ -50,7 +50,7 @@ namespace NMFSolution.Transformation
             writer.WriteLine("}");
         }
 
-        private static void WriteConstraint(IConstraint constraint, TextWriter writer)
+        public static void WriteConstraint(IConstraint constraint, TextWriter writer)
         {
             switch (constraint)
             {
