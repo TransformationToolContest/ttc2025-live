@@ -45,12 +45,17 @@ namespace NMFSolution.Verbs
                 var targetPath = Path.Combine(SortedPath, Path.GetFileName(path).Replace(directoryName, targetDirectoryName));
                 ReorderFeatures(parsed.Features);
                 ReorderConstraints(parsed);
-                parser.Initialize(parsed);
+                parser.Initialize(parsed, false, "\t");
 
                 File.WriteAllLines(targetPath, parser.Context.Input.Where(l => !string.IsNullOrEmpty(l)));
             }
 
             Environment.CurrentDirectory = SortedPath;
+            GenerateDiffs(targetDirectoryName);
+        }
+
+        public static void GenerateDiffs(string targetDirectoryName)
+        {
             var index = 2;
             while (File.Exists($"{targetDirectoryName}_{index:00}.uvl"))
             {

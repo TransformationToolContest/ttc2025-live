@@ -1,35 +1,19 @@
 ﻿using NMF.AnyText;
 using NMF.AnyText.Grammars;
 using NMF.AnyText.Rules;
-using NMF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TTC2025.UvlToDot.UniversalVariability
 {
     partial class UniversalVariabilityGrammar
     {
-        partial class FeatureConstraintFeatureFeatureRule
-        {
-            //protected override bool TryResolveReference(IFeatureConstraint contextElement, string input, ParseContext context, out IFeature? resolved)
-            //{
-            //    resolved = null;
-            //    var featureModel = contextElement?.Ancestors().OfType<FeatureModel>().FirstOrDefault();
-            //    if (featureModel != null)
-            //    {
-            //        resolved = featureModel.Descendants().OfType<Feature>().FirstOrDefault(f => f.Name == input);
-            //        return resolved != null;
-            //    }
-            //    return false;
-            //}
-        }
-
         protected override ParseContext CreateParseContext()
         {
             return new UniversalVariabilityParseContext(this);
+        }
+
+        public partial class FeatureRule
+        {
+            public override SymbolKind SymbolKind => SymbolKind.Function;
         }
     }
 

@@ -46,7 +46,7 @@ namespace NMFSolution.Verbs
             Console.Error.WriteLine("Loading " + modelPath);
             var parser = _grammar.CreateParser();
             _loadedFeatureModel = parser.Initialize(File.ReadAllLines(modelPath)) as FeatureModel;
-            if (parser.Context.Errors.Any()) throw new InvalidOperationException("Parser found errors");
+            if (parser.Context.Errors.Any()) throw new InvalidOperationException("Parser found errors: " + string.Join(", ", parser.Context.Errors));
         }
 
         protected override void ExecuteCore()

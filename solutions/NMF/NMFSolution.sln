@@ -21,6 +21,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{02CE077F-431A-4C96-8472-4DA09E549540}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\config\config.json = ..\..\config\config.json
+		..\..\scripts\run.py = ..\..\scripts\run.py
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "busybox", "busybox", "{1BD1EBD5-8A0F-47C4-92C5-8E9EB4380FC5}"
