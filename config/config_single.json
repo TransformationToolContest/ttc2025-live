@@ -1,0 +1,32 @@
+{
+  "Tools": ["NMF-incremental","SLE","MontiCore"],
+	"Models": [
+		{
+			"Name": "automotive02_single",
+			"Versions": "99"
+		},
+		{
+			"Name": "automotive02_sorted_single",
+			"Versions": "99"
+		},
+		{
+			"Name": "busybox_single",
+			"Versions": "99"
+		},
+		{
+			"Name": "busybox_sorted_single",
+			"Versions": "99"
+		},
+		{
+			"Name": "financialservices_single",
+			"Versions": "99"
+		},
+		{
+			"Name": "financialservices_sorted_single",
+			"Versions": "99"
+		}
+	],
+  "MaxVersions": 99,
+  "Runs": 5,
+  "Timeout": 6000
+}

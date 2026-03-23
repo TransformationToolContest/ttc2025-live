@@ -57,12 +57,10 @@ def benchmark(conf):
             os.environ['Tool'] = tool
             for scenario in conf.Models:
                 os.environ['Model'] = scenario.Name
-                os.environ['Sequences'] = '0'
+                os.environ['Sequences'] = scenario.Versions
                 full_model_path = os.path.abspath(os.path.join(BASE_DIRECTORY, "models", scenario.Name, scenario.Name + ".uvl"))
-                for i in range(1, conf.MaxVersions):
-                    if os.path.exists(os.path.join(BASE_DIRECTORY, "models", scenario.Name, scenario.Name + "_" + str(i).zfill(2) + ".uvl")):
-                        os.environ['Sequences'] = str(i)
-                        full_model_path = os.path.abspath(os.path.join(BASE_DIRECTORY, "models", scenario.Name, scenario.Name + "_01.uvl"))
+                if os.path.exists(os.path.join(BASE_DIRECTORY, "models", scenario.Name, scenario.Name + "_01.uvl")):
+                   full_model_path = os.path.abspath(os.path.join(BASE_DIRECTORY, "models", scenario.Name, scenario.Name + "_01.uvl"))
                 os.environ['ModelPath'] = full_model_path
                 os.environ['ModelDirectory'] = os.path.abspath(os.path.join(BASE_DIRECTORY, "models", scenario.Name))
                 print("Running benchmark: tool = " + tool + ", model = " + scenario.Name)
@@ -88,6 +86,7 @@ def _visualize(times, metric, unit, scale):
     import pandas as pd
     import numpy as np
     import matplotlib.pyplot as plt
+    plt.figure(figsize=(10, 6))
     values = times[times.MetricName==metric]
     values['Values'] = values.MetricValue * scale
     models=np.unique(values.Model)
@@ -95,7 +94,7 @@ def _visualize(times, metric, unit, scale):
         print("Printing diagram for phase = " + phase)
         phasedata = values[values.PhaseName==phase]
         results = pd.pivot_table(phasedata, values='Values', index=['Model'],columns=['Tool'])
-        plot = results.plot()
+        plot = results.plot(figsize=(12,6))
         label = metric
         if unit is not None:
             label = label + " [" + unit + "]"
