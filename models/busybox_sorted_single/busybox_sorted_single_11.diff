@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_10.uvl b/busybox_sorted_single_11.uvl
+index 850a715..6194fc5 100644
+--- a/busybox_sorted_single_10.uvl
++++ b/busybox_sorted_single_11.uvl
+@@ -291,6 +291,7 @@ features
+ 			CONFIG_FEATURE_TFTP_PUT
+ 			CONFIG_FEATURE_TOP_CPU_GLOBAL_PERCENTS
+ 			CONFIG_FEATURE_TOP_CPU_USAGE_PERCENTAGE
++			CONFIG_FEATURE_TOP_DECIMALS
+ 			CONFIG_FEATURE_TR_CLASSES
+ 			CONFIG_FEATURE_TR_EQUIV
+ 			CONFIG_FEATURE_TRACEROUTE_SOURCE_ROUTE
+

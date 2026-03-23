@@ -1,0 +1,16 @@
+diff --git a/automotive02_sorted_single_60.uvl b/automotive02_sorted_single_61.uvl
+index e94c92b..9df3631 100644
+--- a/automotive02_sorted_single_60.uvl
++++ b/automotive02_sorted_single_61.uvl
+@@ -2910,6 +2910,10 @@ features
+ 									F_64B840F0C497
+ 							"F_DF216E811728"
+ 								or
++									F_0013373D8530
++									F_054036AF834E
++									F_0907F9BDAF79
++									F_0B57DCF5F021
+ 									F_0C18C6E433BE
+ 									F_2A0FB109C8D9
+ 									F_8A977FED5DE6
+

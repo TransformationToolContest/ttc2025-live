@@ -1,0 +1,118 @@
+diff --git a/automotive02_single_52.uvl b/automotive02_single_53.uvl
+index 7bf7f97..7e64fdb 100644
+--- a/automotive02_single_52.uvl
++++ b/automotive02_single_53.uvl
+@@ -3066,7 +3066,103 @@ features
+ 											F_CC7B8BFCA6CE
+ 											F_1434D62F6DA0
+ 							N_3567789813__F_650F7F2B089D
+-							"F_C4107E2DE884"	
++							"N_3567789813__F_C4107E2DE884"	
++								mandatory
++									F_2D5CB5DCE2A7
++									F_63C936DDAE8E
++									F_46649F27FB92
++									F_2B9926438FC7
++									"N_3567789813__F_A5DA7D9A9657"	
++										optional
++											F_65ED56EC64FA
++											F_7EA91EC0BD2C
++											F_BE3019425FBB
++											F_6D4A04D96A38
++											F_4F67E5F38634
++									"N_3567789813__F_2867A47BB0D3"	
++										mandatory
++											"F_1DDB88122AE2"	
++												alternative
++													F_9DF93A164D7A
++													F_C4002C359DE8
++													F_6AF67313628C
++											F_2B7DF4A4D295
++
++										optional
++											F_3D3B16B4728F
++											F_A7713F056EC9
++											F_E3FDCF013E37
++									"N_3567789813__F_AFA54E4C71BB"	
++										mandatory
++											F_C21A68C9BD7C
++
++										optional
++											F_4742E9AEFD41
++											F_5F1EF1583965
++											F_895D1F6074D6
++											F_F4C1832DBF66
++									"N_3567789813__F_B739B8D1952A"	
++										mandatory
++											F_9784E6E4ACB4
++											F_DC2CB4578F53
++											F_56F767CE3419
++											F_01211AD10D19
++											F_1E553D1EF0CD
++											F_084426C63781
++											F_38CC48814F3F
++									"N_3567789813__F_BD84564BD283"	
++										mandatory
++											F_4080BCFF0933
++											F_AB2F18069163
++
++										optional
++											F_E5DBEFFBF088
++											F_F70C83E0E810
++											F_38D2BF86AEA0
++											F_605DC47E0A2D
++									"N_3567789813__F_54C107A9BB7A"	
++										mandatory
++											"F_0B3DAA9256FC"	
++												or
++													F_D237C391420B
++													F_B3DA10614541
++											F_09986E12DE57
++											F_72D6FE720AAA
++											F_D36407CE0D0B
++											F_7361EAE382B9
++
++										optional
++											F_832A7682F56E
++											F_13F396596AC0
++											F_666E99B52E36
++									"N_3567789813__F_688C5B88219C"	
++										mandatory
++											"F_08EFF7521311"	
++												alternative
++													F_09A60B5D1F3E
++													F_EFFF7D165E79
++													F_7A031BFCD56B
++													F_970A2D336623
++													F_CB379C854409
++													F_0ABF3251B70C
++													F_8D4E96959703
++													F_544E5B05569C
++
++										optional
++											F_78D0ACFAA6A8
++											F_E3E44DC84B10
++									"N_3567789813__F_8E35DB0CE631"	
++										optional
++											F_CB19AE89FB9F
++											F_B74629981D2F
++											F_D0FEEA1EBC62
++											F_82C6627D5BD1
++											F_0906B6DD7009
++									"N_3567789813__F_2997B708B9F5"	
++										optional
++											F_7AC187EE7C25
++											F_7B8006020B6C
++
+ 								optional
+ 									F_06CB64B5BAB4
+ 							"F_9AF7532651D9"	
+@@ -16063,6 +16159,7 @@ constraints
+ 	F_B709EC4C65DD => !F_F785E9DB694C
+ 	I_2979276807__F_9D6466EC9799 & I_570790106__F_803DE74C7964 => F_B709EC4C65DD
+ 	!I_2979276807__F_9D6466EC9799 | !I_570790106__F_803DE74C7964 => !F_B709EC4C65DD
++	F_E5DBEFFBF088 <=> F_E730F94A125F
+ 	"F_0B5B64C7427E" <=> F_9E903018A32E
+ 	F_B957D8524CF6 <=> F_8C5668B4FA26
+ 	F_C81A340D6D50 <=> F_D526323E405D
+

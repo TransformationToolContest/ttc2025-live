@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_81.uvl b/busybox_sorted_single_82.uvl
+index befbbf9..e3f139e 100644
+--- a/busybox_sorted_single_81.uvl
++++ b/busybox_sorted_single_82.uvl
+@@ -82,6 +82,7 @@ features
+ 			CONFIG_FEATURE_DEB_TAR_GZ
+ 			CONFIG_FEATURE_DEB_TAR_LZMA
+ 			CONFIG_FEATURE_DEL_USER_FROM_GROUP
++			CONFIG_FEATURE_DF_INODE
+ 			CONFIG_FEATURE_DIFF_BINARY
+ 			CONFIG_FEATURE_DIFF_DIR
+ 			CONFIG_FEATURE_DIFF_MINIMAL
+

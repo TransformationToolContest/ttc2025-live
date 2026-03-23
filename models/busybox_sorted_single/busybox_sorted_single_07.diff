@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_06.uvl b/busybox_sorted_single_07.uvl
+index 9dd441e..723aa06 100644
+--- a/busybox_sorted_single_06.uvl
++++ b/busybox_sorted_single_07.uvl
+@@ -227,6 +227,7 @@ features
+ 			CONFIG_FEATURE_MTAB_SUPPORT
+ 			CONFIG_FEATURE_MV_LONG_OPTIONS
+ 			CONFIG_FEATURE_NETSTAT_WIDE
++			CONFIG_FEATURE_NOLOGIN
+ 			CONFIG_FEATURE_OSF_LABEL
+ 			CONFIG_FEATURE_PASSWD_WEAK_CHECK
+ 			CONFIG_FEATURE_PIDOF_OMIT
+

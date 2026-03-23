@@ -1,0 +1,47 @@
+diff --git a/automotive02_single_92.uvl b/automotive02_single_93.uvl
+index 16aa5ef..3891c8b 100644
+--- a/automotive02_single_92.uvl
++++ b/automotive02_single_93.uvl
+@@ -5766,7 +5766,25 @@ features
+ 							"F_00A2827C501E"	
+ 								alternative
+ 									F_D0159F5DB966
+-									F_49977D5B3C86
++									"F_49977D5B3C86"	
++										mandatory
++											"F_7F8F158081AF"	
++												alternative
++													F_0659AA7791D3
++													F_AD74AD982E4B
++											"F_6D7AD4A02EAC"	
++												alternative
++													F_1FDF065FD60B
++													F_7B6BB3649193
++
++										optional
++											F_3F89D23A14E5
++											F_68A29EC10620
++											F_DE57DC2BA683
++											F_A117CF33BF99
++											F_B9DE8DC6BBE8
++											F_976B6B409804
++											F_5EEF02682907
+ 							"F_051824FB3706"	
+ 								alternative
+ 									F_0880A9F0A59A
+@@ -16208,14 +16226,7 @@ constraints
+ 	"F_4E811328D007" => "F_C2A3F3CDCDBD"
+ 	!(!F_D8A356C2678B & F_D37C91A69D94)
+ 	!(!F_D8A356C2678B & F_90CCCD098AA6)
+-	!(!F_49977D5B3C86 & F_68A29EC10620)
+-	!(!F_49977D5B3C86 & F_DE57DC2BA683)
+-	!(!F_49977D5B3C86 & F_A117CF33BF99)
+-	!(!F_49977D5B3C86 & F_B9DE8DC6BBE8)
+-	!(!F_49977D5B3C86 & F_976B6B409804)
+-	!(!F_49977D5B3C86 & F_5EEF02682907)
+ 	!(!F_D8A356C2678B & F_268B746ACEBA)
+-	!(!F_49977D5B3C86 & F_88EA87962355)
+ 	!(!F_268B746ACEBA & F_B58BB34CEAC5)
+ 	F_268B746ACEBA => F_B58BB34CEAC5
+ 	!(!F_88EA87962355 & F_356020ACABF5)
+

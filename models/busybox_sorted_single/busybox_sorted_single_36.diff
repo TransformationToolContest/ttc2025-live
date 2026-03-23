@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_35.uvl b/busybox_sorted_single_36.uvl
+index 156a292..851b588 100644
+--- a/busybox_sorted_single_35.uvl
++++ b/busybox_sorted_single_36.uvl
+@@ -413,6 +413,7 @@ features
+ 			CONFIG_READAHEAD
+ 			CONFIG_READLINK
+ 			CONFIG_RESIZE
++			CONFIG_RESTORECON
+ 			CONFIG_RMMOD
+ 			CONFIG_ROUTE
+ 			CONFIG_RPM
+

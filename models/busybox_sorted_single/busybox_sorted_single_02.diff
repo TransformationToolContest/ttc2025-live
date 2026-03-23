@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_01.uvl b/busybox_sorted_single_02.uvl
+index 8cd3fcd..fb6a7b6 100644
+--- a/busybox_sorted_single_01.uvl
++++ b/busybox_sorted_single_02.uvl
+@@ -91,6 +91,7 @@ features
+ 			CONFIG_FEATURE_EDITING_FANCY_KEYS
+ 			CONFIG_FEATURE_EDITING_FANCY_PROMPT
+ 			CONFIG_FEATURE_EDITING_HISTORY
++			CONFIG_FEATURE_EDITING_MAX_LEN
+ 			CONFIG_FEATURE_EDITING_SAVEHISTORY
+ 			CONFIG_FEATURE_EDITING_VI
+ 			CONFIG_FEATURE_ENV_LONG_OPTIONS
+

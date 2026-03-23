@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_14.uvl b/busybox_sorted_single_15.uvl
+index 8f77683..7268239 100644
+--- a/busybox_sorted_single_14.uvl
++++ b/busybox_sorted_single_15.uvl
+@@ -412,6 +412,7 @@ features
+ 			CONFIG_RESIZE
+ 			CONFIG_RMMOD
+ 			CONFIG_ROUTE
++			CONFIG_RPM
+ 			CONFIG_RUN_PARTS
+ 			CONFIG_RUNCON
+ 			CONFIG_SELINUX
+

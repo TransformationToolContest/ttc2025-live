@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_26.uvl b/busybox_sorted_single_27.uvl
+index 381b765..89285e0 100644
+--- a/busybox_sorted_single_26.uvl
++++ b/busybox_sorted_single_27.uvl
+@@ -663,6 +663,7 @@ constraints
+ 	!CONFIG_HUSH | CONFIG_FALSE
+ 	!CONFIG_HUSH | CONFIG_TRUE
+ 	!CONFIG_HUSH_INTERACTIVE | CONFIG_HUSH
++	!CONFIG_HUSH_TICK | CONFIG_HUSH
+ 	!CONFIG_INIT | CONFIG_FEATURE_SYSLOG
+ 	!CONFIG_INSTALL_APPLET_DONT | !CONFIG_INSTALL_APPLET_HARDLINKS
+ 	!CONFIG_INSTALL_APPLET_DONT | !CONFIG_INSTALL_APPLET_SYMLINKS
+

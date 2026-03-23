@@ -1,0 +1,13 @@
+diff --git a/automotive02_single_82.uvl b/automotive02_single_83.uvl
+index 18f47b0..55380c9 100644
+--- a/automotive02_single_82.uvl
++++ b/automotive02_single_83.uvl
+@@ -5571,6 +5571,7 @@ features
+ 									F_BADA3349D6F0
+ 									F_1DC4CF347EA0
+ 									F_62D64668E900
++									F_3EB4DD757423
+ 							"F_968BAA64621A"	
+ 								alternative
+ 									F_0BBB48BEF21D
+

@@ -1,0 +1,56 @@
+diff --git a/automotive02_single_98.uvl b/automotive02_single_99.uvl
+index 68d9b7d..ff14af1 100644
+--- a/automotive02_single_98.uvl
++++ b/automotive02_single_99.uvl
+@@ -5826,32 +5826,24 @@ features
+ 									F_238611C690C3
+ 							"F_CDB27FB8AB4C"	
+ 								alternative
+-									F_638F4F67D1F2
+-									F_9AA70024D264
+-							F_300290481B1A
+-							F_D37C91A69D94
+-							F_90CCCD098AA6
+-							"F_D301A881B9D5"	
+-								alternative
+-									F_2E7C625562B3
+-									F_7F86D1D33DE9
+-							"F_491B5B403498"	
+-								or
+-									F_CAA23D469716
+-									F_2445132C54F1
+-							"F_AD17FA95298D"	
+-								alternative
+-									F_D3C37AECE9CA
+-									F_DD3B870329AC
+-							F_861FAC4B2BBA
+-							F_77DFAC79E119
+-							F_06FB1D35C431
+-							F_68A29EC10620
+-							F_DE57DC2BA683
+-							F_A117CF33BF99
+-							F_B9DE8DC6BBE8
+-							F_976B6B409804
+-							F_5EEF02682907
++									F_AFDA33D45DA8
++									F_0896CAEDA85A
++							"F_BE92E5F1E7DF"	
++								alternative
++									F_1EC1CBD2110D
++									F_0A856E0CEB0E
++							"F_A0C399ED2866"	
++								alternative
++									F_000E4B99C2DB
++									F_ACF9CB7E2E40
++									F_6508F008BFE5
++							"F_096A66821542"	
++								alternative
++									F_A194AEC77BD9
++									F_34564E25994D
++									F_2B3F53235339
++
++						optional
+ 							"F_422E95C1BE08"	
+ 								or
+ 									F_2B5CE92D540D
+

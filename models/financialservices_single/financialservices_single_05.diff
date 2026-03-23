@@ -1,0 +1,15 @@
+diff --git a/financialservices_single_04.uvl b/financialservices_single_05.uvl
+index b0289e1..e3cd435 100644
+--- a/financialservices_single_04.uvl
++++ b/financialservices_single_05.uvl
+@@ -336,7 +336,8 @@ features
+ 													"F_GMUcyx0I1Ss8Mg0rT+8SH28uKSvH3zLC"
+ 													"F_BGocnOVB9rGukC+CBQqYWXoLlC82ackI"
+ 											"F_yGIoifoS1Pw69ToDll9/uq9pw/DgtUZX"	
+-												mandatory
++												alternative
++													F_zA4J0x1ZMvBo1bgQOleHJOjiMrTMf1f1
+ 													F_fHziG2zqN1DTsTaUfwOQNhjUXIaFO6Qt
+ 					"F_LPZnn4xSkxcVngbP/l43mzYIVHpFKXx6"	
+ 						mandatory
+

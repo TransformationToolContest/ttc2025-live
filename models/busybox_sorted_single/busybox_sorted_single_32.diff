@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_31.uvl b/busybox_sorted_single_32.uvl
+index e08f45d..6b25b87 100644
+--- a/busybox_sorted_single_31.uvl
++++ b/busybox_sorted_single_32.uvl
+@@ -867,6 +867,7 @@ constraints
+ 	CONFIG_LESS | !CONFIG_FEATURE_LESS_REGEXP
+ 	CONFIG_LFS | !CONFIG_READAHEAD
+ 	CONFIG_LFS | CONFIG_FDISK | !CONFIG_FDISK_SUPPORT_LARGE_DISKS
++	CONFIG_LOGIN | !CONFIG_FEATURE_NOLOGIN
+ 	CONFIG_LS | !CONFIG_FEATURE_LS_COLOR
+ 	CONFIG_LS | !CONFIG_FEATURE_LS_COLOR | CONFIG_GETOPT_LONG
+ 	CONFIG_LS | !CONFIG_FEATURE_LS_FOLLOWLINKS
+

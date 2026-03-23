@@ -1,0 +1,14 @@
+diff --git a/automotive02_sorted_single_28.uvl b/automotive02_sorted_single_29.uvl
+index d735be9..861e3a0 100644
+--- a/automotive02_sorted_single_28.uvl
++++ b/automotive02_sorted_single_29.uvl
+@@ -930,6 +930,8 @@ features
+ 											I_2771360831__F_762F2F4267E5
+ 											I_2771360831__F_8AB38255E1E7
+ 											I_2771360831__F_8F7AB29A8D75
++											I_2771360831__F_8FEBCF613CB9
++											I_2771360831__F_9C4614722CBE
+ 											I_2771360831__F_A31230FA6DFB
+ 											I_2771360831__F_B1D17B66D024
+ 											I_2771360831__F_B77BF7851247
+

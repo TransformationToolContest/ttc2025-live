@@ -1,0 +1,14 @@
+diff --git a/automotive02_single_44.uvl b/automotive02_single_45.uvl
+index 27737a9..5fd1241 100644
+--- a/automotive02_single_44.uvl
++++ b/automotive02_single_45.uvl
+@@ -2633,6 +2633,8 @@ features
+ 											I_2363959501__F_BB141E32D20C
+ 											I_2363959501__F_1D4097825103
+ 											I_2363959501__F_6226DBC9370B
++											I_2363959501__F_65C99CDFF223
++											I_2363959501__F_6B9304AB4300
+ 											I_2363959501__F_D4E768447255
+ 											I_2363959501__F_11759B6C060E
+ 											I_2363959501__F_A451D020AA6B
+

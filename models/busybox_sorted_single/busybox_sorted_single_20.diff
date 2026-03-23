@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_19.uvl b/busybox_sorted_single_20.uvl
+index d8d2364..48fdbd8 100644
+--- a/busybox_sorted_single_19.uvl
++++ b/busybox_sorted_single_20.uvl
+@@ -511,6 +511,7 @@ constraints
+ 	!CONFIG_FEATURE_FIND_PERM | CONFIG_FIND
+ 	!CONFIG_FEATURE_FIND_PRINT0 | CONFIG_FIND
+ 	!CONFIG_FEATURE_FIND_PRUNE | CONFIG_FIND
++	!CONFIG_FEATURE_FIND_REGEX | CONFIG_FIND
+ 	!CONFIG_FEATURE_FIND_SIZE | CONFIG_FIND
+ 	!CONFIG_FEATURE_FIND_TYPE | CONFIG_FIND
+ 	!CONFIG_FEATURE_FIND_USER | CONFIG_FIND
+

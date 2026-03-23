@@ -1,0 +1,19 @@
+diff --git a/automotive02_sorted_single_07.uvl b/automotive02_sorted_single_08.uvl
+index bc6d253..38fbfcb 100644
+--- a/automotive02_sorted_single_07.uvl
++++ b/automotive02_sorted_single_08.uvl
+@@ -219,6 +219,13 @@ features
+ 									F_51DCD7ED3F8D
+ 							"F_5F6D388FDAB3"
+ 								alternative
++									"F_9B36F5B4B4A7"
++										optional
++											F_11D7DC49D5E9
++											F_4C7DDAD1D483
++											F_5CE336E3FF92
++											F_92339DEA751D
++											F_C5607C208129
+ 									F_98C9762745C1
+ 									F_9B36F5B4B4A7
+ 							"F_6551B33CD68F"
+

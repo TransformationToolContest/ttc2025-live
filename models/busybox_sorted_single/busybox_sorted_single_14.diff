@@ -1,0 +1,14 @@
+diff --git a/busybox_sorted_single_13.uvl b/busybox_sorted_single_14.uvl
+index 0a4935c..8f77683 100644
+--- a/busybox_sorted_single_13.uvl
++++ b/busybox_sorted_single_14.uvl
+@@ -345,6 +345,8 @@ features
+ 			CONFIG_HUSH_IF
+ 			CONFIG_HUSH_INTERACTIVE
+ 			CONFIG_HUSH_JOB
++			CONFIG_HUSH_LOOPS
++			CONFIG_HUSH_TICK
+ 			CONFIG_HWCLOCK
+ 			CONFIG_IFCONFIG
+ 			CONFIG_IFUPDOWN
+

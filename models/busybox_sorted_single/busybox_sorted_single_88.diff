@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_87.uvl b/busybox_sorted_single_88.uvl
+index 32e68a0..3f23abd 100644
+--- a/busybox_sorted_single_87.uvl
++++ b/busybox_sorted_single_88.uvl
+@@ -354,6 +354,7 @@ features
+ 			CONFIG_HD
+ 			CONFIG_HDPARM
+ 			CONFIG_HEAD
++			CONFIG_HEXDUMP
+ 			CONFIG_HTTPD
+ 			CONFIG_HUSH
+ 			CONFIG_HUSH_HELP
+

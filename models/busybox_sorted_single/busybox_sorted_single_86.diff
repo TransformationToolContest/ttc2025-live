@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_85.uvl b/busybox_sorted_single_86.uvl
+index 052ad4e..6e65f01 100644
+--- a/busybox_sorted_single_85.uvl
++++ b/busybox_sorted_single_86.uvl
+@@ -310,6 +310,7 @@ features
+ 			CONFIG_FEATURE_TRACEROUTE_USE_ICMP
+ 			CONFIG_FEATURE_TRACEROUTE_VERBOSE
+ 			CONFIG_FEATURE_UDHCP_DEBUG
++			CONFIG_FEATURE_UDHCPC_ARPING
+ 			CONFIG_FEATURE_UDHCPD_WRITE_LEASES_EARLY
+ 			CONFIG_FEATURE_UMOUNT_ALL
+ 			CONFIG_FEATURE_UNARCHIVE_TAPE
+

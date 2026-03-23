@@ -1,0 +1,27 @@
+diff --git a/automotive02_sorted_single_08.uvl b/automotive02_sorted_single_09.uvl
+index 38fbfcb..22e71b6 100644
+--- a/automotive02_sorted_single_08.uvl
++++ b/automotive02_sorted_single_09.uvl
+@@ -227,13 +227,6 @@ features
+ 											F_92339DEA751D
+ 											F_C5607C208129
+ 									F_98C9762745C1
+-									F_9B36F5B4B4A7
+-							"F_6551B33CD68F"
+-								alternative
+-									F_101D0028F828
+-									F_621201082B9A
+-									F_B1555C0AEA56
+-									F_B891B4AE9461
+ 							"F_67BE00AC9962"
+ 								alternative
+ 									F_4C57977FAB18
+@@ -15898,7 +15891,6 @@ constraints
+ 	F_9857C16EDD28 <=> F_1E89B0D1799F
+ 	F_988C739F5296 => F_8199C75D1AD6
+ 	F_99F9D65EDB03 <=> F_128A78CFA4EB
+-	F_9B36F5B4B4A7 <=> F_92339DEA751D
+ 	F_A0216E14BC97 <=> F_ACED4C55637F
+ 	F_A11BAA2D33B7 <=> F_A11BAA2D33B3
+ 	F_A3375CB59CCE <=> F_981EE997431C
+

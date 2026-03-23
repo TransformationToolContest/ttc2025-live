@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_02.uvl b/busybox_sorted_single_03.uvl
+index fb6a7b6..0a2503d 100644
+--- a/busybox_sorted_single_02.uvl
++++ b/busybox_sorted_single_03.uvl
+@@ -105,6 +105,7 @@ features
+ 			CONFIG_FEATURE_FBSET_READMODE
+ 			CONFIG_FEATURE_FDISK_ADVANCED
+ 			CONFIG_FEATURE_FDISK_WRITABLE
++			CONFIG_FEATURE_FIND_CONTEXT
+ 			CONFIG_FEATURE_FIND_DELETE
+ 			CONFIG_FEATURE_FIND_DEPTH
+ 			CONFIG_FEATURE_FIND_EXEC
+

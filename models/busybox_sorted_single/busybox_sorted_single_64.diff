@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_63.uvl b/busybox_sorted_single_64.uvl
+index e0a528d..41a08f8 100644
+--- a/busybox_sorted_single_63.uvl
++++ b/busybox_sorted_single_64.uvl
+@@ -227,6 +227,7 @@ features
+ 			CONFIG_FEATURE_MOUNT_CIFS
+ 			CONFIG_FEATURE_MOUNT_FLAGS
+ 			CONFIG_FEATURE_MOUNT_FSTAB
++			CONFIG_FEATURE_MOUNT_HELPERS
+ 			CONFIG_FEATURE_MOUNT_LOOP
+ 			CONFIG_FEATURE_MOUNT_NFS
+ 			CONFIG_FEATURE_MTAB_SUPPORT
+

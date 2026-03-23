@@ -1,0 +1,15 @@
+diff --git a/busybox_sorted_single_49.uvl b/busybox_sorted_single_50.uvl
+index 80da775..e8bdd4e 100644
+--- a/busybox_sorted_single_49.uvl
++++ b/busybox_sorted_single_50.uvl
+@@ -365,6 +365,9 @@ features
+ 			CONFIG_INSTALL_APPLET_HARDLINKS
+ 			CONFIG_INSTALL_APPLET_SCRIPT_WRAPPERS
+ 			CONFIG_INSTALL_APPLET_SYMLINKS
++			CONFIG_INSTALL_SH_APPLET_HARDLINK
++			CONFIG_INSTALL_SH_APPLET_SCRIPT_WRAPPER
++			CONFIG_INSTALL_SH_APPLET_SYMLINK
+ 			CONFIG_IP
+ 			CONFIG_IPADDR
+ 			CONFIG_IPCALC
+

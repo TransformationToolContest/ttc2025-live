@@ -1,0 +1,35 @@
+diff --git a/financialservices_sorted_single_23.uvl b/financialservices_sorted_single_24.uvl
+index 2ce44ed..4cb9c0e 100644
+--- a/financialservices_sorted_single_23.uvl
++++ b/financialservices_sorted_single_24.uvl
+@@ -364,6 +364,29 @@ features
+ 									F_DL413wKdV72o0S4wVyF3blat7zQrZEkK
+ 			"F_wCb7z/QGeAgQbo6Tr8ojlMXMPuMXVtNx"
+ 				alternative
++					"F_hxWM93xnptsnhuWx5iEI8COzxcV5sg2F"
++						mandatory
++							"F_QBdXnIgdKW8OKEQk9zWDhMJNidvEPaHQ"
++								alternative
++									"F_034CdzwIf4nI97zOGpisQ0IKYeD9qhym"
++										mandatory
++											"F_kiMPxAxnN1PEDebDPNlSXkvF4/tNZYYj"
++												mandatory
++													F_sojcJllwoiIL59yIr1n9FHc2FtIYlZtU
++									"F_aWxI07K/R8tp24YqAcBzDxK/ws7Q9lgA"
++										alternative
++											"F_6qVIyXYSsd0OWb8FKLpZ2J736FNVmzHJ"
++												mandatory
++													F_kS5fIfzAj3jxTvYn4UiOfXzW66kKjt05
++											"F_Cp426hV4SZGCSwSHuk5aYuIe5jmeluPQ"
++												mandatory
++													"F_961Cmfrg17W5DncOWmqj16+C+SC9VZhw"
++											"F_pYmwtII6wNHrcWRw/uNopv+aGrZ9KeE/"
++												mandatory
++													"F_miZh0kR1oa6F8OKTrKj4odh7GJ43lOe/"
++											"F_XVU5LrH34c6w9+w6JzWMSXx24u+8smLI"
++												mandatory
++													"F_PYBkDxeqqxkn3j2dZ7QBGw0AgYb+hzRb"
+ 					"F_LPZnn4xSkxcVngbP/l43mzYIVHpFKXx6"
+ 						mandatory
+ 							"F_uVJ5A+mVjRXxRk2Md5pHJhIN+OrATLHL"
+

@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_88.uvl b/busybox_sorted_single_89.uvl
+index 3f23abd..48fbd70 100644
+--- a/busybox_sorted_single_88.uvl
++++ b/busybox_sorted_single_89.uvl
+@@ -440,6 +440,7 @@ features
+ 			CONFIG_RUNCON
+ 			CONFIG_SELINUX
+ 			CONFIG_SELINUXENABLED
++			CONFIG_SESTATUS
+ 			CONFIG_SETCONSOLE
+ 			CONFIG_SETENFORCE
+ 			CONFIG_SETFILES
+

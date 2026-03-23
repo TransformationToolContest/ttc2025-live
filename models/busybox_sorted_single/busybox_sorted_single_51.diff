@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_50.uvl b/busybox_sorted_single_51.uvl
+index e8bdd4e..fca7061 100644
+--- a/busybox_sorted_single_50.uvl
++++ b/busybox_sorted_single_51.uvl
+@@ -411,6 +411,7 @@ features
+ 			CONFIG_NETSTAT
+ 			CONFIG_NITPICK
+ 			CONFIG_NO_DEBUG_LIB
++			CONFIG_PAM
+ 			CONFIG_PASSWD
+ 			CONFIG_PASSWORD_MINLEN
+ 			CONFIG_PIDOF
+

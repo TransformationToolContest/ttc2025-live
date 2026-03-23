@@ -1,0 +1,12 @@
+diff --git a/financialservices_sorted_single_01.uvl b/financialservices_sorted_single_02.uvl
+index 9adb058..18c24bc 100644
+--- a/financialservices_sorted_single_01.uvl
++++ b/financialservices_sorted_single_02.uvl
+@@ -1,5 +1,5 @@
+ features
+-	"F_JT4Lptbg6GTzfB2qbryL7WKLNLug/05h" {abstract}
++	"F_JT4Lptbg6GTzfB2qbryL7WKLNLug/05h"
+ 		mandatory
+ 			"F_9gMej/CWNsrHG2vJ/ue92XuOWcUfk7RW"
+ 				mandatory
+

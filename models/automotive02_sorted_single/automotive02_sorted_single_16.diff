@@ -1,0 +1,112 @@
+diff --git a/automotive02_sorted_single_15.uvl b/automotive02_sorted_single_16.uvl
+index b554dd4..7389c48 100644
+--- a/automotive02_sorted_single_15.uvl
++++ b/automotive02_sorted_single_16.uvl
+@@ -322,98 +322,6 @@ features
+ 											F_BA63B1F2684E
+ 											F_C774353284E2
+ 									F_6DEE1F5C8440
+-							"F_8BFA9399DC31"
+-								alternative
+-									F_03BCB6A80B14
+-									F_0FE5862F5D58
+-							"F_904800EC5B0B"
+-								alternative
+-									F_27D00D28EF6F
+-									F_A9ABD78C97AE
+-									F_D01F70E6BA43
+-							"F_9473E86B0D01"
+-								optional
+-									F_5407313A1D07
+-									F_A50A1CD3A005
+-									F_D61FD67C6967
+-									F_DDDDC3B2B7E6
+-							"F_957329EE5206"
+-								alternative
+-									F_1A9BF3AF9FD9
+-									F_49FE3E901826
+-									F_BD1483E365C0
+-									F_BE4F71865303
+-									F_D00432A40E33
+-							"F_9CDDEFF1AC99"
+-								alternative
+-									F_D940FC181A7D
+-									F_DDC14A06991B
+-							"F_9DBED97E3EFE"
+-								alternative
+-									F_13C2103B3DE1
+-									F_4F7D59B1A297
+-							"F_9DC4AA9E13D6"
+-								alternative
+-									F_3357EFC3889F
+-									F_E01DBDB09354
+-									F_E8EF7702C1CB
+-							"F_A6F835FA4832"
+-								alternative
+-									F_237BEB5D700D
+-									F_558B8402C115
+-									F_A4F0C7F1D5F2
+-									F_C4474EDBBFEF
+-									F_E3FF8885AAC2
+-							"F_A9AB1B753101"
+-								optional
+-									F_284C306B1786
+-									F_35C0B90C8041
+-									F_35C7913DCBC1
+-									F_3DC93A88C30B
+-									F_4966F252E434
+-									F_5764582AA4D3
+-									F_86112F21F9D0
+-									F_9158190A4A77
+-									F_9CB8AA6B5C76
+-									F_AA6770BB6689
+-									F_E9C28442110C
+-									F_F0C477A6947E
+-									F_FDCB79001273
+-							"F_B08E92EB7F0A" {abstract}
+-							"F_B3FD7C1BEF50"
+-								alternative
+-									F_BF8CB5F4CEBC
+-									F_C12E85C435A0
+-							"F_BDE9EE406377"
+-								alternative
+-									F_08BEDC3F051E
+-									F_31ABF46C909D
+-									F_41540B9AD35B
+-									F_C41DCE5AC90A
+-									F_C8B24444D96E
+-							"F_C294E7B2D450"
+-								alternative
+-									F_517F39E69595
+-									F_C709FD4BC38F
+-									F_F939C4079F5C
+-							"F_C3A0992EA044"
+-								alternative
+-									F_00CFDE71AB61
+-									F_7F6F1D0058E8
+-									F_8A7E9963C97A
+-									F_F8937218A563
+-							"F_CACE37F7FEB2"
+-								alternative
+-									F_638D549F2D7C
+-									F_93782A6F2693
+-							"F_CB7A77652930"
+-								alternative
+-									F_404DB39C8CDA
+-									F_A66BA71BFFB7
+-							"F_D207CC059879"
+-								alternative
+-									F_B6FE74B69DE2
+-									F_D18AD57C2980
+ 							"F_D99E4036ED42"
+ 								alternative
+ 									F_1372FB623FE7
+@@ -15975,7 +15883,6 @@ constraints
+ 	F_D5C78A58C528 <=> F_447E5A36D94F
+ 	F_D8331ACD2114 <=> F_83ED2CFE7E9D
+ 	F_D8CC0E8A0992 <=> "F_45F1FC08BA81"
+-	F_D940FC181A7D <=> F_5A34032B4F67
+ 	F_E0E6FF46990C => F_33A21731000A
+ 	F_E0EDAC1B0766 => F_AA4E8BAE18CA
+ 	F_E19742FF52C1 => !F_0609E78A5599
+

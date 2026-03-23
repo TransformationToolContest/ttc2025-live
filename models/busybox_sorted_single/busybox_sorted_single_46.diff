@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_45.uvl b/busybox_sorted_single_46.uvl
+index 8b5d724..ff9709f 100644
+--- a/busybox_sorted_single_45.uvl
++++ b/busybox_sorted_single_46.uvl
+@@ -151,6 +151,7 @@ features
+ 			CONFIG_FEATURE_HTTPD_RELOAD_CONFIG_SIGHUP
+ 			CONFIG_FEATURE_HTTPD_SET_REMOTE_PORT_TO_ENV
+ 			CONFIG_FEATURE_HTTPD_SETUID
++			CONFIG_FEATURE_HTTPD_USE_SENDFILE
+ 			CONFIG_FEATURE_HUMAN_READABLE
+ 			CONFIG_FEATURE_HWCLOCK_ADJTIME_FHS
+ 			CONFIG_FEATURE_HWCLOCK_LONG_OPTIONS
+

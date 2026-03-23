@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_47.uvl b/busybox_sorted_single_48.uvl
+index 4b6ce82..023807b 100644
+--- a/busybox_sorted_single_47.uvl
++++ b/busybox_sorted_single_48.uvl
+@@ -306,6 +306,7 @@ features
+ 			CONFIG_FEATURE_UDHCPD_WRITE_LEASES_EARLY
+ 			CONFIG_FEATURE_UMOUNT_ALL
+ 			CONFIG_FEATURE_UNARCHIVE_TAPE
++			CONFIG_FEATURE_UNEXPAND_LONG_OPTIONS
+ 			CONFIG_FEATURE_USE_INITTAB
+ 			CONFIG_FEATURE_USE_TERMIOS
+ 			CONFIG_FEATURE_USERNAME_COMPLETION
+

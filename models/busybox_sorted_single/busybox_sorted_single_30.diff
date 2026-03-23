@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_29.uvl b/busybox_sorted_single_30.uvl
+index 8bcd73e..41ef53c 100644
+--- a/busybox_sorted_single_29.uvl
++++ b/busybox_sorted_single_30.uvl
+@@ -798,6 +798,7 @@ constraints
+ 	CONFIG_FEATURE_UTMP | !CONFIG_WHO | !CONFIG_GETTY
+ 	CONFIG_FEATURE_UTMP | !CONFIG_WHO | !CONFIG_LOGIN
+ 	CONFIG_FEATURE_UTMP | !CONFIG_WHO | !CONFIG_SU
++	CONFIG_FEATURE_VI_MAX_LEN | !CONFIG_VI
+ 	CONFIG_FEATURE_WTMP | !CONFIG_FEATURE_UTMP | CONFIG_WHO | CONFIG_LOGIN | CONFIG_SU | CONFIG_GETTY
+ 	CONFIG_FEATURE_WTMP | !CONFIG_LAST
+ 	CONFIG_FEATURE_WTMP | !CONFIG_LAST | !CONFIG_GETTY
+

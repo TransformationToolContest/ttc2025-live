@@ -1,0 +1,38 @@
+diff --git a/automotive02_sorted_single_02.uvl b/automotive02_sorted_single_03.uvl
+index 40ade2e..1e4d430 100644
+--- a/automotive02_sorted_single_02.uvl
++++ b/automotive02_sorted_single_03.uvl
+@@ -7,6 +7,32 @@ features
+ 						mandatory
+ 							"F_06B4DD23A57D"
+ 								alternative
++									"F_AA6E6B2E3B6E"
++										mandatory
++											"F_32C254010D41"
++												alternative
++													F_1B827832FB4C
++													F_4FFA588DA0A4
++													F_B8B3E9EF0DFF
++											"F_B08E92EB7F0A" {abstract}
++											"I_2575240668__F_718778E8A555"
++												or
++													I_2575240668__F_1462BAF59BAA
++													I_2575240668__F_38261CAA555E
++													I_2575240668__F_9B89DBCD35C4
++													I_2575240668__F_DAAB1089A7BE
++													I_2575240668__F_FD685B1243BC
++										optional
++											"F_0101B1B41B5F"
++												alternative
++													F_863D2852820C
++													F_CC0C2DA99499
++													F_D3AC67679806
++											F_4AA1EA10E8E2
++											F_5E6BFF737359
++											F_B35E7DF3012A
++											F_C6A092564EB7
++											F_CF2A3C78444C
+ 									F_2ACCF74E9936
+ 									F_AA6E6B2E3B6E
+ 							"F_09F49F67BADF"
+

@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_07.uvl b/busybox_sorted_single_08.uvl
+index 723aa06..62aa686 100644
+--- a/busybox_sorted_single_07.uvl
++++ b/busybox_sorted_single_08.uvl
+@@ -241,6 +241,7 @@ features
+ 			CONFIG_FEATURE_RESIZE_PRINT
+ 			CONFIG_FEATURE_RFC3397
+ 			CONFIG_FEATURE_ROTATE_LOGFILE
++			CONFIG_FEATURE_RPM_BZ2
+ 			CONFIG_FEATURE_RUN_PARTS_FANCY
+ 			CONFIG_FEATURE_RUN_PARTS_LONG_OPTIONS
+ 			CONFIG_FEATURE_RUNCON_LONG_OPTIONS
+

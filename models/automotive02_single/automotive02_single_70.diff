@@ -1,0 +1,37 @@
+diff --git a/automotive02_single_69.uvl b/automotive02_single_70.uvl
+index d7dcc81..22c19bc 100644
+--- a/automotive02_single_69.uvl
++++ b/automotive02_single_70.uvl
+@@ -4486,6 +4486,31 @@ features
+ 							F_EE0446663B13
+ 							F_A0D82D3B41E7
+ 							F_1FAADCAC2E0C
++							"F_EE23DC3D59F4"	
++								or
++									F_D2B33E0225B4
++									F_57F4286C6D4C
++									F_6C19D26F3A4F
++									F_0D0764E4E175
++									F_8E817662826B
++							"F_129F23054D48"	
++								or
++									F_39411E9569F4
++									F_2F02A48D9A6F
++									F_0A90249C19C3
++									F_4DF30E2EEFC8
++									F_607CD695EDF5
++									F_F6B812CEBB15
++									F_69E3E5655AA3
++									F_D8B9492210A4
++									F_32EBEB157D9E
++									F_B45AABF30C07
++									F_5F7BC4EAE66D
++									F_70AAAA600DE1
++									F_00475FBE4A57
++									F_3977F080E0EB
++									F_33821057531F
++									F_EF0CD43D567A
+ 							"F_F8F2D28CFC79"	
+ 								optional
+ 									F_0FA973F9758F
+

@@ -1,0 +1,89 @@
+diff --git a/automotive02_single_59.uvl b/automotive02_single_60.uvl
+index 15b07f9..bbe6fb5 100644
+--- a/automotive02_single_59.uvl
++++ b/automotive02_single_60.uvl
+@@ -3720,20 +3720,59 @@ features
+ 							"F_87DD8E8C2B99"	
+ 								alternative
+ 									F_1C6783CDF11E
+-									F_4C33E5FDD98F
+-							"F_9CDDEFF1AC99"	
+-								alternative
+-									F_DDC14A06991B
+-									F_D940FC181A7D
+-							"F_09F49F67BADF"	
+-								alternative
+-									F_C54E7F8E1403
+-									F_674B75035505
+-							"F_765CC3A3F104"	
+-								alternative
+-									F_00061F87F584
+-									F_650BBBCE17DC
+-							"F_55B432ECB388"	
++									"F_4C33E5FDD98F"	
++										mandatory
++											"F_F61D7DF4F3BD"	
++												alternative
++													F_7FF179F5D449
++													F_FFC82B5D98EB
++											"I_2063493806__F_154C88655C50"	
++												alternative
++													I_2063493806__F_F69E7F706F2E
++													I_2063493806__F_825957E77D7E
++													I_2063493806__F_CBFD51FEB81A
++													I_2063493806__F_CBD822BE4A9E
++											"F_28672FAC534F"	
++												alternative
++													F_F0ABBBEE812E
++													F_191859F27323
++													F_0FF4E50AB5A4
++													F_9A5EC5CEF22C
++													F_1BEEA28F4E03
++													F_BA6F080A4022
++											"F_9DBED97E3EFE"	
++												alternative
++													F_13C2103B3DE1
++													F_4F7D59B1A297
++											"F_32FAA9606809"	
++												alternative
++													F_84FD31A6A208
++													F_8A4A3330DCAE
++													F_2873704C772B
++													F_B9B0C039C5FA
++											"F_36F89A3D7AD5"	
++												alternative
++													F_BC26389FF0F1
++													F_6702FBE6AF4A
++
++										optional
++											F_372BCED4FAC5
++											F_52649EEC5F86
++											F_14AE801EFA46
++											F_9320A0C39F50
++											F_ED163BF04379
++											"F_C16BFEF10D54"	
++												alternative
++													F_0FD10D26F7B1
++													F_76A7AD4A7AED
++											F_CF8F0096C625
++											F_946EBE87B97C
++											F_8ABA34AC977C
++											F_CAF68868D4B3
++											F_A3C5A584B271
++											F_A9BC94361248
++											F_02F738740212
++							"F_06B4DD23A57D"	
+ 								alternative
+ 									F_C7AC3D311EB5
+ 									F_A15BEC95E915
+@@ -15566,9 +15605,6 @@ constraints
+ 	!(!F_941E0D178915 & F_99F5E615EC6C)
+ 	F_F423DFBF8E73 => F_A7693637D091
+ 	!(!F_F423DFBF8E73 & F_A7693637D091)
+-	F_4C33E5FDD98F <=> F_14AE801EFA46
+-	F_D940FC181A7D <=> F_5A34032B4F67
+-	F_674B75035505 <=> F_5A34032B4F67
+ 	F_64B23714BD05 => F_A3C1C48F3BAB
+ 	F_3C31715289F5 => F_A3C1C48F3BAB
+ 	F_3C31715289F5 => F_A3C1C48F3BAB
+

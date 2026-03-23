@@ -1,0 +1,17 @@
+diff --git a/financialservices_sorted_single_47.uvl b/financialservices_sorted_single_48.uvl
+index e562f3f..c869bb5 100644
+--- a/financialservices_sorted_single_47.uvl
++++ b/financialservices_sorted_single_48.uvl
+@@ -912,6 +912,11 @@ constraints
+ 	"F_1dbzvoSVNLs0szkJRIS1wypFEFxpKum7" => "F_3XBZtvCuvcSgptLjUUGDnzY0ngP+59Ms"
+ 	"F_1dbzvoSVNLs0szkJRIS1wypFEFxpKum7" => "F_AxocsKXEl0LyjQ++K9/QkliHzt2xvqOj"
+ 	"F_1dbzvoSVNLs0szkJRIS1wypFEFxpKum7" => "F_F+k9RyBmpvVayqyoxuHXcMbiZORkwKBE" & "F_6XntdYuCkWYY2gDIjY+aK29tUq+8e8y8"
++	"F_1dbzvoSVNLs0szkJRIS1wypFEFxpKum7" | "F_rb/DR41gAIVqGiYE+JSUXQTHAcsgy2MO" => !"F_2w5Negs+kul1p9EKIs6f6DXWXSeTLSVa"
++	"F_1dbzvoSVNLs0szkJRIS1wypFEFxpKum7" | "F_tMu8yLYTMGRJ2Yw6U9v+ZdfywDSvO8YP" | "F_rb/DR41gAIVqGiYE+JSUXQTHAcsgy2MO" => !F_J4G72EPMXgRftY7tyN9TeLDHu6JtaCzx
++	"F_1ljeprYfNEOiUX/BAHQHO0cG6LBKwh/K" & "F_eqilJeueSQCXGqIq1Jmo+72MmPiMkwwN" => "F_isML1D/sQQJmOcCAuDbNQv783Dch+PS9" | "F_+iyn9GOqB64DKgVJfJJwCJwLqDbg/01m" | F_bfYkth5zJ9LLGmptXLqQpb0s43JAp8J0 & "F_UlT+nkZ09V3GlCmXv3sj4/bKmfycxlUX"
++	"F_1ljeprYfNEOiUX/BAHQHO0cG6LBKwh/K" & "F_XTbSnqsL+ABNwGwZKE3z5B4hnCQ9uPIL" => "F_hjPj2V+MoNm6ZyFiRMTQDIe8Sqol1oMQ" | "F_AtfEDJkBn0QpwIN6Ywe+VmaCDI5oqa/k" & "F_F+k9RyBmpvVayqyoxuHXcMbiZORkwKBE"
++	"F_1ljeprYfNEOiUX/BAHQHO0cG6LBKwh/K" & F_97k4wTQ2FHgEkgwutQRJkHRZhoeTni3c => "F_hjPj2V+MoNm6ZyFiRMTQDIe8Sqol1oMQ" & "F_F+k9RyBmpvVayqyoxuHXcMbiZORkwKBE"
+ 	"F_1ljeprYfNEOiUX/BAHQHO0cG6LBKwh/K" => !"F_LqaWZKu4g3UG5l6IGHFN0EqLJ7+Kkqu7"
+ 	"F_1ljeprYfNEOiUX/BAHQHO0cG6LBKwh/K" => "F_++rt/tsxsF2/HBzKa8mbpS0jd/2H+9Vq"
+ 	"F_1rb+JdGjcReZgdJgzdW+XonOHmjA/quu" => "F_Tt90gxJ6eUlE+kgakSVIcjCeuBuu9InX"
+

@@ -1,0 +1,14 @@
+diff --git a/automotive02_single_50.uvl b/automotive02_single_51.uvl
+index fb4b9ff..7ac215f 100644
+--- a/automotive02_single_50.uvl
++++ b/automotive02_single_51.uvl
+@@ -2780,6 +2780,8 @@ features
+ 											I_4139709915__F_3AC122BB9910
+ 											I_4139709915__F_41313A433B0F
+ 											I_4139709915__F_F3109929C446
++											I_4139709915__F_2E5BD6E98842
++											I_4139709915__F_2FB63E950F18
+ 											I_4139709915__F_0D969C693246
+ 											I_4139709915__F_B4B0F7F91447
+ 											I_4139709915__F_663D4562B239
+

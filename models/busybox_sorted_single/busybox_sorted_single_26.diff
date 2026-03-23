@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_25.uvl b/busybox_sorted_single_26.uvl
+index 4609b91..381b765 100644
+--- a/busybox_sorted_single_25.uvl
++++ b/busybox_sorted_single_26.uvl
+@@ -642,6 +642,7 @@ constraints
+ 	!CONFIG_FEATURE_USE_INITTAB | CONFIG_INIT
+ 	!CONFIG_FEATURE_VERBOSE_USAGE | CONFIG_SHOW_USAGE
+ 	!CONFIG_FEATURE_VI_COLON | CONFIG_VI
++	!CONFIG_FEATURE_VI_MAX_LEN | CONFIG_VI
+ 	!CONFIG_FEATURE_VI_OPTIMIZE_CURSOR | CONFIG_VI
+ 	!CONFIG_FEATURE_VI_WIN_RESIZE | CONFIG_VI
+ 	!CONFIG_FEATURE_VI_YANKMARK | CONFIG_VI
+

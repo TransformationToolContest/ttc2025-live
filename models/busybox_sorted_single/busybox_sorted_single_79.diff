@@ -1,0 +1,14 @@
+diff --git a/busybox_sorted_single_78.uvl b/busybox_sorted_single_79.uvl
+index 5792e31..34fcb29 100644
+--- a/busybox_sorted_single_78.uvl
++++ b/busybox_sorted_single_79.uvl
+@@ -738,6 +738,8 @@ constraints
+ 	!CONFIG_PING6 | CONFIG_PING
+ 	!CONFIG_RESTORECON | CONFIG_SELINUX
+ 	!CONFIG_RUNCON | CONFIG_SELINUX
++	!CONFIG_SETSEBOOL | CONFIG_SELINUX
++	!CONFIG_STATIC | !CONFIG_FEATURE_INDIVIDUAL
+ 	!CONFIG_STATIC | !CONFIG_FEATURE_SHARED_BUSYBOX
+ 	!CONFIG_SULOGIN | CONFIG_FEATURE_SYSLOG
+ 	!CONFIG_UNIX2DOS | CONFIG_DOS2UNIX
+

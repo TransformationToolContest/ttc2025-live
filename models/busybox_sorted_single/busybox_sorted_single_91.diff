@@ -1,0 +1,14 @@
+diff --git a/busybox_sorted_single_90.uvl b/busybox_sorted_single_91.uvl
+index 195a7d3..c8fe629 100644
+--- a/busybox_sorted_single_90.uvl
++++ b/busybox_sorted_single_91.uvl
+@@ -484,6 +484,8 @@ features
+ 			CONFIG_ZCIP
+ constraints
+ 	!CONFIG_APP_DHCPRELAY | CONFIG_APP_UDHCPD
++	!CONFIG_APP_UDHCPC | CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS
++	!CONFIG_APP_UDHCPC | CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS | !CONFIG_APP_UDHCPD
+ 	!CONFIG_ASH | CONFIG_TEST
+ 	!CONFIG_ASH_BUILTIN_ECHO | CONFIG_ECHO
+ 	!CONFIG_ASH_MAIL | CONFIG_ASH
+

@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_89.uvl b/busybox_sorted_single_90.uvl
+index 48fbd70..195a7d3 100644
+--- a/busybox_sorted_single_89.uvl
++++ b/busybox_sorted_single_90.uvl
+@@ -468,6 +468,7 @@ features
+ 			CONFIG_TR
+ 			CONFIG_TRACEROUTE
+ 			CONFIG_TRUE
++			CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS
+ 			CONFIG_UMOUNT
+ 			CONFIG_UNEXPAND
+ 			CONFIG_UNIX2DOS
+

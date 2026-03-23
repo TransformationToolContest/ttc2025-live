@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_42.uvl b/busybox_sorted_single_43.uvl
+index c0ac173..982ca7f 100644
+--- a/busybox_sorted_single_42.uvl
++++ b/busybox_sorted_single_43.uvl
+@@ -51,6 +51,7 @@ features
+ 			CONFIG_ECHO
+ 			CONFIG_EFENCE
+ 			CONFIG_ENV
++			CONFIG_EXPAND
+ 			CONFIG_EXPR
+ 			CONFIG_EXPR_MATH_SUPPORT_64
+ 			CONFIG_FAKEIDENTD
+

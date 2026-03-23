@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_08.uvl b/busybox_sorted_single_09.uvl
+index 62aa686..7cb7e73 100644
+--- a/busybox_sorted_single_08.uvl
++++ b/busybox_sorted_single_09.uvl
+@@ -279,6 +279,7 @@ features
+ 			CONFIG_FEATURE_TAR_LONG_OPTIONS
+ 			CONFIG_FEATURE_TAR_LZMA
+ 			CONFIG_FEATURE_TAR_OLDGNU_COMPATIBILITY
++			CONFIG_FEATURE_TAR_OLDSUN_COMPATIBILITY
+ 			CONFIG_FEATURE_TASKSET_FANCY
+ 			CONFIG_FEATURE_TEE_USE_BLOCK_IO
+ 			CONFIG_FEATURE_TELNET_AUTOLOGIN
+

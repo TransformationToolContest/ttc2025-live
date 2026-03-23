@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_51.uvl b/busybox_sorted_single_52.uvl
+index fca7061..bee5cde 100644
+--- a/busybox_sorted_single_51.uvl
++++ b/busybox_sorted_single_52.uvl
+@@ -457,6 +457,7 @@ features
+ 			CONFIG_TRACEROUTE
+ 			CONFIG_TRUE
+ 			CONFIG_UMOUNT
++			CONFIG_UNEXPAND
+ 			CONFIG_UNIX2DOS
+ 			CONFIG_UNLZMA
+ 			CONFIG_USE_BB_PWD_GRP
+

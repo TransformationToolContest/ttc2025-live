@@ -1,0 +1,16 @@
+diff --git a/financialservices_sorted_single_06.uvl b/financialservices_sorted_single_07.uvl
+index 31a7f7e..f049d0e 100644
+--- a/financialservices_sorted_single_06.uvl
++++ b/financialservices_sorted_single_07.uvl
+@@ -32,6 +32,10 @@ features
+ 									"F_OWR1EkZTtik7k0qLk0w9/ko7nw1gHOzk"
+ 										mandatory
+ 											"F_mbpn+qcK98lH4QCBsim8ds59KIwArsfo"
++									"F_QxlQGmo1vksmy7m+bAH3YL+XMd2FXsA5"
++										alternative
++											"F_t4Ya4J/xnCLkv1pVOKhyx6tKcPYd14oK"
++											F_2g6HF5kyBM5okeoOWXjYBKzMV7eAKmQc
+ 									"F_RqUH/uKLQI5yHlRP1Cn7vn5ftQwAewb9"
+ 										alternative
+ 											"F_3XBZtvCuvcSgptLjUUGDnzY0ngP+59Ms"
+

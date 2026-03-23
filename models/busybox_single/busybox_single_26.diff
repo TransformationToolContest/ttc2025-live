@@ -1,0 +1,13 @@
+diff --git a/busybox_single_25.uvl b/busybox_single_26.uvl
+index 2485a62..ef62380 100644
+--- a/busybox_single_25.uvl
++++ b/busybox_single_26.uvl
+@@ -200,6 +200,7 @@ features
+ 			CONFIG_FEATURE_USE_TERMIOS
+ 			CONFIG_ENV
+ 			CONFIG_FEATURE_ENV_LONG_OPTIONS
++			CONFIG_FEATURE_FBSET_FANCY
+ 			CONFIG_FBSET
+ 			CONFIG_FEATURE_FBSET_READMODE
+ 			CONFIG_FEATURE_IFCONFIG_SLIP
+

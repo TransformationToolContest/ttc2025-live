@@ -1,0 +1,27 @@
+diff --git a/financialservices_single_30.uvl b/financialservices_single_31.uvl
+index e7d8319..9d8b72b 100644
+--- a/financialservices_single_30.uvl
++++ b/financialservices_single_31.uvl
+@@ -772,7 +772,20 @@ features
+ 				optional
+ 					"F_AaBi+QCYfg3dylOfAdjx21j7EasxIWYT"	
+ 						alternative
+-							"F_Tt90gxJ6eUlE+kgakSVIcjCeuBuu9InX"
++							"F_Tt90gxJ6eUlE+kgakSVIcjCeuBuu9InX"	
++								or
++									F_FD6n48H3HObCmtupNUgciUv0VZvJEaTK
++									F_J4G72EPMXgRftY7tyN9TeLDHu6JtaCzx
++									"F_9PcI+YOiogpjcY4q4FpJ/RxD6cmOD02i"
++									"F_2w5Negs+kul1p9EKIs6f6DXWXSeTLSVa"
++									"F_ivpzqLTl9LOJJXJxB5iQVG1MW/YnZEB6"
++									"F_p8nww8jJ7Yeg8mOsu6/73n8hsYbPhaU4"
++									"F_sXYpyhFSyodnVqKLIiat0nsa+K/FYtfw"
++									"F_BMfPor4oNEnzoMNcX4U+n8ErrphWPa1D"
++									"F_EbkumJ+13aoBOdhKJKfYTljyQRIiii0W"
++									"F_eGRWoVxPIt3PvNcgaamH/8ZE3zUbXyJu"
++									"F_lOZHQhZKdcGtROsQ3qEQjOxewI71/Ho7"
++									"F_7CSzhYvg6qvE8dko4ELNLyVPlxh4+2Ab"
+ 							"F_++rt/tsxsF2/HBzKa8mbpS0jd/2H+9Vq"
+ 
+ constraints
+

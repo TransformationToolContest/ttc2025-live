@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_93.uvl b/busybox_sorted_single_94.uvl
+index c8fe629..4c58a25 100644
+--- a/busybox_sorted_single_93.uvl
++++ b/busybox_sorted_single_94.uvl
+@@ -695,6 +695,7 @@ constraints
+ 	!CONFIG_FEATURE_XARGS_SUPPORT_QUOTES | CONFIG_XARGS
+ 	!CONFIG_FEATURE_XARGS_SUPPORT_TERMOPT | CONFIG_XARGS
+ 	!CONFIG_FEATURE_XARGS_SUPPORT_ZERO_TERM | CONFIG_XARGS
++	!CONFIG_HUSH | CONFIG_ECHO
+ 	!CONFIG_HUSH | CONFIG_FALSE
+ 	!CONFIG_HUSH | CONFIG_TRUE
+ 	!CONFIG_HUSH_INTERACTIVE | CONFIG_HUSH
+

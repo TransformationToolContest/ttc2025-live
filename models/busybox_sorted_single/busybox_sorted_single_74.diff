@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_73.uvl b/busybox_sorted_single_74.uvl
+index c4cd781..8280d09 100644
+--- a/busybox_sorted_single_73.uvl
++++ b/busybox_sorted_single_74.uvl
+@@ -188,6 +188,7 @@ features
+ 			CONFIG_FEATURE_INSTALLER
+ 			CONFIG_FEATURE_IP_ADDRESS
+ 			CONFIG_FEATURE_IP_LINK
++			CONFIG_FEATURE_IP_RARE_PROTOCOLS
+ 			CONFIG_FEATURE_IP_ROUTE
+ 			CONFIG_FEATURE_IP_RULE
+ 			CONFIG_FEATURE_IP_SHORT_FORMS
+

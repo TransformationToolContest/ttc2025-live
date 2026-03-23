@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_97.uvl b/busybox_sorted_single_98.uvl
+index 7d0e86d..3b67aa2 100644
+--- a/busybox_sorted_single_97.uvl
++++ b/busybox_sorted_single_98.uvl
+@@ -776,6 +776,7 @@ constraints
+ 	CONFIG_BUSYBOX_EXEC_PATH
+ 	CONFIG_DD | !CONFIG_FEATURE_DD_SIGNAL_HANDLING
+ 	CONFIG_DEVFSD | !CONFIG_DEVFSD_VERBOSE
++	CONFIG_DF | !CONFIG_FEATURE_DF_INODE
+ 	CONFIG_DF | CONFIG_LS | CONFIG_DU | !CONFIG_FEATURE_HUMAN_READABLE
+ 	CONFIG_DIFF | !CONFIG_FEATURE_DIFF_BINARY
+ 	CONFIG_DIFF | !CONFIG_FEATURE_DIFF_DIR
+

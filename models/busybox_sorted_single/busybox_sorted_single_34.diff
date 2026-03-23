@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_33.uvl b/busybox_sorted_single_34.uvl
+index 00c49d4..2a1a3fd 100644
+--- a/busybox_sorted_single_33.uvl
++++ b/busybox_sorted_single_34.uvl
+@@ -300,6 +300,7 @@ features
+ 			CONFIG_FEATURE_TRACEROUTE_VERBOSE
+ 			CONFIG_FEATURE_UDHCP_DEBUG
+ 			CONFIG_FEATURE_UDHCP_SYSLOG
++			CONFIG_FEATURE_UDHCPD_WRITE_LEASES_EARLY
+ 			CONFIG_FEATURE_UMOUNT_ALL
+ 			CONFIG_FEATURE_UNARCHIVE_TAPE
+ 			CONFIG_FEATURE_USE_INITTAB
+

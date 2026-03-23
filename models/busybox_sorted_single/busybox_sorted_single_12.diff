@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_11.uvl b/busybox_sorted_single_12.uvl
+index 6194fc5..956b4c5 100644
+--- a/busybox_sorted_single_11.uvl
++++ b/busybox_sorted_single_12.uvl
+@@ -308,6 +308,7 @@ features
+ 			CONFIG_FEATURE_VERBOSE_USAGE
+ 			CONFIG_FEATURE_VI_COLON
+ 			CONFIG_FEATURE_VI_DOT_CMD
++			CONFIG_FEATURE_VI_MAX_LEN
+ 			CONFIG_FEATURE_VI_OPTIMIZE_CURSOR
+ 			CONFIG_FEATURE_VI_READONLY
+ 			CONFIG_FEATURE_VI_SEARCH
+

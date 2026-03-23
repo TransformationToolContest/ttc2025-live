@@ -1,0 +1,13 @@
+diff --git a/busybox_sorted_single_83.uvl b/busybox_sorted_single_84.uvl
+index 453cdee..c7ee17a 100644
+--- a/busybox_sorted_single_83.uvl
++++ b/busybox_sorted_single_84.uvl
+@@ -243,6 +243,7 @@ features
+ 			CONFIG_FEATURE_PIDOF_OMIT
+ 			CONFIG_FEATURE_PIDOF_SINGLE
+ 			CONFIG_FEATURE_PREFER_APPLETS
++			CONFIG_FEATURE_PREFER_IPV4_ADDRESS
+ 			CONFIG_FEATURE_PRESERVE_HARDLINKS
+ 			CONFIG_FEATURE_PS_WIDE
+ 			CONFIG_FEATURE_QUERY_MODULE_INTERFACE
+

@@ -1,0 +1,143 @@
+diff --git a/automotive02_single_91.uvl b/automotive02_single_92.uvl
+index 55bb9ef..16aa5ef 100644
+--- a/automotive02_single_91.uvl
++++ b/automotive02_single_92.uvl
+@@ -5667,7 +5667,94 @@ features
+ 							"F_80C554B028DE"	
+ 								alternative
+ 									F_789AA20B61FF
+-									F_EE9476FFE732
++									"F_EE9476FFE732"	
++										mandatory
++											"F_466576092406"	
++												alternative
++													F_A859E1007485
++													"F_D8A356C2678B"	
++														optional
++															F_90CCCD098AA6
++															F_D37C91A69D94
++															F_3553C05C14E3
++											"F_ED39CF9B120E"	
++												alternative
++													F_7D7D7BDEC9CF
++													F_6EAE78C49F48
++											"F_8E0692694689"	
++												alternative
++													F_B510F230D08E
++													F_8E882668C971
++											"F_D301A881B9D5"	
++												alternative
++													F_2E7C625562B3
++													F_7F86D1D33DE9
++											"F_0D863355DCCB"	
++												mandatory
++													"F_AD17FA95298D"	
++														alternative
++															F_D3C37AECE9CA
++															F_DD3B870329AC
++													"F_BA3C2B12FAA8"	
++														alternative
++															F_C83981E50D1E
++															F_D7FF4FD816D0
++													"F_43BEAA4DE1C7"	
++														alternative
++															F_BED8B2E508C8
++															F_69797AEBA8BE
++													"F_0F56B420D903"	
++														alternative
++															F_8A678EEDBBF8
++															F_E16E36F43A2D
++															F_F32BC957CC54
++													"F_9DA86B738946"	
++														alternative
++															F_57B7FC6A45B2
++															F_E5E7EF9557AC
++															F_F1FBA3F84A4E
++													"F_9FD1D889BBCA"	
++														alternative
++															F_B0EB1862CB70
++															F_6EEF04D18757
++															F_1657A8B3E71A
++													"F_A7ED3B30AFE4"	
++														alternative
++															F_0E3EF5734ABE
++															F_D4A9E12927D3
++															F_CBCB55BC4E85
++													"F_7DC7CA8A4DA6"	
++														alternative
++															F_DCD816E8D37F
++															F_1A26AF716319
++															F_A424AC25A4A6
++													"F_6029AB7E62B8"	
++														alternative
++															F_6FD088FDB5F8
++															F_AB01C1EEE6C8
++															F_28D363D19177
++													"F_7385E1C0F98A"	
++														alternative
++															F_E179154FB7C9
++															F_F05E7D749232
++															F_64DB354CF861
++
++												optional
++													F_CE7405803912
++													F_E35B3E088311
++											"F_69B971E4D5DC"	
++												alternative
++													F_3B843A5BA7AF
++													F_42A527DB2CC6
++
++										optional
++											"F_491B5B403498"	
++												or
++													F_CAA23D469716
++													F_2445132C54F1
++											F_300290481B1A
++											F_741051FEE4BC
++											F_65C1805B4944
+ 							"F_76EA82B3846D"	
+ 								alternative
+ 									F_6617BFCCE005
+@@ -16119,23 +16206,8 @@ constraints
+ 	"F_1EB6D3D911B8" => "F_1EC8B43215D6"
+ 	"F_4E811328D007" => "F_B4C5C5497F03"
+ 	"F_4E811328D007" => "F_C2A3F3CDCDBD"
+-	F_EE9476FFE732 => "F_466576092406"
+-	!(!F_EE9476FFE732 & "F_466576092406")
+-	F_EE9476FFE732 => "F_ED39CF9B120E"
+-	!(!F_EE9476FFE732 & "F_ED39CF9B120E")
+-	F_EE9476FFE732 => "F_8E0692694689"
+-	!(!F_EE9476FFE732 & "F_8E0692694689")
+-	F_EE9476FFE732 => "F_7C42BF391C11"
+-	!(!F_EE9476FFE732 & F_300290481B1A)
+ 	!(!F_D8A356C2678B & F_D37C91A69D94)
+ 	!(!F_D8A356C2678B & F_90CCCD098AA6)
+-	!(!F_EE9476FFE732 & "F_D301A881B9D5")
+-	!(!F_EE9476FFE732 & "F_491B5B403498")
+-	F_EE9476FFE732 => "F_AD17FA95298D"
+-	!(!F_EE9476FFE732 & "F_AD17FA95298D")
+-	!(!F_EE9476FFE732 & F_861FAC4B2BBA)
+-	!(!F_EE9476FFE732 & F_77DFAC79E119)
+-	!(!F_EE9476FFE732 & F_06FB1D35C431)
+ 	!(!F_49977D5B3C86 & F_68A29EC10620)
+ 	!(!F_49977D5B3C86 & F_DE57DC2BA683)
+ 	!(!F_49977D5B3C86 & F_A117CF33BF99)
+@@ -16146,17 +16218,12 @@ constraints
+ 	!(!F_49977D5B3C86 & F_88EA87962355)
+ 	!(!F_268B746ACEBA & F_B58BB34CEAC5)
+ 	F_268B746ACEBA => F_B58BB34CEAC5
+-	F_EE9476FFE732 | F_49977D5B3C86 => F_78444AD28000
+-	!(!F_EE9476FFE732 & !F_49977D5B3C86 & F_78444AD28000)
+-	F_EE9476FFE732 | F_49977D5B3C86 | F_95F7EBB7C597 | F_DCE2F40B953E | F_4DA8596C3DB7 => F_EA045B5E8E7E
+-	!(!F_EE9476FFE732 & !F_49977D5B3C86 & !F_95F7EBB7C597 & !F_DCE2F40B953E & !F_4DA8596C3DB7 & F_EA045B5E8E7E)
+ 	!(!F_88EA87962355 & F_356020ACABF5)
+ 	F_88EA87962355 => F_356020ACABF5
+ 	F_D37C91A69D94 => F_284D321910CE
+ 	!(!F_D37C91A69D94 & F_284D321910CE)
+ 	F_300290481B1A => F_1E9EEBAE0336
+ 	!(!F_300290481B1A & F_1E9EEBAE0336)
+-	!(!F_EE9476FFE732 & F_26BB281A7B99)
+ 	F_B58BB34CEAC5 => F_26BB281A7B99
+ 	!(!"F_D301A881B9D5" & "F_AB93BAB9255A")
+ 	"F_D301A881B9D5" => "F_AB93BAB9255A"
+
