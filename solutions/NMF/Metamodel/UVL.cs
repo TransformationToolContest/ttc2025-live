@@ -1784,9 +1784,6 @@ namespace TTC2025.UvlToDot.UniversalVariability
         /// <param name="e">The original event data</param>
         private void FeaturesCollectionChanging(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Remove && Parent is Feature f && f.Name == "\"F_VPefx3Q0+4kIweFNvDrVnOMvzKcidNlU\"")
-            {
-            }
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
         
@@ -2196,9 +2193,6 @@ namespace TTC2025.UvlToDot.UniversalVariability
         /// <param name="e">The original event data</param>
         private void FeaturesCollectionChanging(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add && e.NewItems[0] is Feature f && f.Name == "I_822969976__F_33039ECE74A2")
-            {
-            }
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
         
@@ -2608,10 +2602,6 @@ namespace TTC2025.UvlToDot.UniversalVariability
         /// <param name="e">The original event data</param>
         private void FeaturesCollectionChanging(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Remove && Parent is Feature f && f.Name == "\"F_8563E37FFE99\"")
-            {
-
-            }
             this.OnCollectionChanging("Features", e, _featuresReference);
         }
         

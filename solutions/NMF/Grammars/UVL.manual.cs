@@ -27,7 +27,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             if (added.Count > 0 && toAdd.CurrentPosition.Col < added[added.Count - 1].CurrentPosition.Col)
             {
-                examined = toAdd.CurrentPosition - added[0].CurrentPosition;
+                examined = CalculateExamined(toAdd, added[0]);
                 return false;
             }
             return true;
@@ -37,7 +37,7 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             if (added.Count > 0 && toAdd.CurrentPosition.Col < added[added.Count - 1].CurrentPosition.Col)
             {
-                examined = toAdd.CurrentPosition - added[0].CurrentPosition;
+                examined = CalculateExamined(toAdd, added[0]);
                 return false;
             }
             return true;
@@ -47,11 +47,15 @@ namespace TTC2025.UvlToDot.UniversalVariability
         {
             if (added.Count > 0 && toAdd.Length != default && toAdd.CurrentPosition.Col < added[0].CurrentPosition.Col && toAdd.Rule.IsEpsilonAllowed())
             {
-                examined = toAdd.CurrentPosition - added[0].CurrentPosition;
-                var app = toAdd.Rule.CreateEpsilonRuleApplication(toAdd);
-                toAdd = app;
+                examined = CalculateExamined(toAdd, added[0]);
+                toAdd = toAdd.Rule.CreateEpsilonRuleApplication(toAdd);
             }
             return true;
+        }
+
+        private static ParsePositionDelta CalculateExamined(RuleApplication toAdd, RuleApplication first)
+        {
+            return new ParsePosition(toAdd.CurrentPosition.Line, first.CurrentPosition.Col) - first.CurrentPosition;
         }
     }
 }
