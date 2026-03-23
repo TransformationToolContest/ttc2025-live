@@ -110,6 +110,52 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{E08C58DD-A
 		..\..\models\demo\demo_03.uvl = ..\..\models\demo\demo_03.uvl
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "financialservices", "financialservices", "{550C7C8A-151E-480F-880F-093608654598}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\models\financialservices\financialservices_01.uvl = ..\..\models\financialservices\financialservices_01.uvl
+		..\..\models\financialservices\financialservices_02.diff = ..\..\models\financialservices\financialservices_02.diff
+		..\..\models\financialservices\financialservices_02.uvl = ..\..\models\financialservices\financialservices_02.uvl
+		..\..\models\financialservices\financialservices_03.diff = ..\..\models\financialservices\financialservices_03.diff
+		..\..\models\financialservices\financialservices_03.uvl = ..\..\models\financialservices\financialservices_03.uvl
+		..\..\models\financialservices\financialservices_04.diff = ..\..\models\financialservices\financialservices_04.diff
+		..\..\models\financialservices\financialservices_04.uvl = ..\..\models\financialservices\financialservices_04.uvl
+		..\..\models\financialservices\financialservices_05.diff = ..\..\models\financialservices\financialservices_05.diff
+		..\..\models\financialservices\financialservices_05.uvl = ..\..\models\financialservices\financialservices_05.uvl
+		..\..\models\financialservices\financialservices_06.diff = ..\..\models\financialservices\financialservices_06.diff
+		..\..\models\financialservices\financialservices_06.uvl = ..\..\models\financialservices\financialservices_06.uvl
+		..\..\models\financialservices\financialservices_07.diff = ..\..\models\financialservices\financialservices_07.diff
+		..\..\models\financialservices\financialservices_07.uvl = ..\..\models\financialservices\financialservices_07.uvl
+		..\..\models\financialservices\financialservices_08.diff = ..\..\models\financialservices\financialservices_08.diff
+		..\..\models\financialservices\financialservices_08.uvl = ..\..\models\financialservices\financialservices_08.uvl
+		..\..\models\financialservices\financialservices_09.diff = ..\..\models\financialservices\financialservices_09.diff
+		..\..\models\financialservices\financialservices_09.uvl = ..\..\models\financialservices\financialservices_09.uvl
+		..\..\models\financialservices\financialservices_10.diff = ..\..\models\financialservices\financialservices_10.diff
+		..\..\models\financialservices\financialservices_10.uvl = ..\..\models\financialservices\financialservices_10.uvl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "financialservices_sorted", "financialservices_sorted", "{A363BAB9-0231-4562-A2B2-966C0BEACC44}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\models\financialservices_sorted\financialservices_sorted_01.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_01.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_02.diff = ..\..\models\financialservices_sorted\financialservices_sorted_02.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_02.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_02.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_03.diff = ..\..\models\financialservices_sorted\financialservices_sorted_03.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_03.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_03.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_04.diff = ..\..\models\financialservices_sorted\financialservices_sorted_04.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_04.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_04.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_05.diff = ..\..\models\financialservices_sorted\financialservices_sorted_05.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_05.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_05.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_06.diff = ..\..\models\financialservices_sorted\financialservices_sorted_06.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_06.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_06.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_07.diff = ..\..\models\financialservices_sorted\financialservices_sorted_07.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_07.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_07.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_08.diff = ..\..\models\financialservices_sorted\financialservices_sorted_08.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_08.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_08.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_09.diff = ..\..\models\financialservices_sorted\financialservices_sorted_09.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_09.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_09.uvl
+		..\..\models\financialservices_sorted\financialservices_sorted_10.diff = ..\..\models\financialservices_sorted\financialservices_sorted_10.diff
+		..\..\models\financialservices_sorted\financialservices_sorted_10.uvl = ..\..\models\financialservices_sorted\financialservices_sorted_10.uvl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +174,8 @@ Global
 		{9E504961-156C-40F3-BC7C-898DF22CBD98} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 		{1BD1EBD5-8A0F-47C4-92C5-8E9EB4380FC5} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 		{E08C58DD-AA6E-4645-B0BF-7875C38D2C17} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
+		{550C7C8A-151E-480F-880F-093608654598} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
+		{A363BAB9-0231-4562-A2B2-966C0BEACC44} = {DFDF6878-52C3-4EA6-9080-9B973C0DE06E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0226491F-8EDC-4EE8-B110-84CCD49CDB86}

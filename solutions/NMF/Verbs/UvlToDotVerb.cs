@@ -25,6 +25,7 @@ namespace NMFSolution.Verbs
             return () =>
             {
                 Load(modelPath, model);
+                var fs = _loadedFeatureModel.Descendants().OfType<Feature>().Where(f => f.Name == "F_D169215E4677").ToList();
                 return Initial(modelPath, model, targetPath);
             };
         }

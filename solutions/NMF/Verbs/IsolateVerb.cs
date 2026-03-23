@@ -16,6 +16,8 @@ namespace NMFSolution.Verbs
 
         protected override void ExecuteCore()
         {
+            ModelElement.RaiseDeletionEvents = false;
+
             var modelName = Path.GetFileName(Environment.CurrentDirectory);
             if (!File.Exists($"{modelName}_01.uvl"))
             {
@@ -26,7 +28,7 @@ namespace NMFSolution.Verbs
             var parser = grammar.CreateParser();
             parser.Initialize(File.ReadAllLines($"{modelName}_01.uvl"));
             if (!Directory.Exists($"../{Target}")) Directory.CreateDirectory($"../{Target}");
-            Write(parser.Context.Input, 1);
+            Write(parser.Context.Input, 1, Enumerable.Empty<int>());
             CreateModels(modelName, parser);
             Environment.CurrentDirectory = Path.GetFullPath("../" + Target);
             SortFeaturesVerb.GenerateDiffs(Target);
@@ -43,35 +45,21 @@ namespace NMFSolution.Verbs
                 foreach (var diff in diffs)
                 {
                     var fm = parser.Update(diff) as FeatureModel;
-                    if (parser.Context.LastSuccessfulRootRuleApplication.IsPositive && !parser.Context.Errors.Any() && ReferencesIntact(fm))
+
+                    Write(parser.Context.Input, targetIndex, parser.Context.Errors.Select(e => e.Position.Line).ToHashSet());
+                    targetIndex++;
+                    if (targetIndex == 100)
                     {
-                        Write(parser.Context.Input, targetIndex);
-                        targetIndex++;
-                        if (targetIndex == 100)
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
                 index++;
             }
         }
 
-        private bool ReferencesIntact(FeatureModel featureModel)
+        private void Write(string[] contents, int index, IEnumerable<int> exceptLines)
         {
-            foreach (var featureConstraint in featureModel.Descendants().OfType<IFeatureConstraint>())
-            {
-                if (featureConstraint.Feature == null || !featureConstraint.Feature.Ancestors().Contains(featureModel))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private void Write(string[] contents, int index)
-        {
-            File.WriteAllLines($"../{Target}/{Target}_{index:00}.uvl", contents);
+            File.WriteAllLines($"../{Target}/{Target}_{index:00}.uvl", contents.Where((_,i) => !exceptLines.Contains(i)));
         }
     }
 }
